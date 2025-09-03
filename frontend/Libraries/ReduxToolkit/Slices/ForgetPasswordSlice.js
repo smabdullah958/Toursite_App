@@ -1,3 +1,4 @@
+//thsi is use when we click on a forget password
 const { createSlice } = require("@reduxjs/toolkit");
 import ForgetPasswordThunck from "@/Libraries/ReduxToolkit/AsyncThunck/FogetPasswordThunck";
 
@@ -32,11 +33,11 @@ let ForgetPasswordSlice=createSlice({
             state.success=false
             state.errorMessage=null
         })
-        .addCase(ForgetPasswordThunck.fulfilled,(state,action)=>{
+        .addCase(ForgetPasswordThunck.fulfilled,(state)=>{
               state.Loading=false
             state.error=null
             state.success=true
-            state.errorMessage=null 
+            state.errorMessage="Check your email"  
         })
         .addCase(ForgetPasswordThunck.rejected,(state,action)=>{
               state.Loading=false

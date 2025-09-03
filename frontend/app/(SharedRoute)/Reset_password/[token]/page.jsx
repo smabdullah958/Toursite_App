@@ -1,3 +1,4 @@
+//this is used when we click on a link which is send to our email when we click ona link than this component is dispaaly
 "use client";
 
 import Loader from "@/Components/Loader";

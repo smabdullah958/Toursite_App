@@ -13,7 +13,14 @@ let initialState={
 let PostFormSlice=createSlice({
     name:"slice",
     initialState,
-    reducers:{},
+    reducers:{
+        resetSignUpState:(state)=>{
+            state.Loading=false
+    state.error=[]
+    state.success=false
+    state.errorMessage=""
+        }
+    },
     extraReducers:(builder)=>{
         builder
         .addCase(PostFormThunck.pending,(state)=>{
@@ -37,4 +44,5 @@ let PostFormSlice=createSlice({
         })
     }
 })
+export let {resetSignUpState}=PostFormSlice.actions
 export default PostFormSlice.reducer

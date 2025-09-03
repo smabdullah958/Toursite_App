@@ -7,6 +7,7 @@ import PostFormThunck from "@/Libraries/ReduxToolkit/AsyncThunck/SignUpThunck";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Loader from "@/Components/Loader";
+import { resetSignUpState } from "@/Libraries/ReduxToolkit/Slices/PostFormSlice";
 
 
 const schema = yup.object({
@@ -40,11 +41,16 @@ let   SubmitForm =(UserData)=>{
 useEffect(()=>{
   if(success){
     setTimeout(() => {
-      
+  dispatch(resetSignUpState())      
       router.push("/")
     }, 1000);
   }
-},[success,router])
+    // ✅ cleanup when component unmounts (route change)
+  return () => {
+    dispatch(resetSignUpState());
+  };
+}, [success]);
+
 
   return (
     <div className=" h-screen flex items-center justify-center bg-gradient-to-r from-indigo-200

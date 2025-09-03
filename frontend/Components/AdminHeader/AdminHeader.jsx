@@ -18,6 +18,12 @@ const AdminHeader= () => {
             className="text-white hover:text-yellow-300 transition-colors duration-300">
             Home
           </Link>
+
+          <Link   href="/PostDestination"
+            className="text-white hover:text-yellow-300 transition-colors duration-300">
+            PostDestination
+          </Link>
+
           <Link   href="/Analytics"
             className="text-white hover:text-yellow-300 transition-colors duration-300">
             Analytics

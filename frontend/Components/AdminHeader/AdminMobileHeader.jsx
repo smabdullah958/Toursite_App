@@ -49,11 +49,18 @@ const AdminMobileHeader = () => {
             >
               Home
             </Link>
+
             <Link
-              href="/"
+              href="/PostDestination"
               className="text-white hover:text-yellow-300 transition-colors duration-300"
               onClick={closeMenu}
             >
+              PostDestination
+            </Link>
+            <Link
+              href="/"
+              className="text-white hover:text-yellow-300 transition-colors duration-300"
+              onClick={closeMenu}>
               Analytics
             </Link>
             <Link

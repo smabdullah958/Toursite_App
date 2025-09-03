@@ -1,3 +1,4 @@
+//this is used when a link is send to a email than we click on a link than this is show 
 const { createSlice } = require("@reduxjs/toolkit");
 import ResetPasswordThunck from "@/Libraries/ReduxToolkit/AsyncThunck/ResetPasswordThunck";
 

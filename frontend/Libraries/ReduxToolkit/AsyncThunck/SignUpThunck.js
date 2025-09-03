@@ -11,6 +11,7 @@ let PostFormThunck=createAsyncThunk(
                 {withCredentials:true })
             console.log(response.data)
             dispatch(DisplayLogOut())
+            
             return response.data
         }
         catch(error){
