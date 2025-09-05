@@ -1,10 +1,10 @@
 'use client'
-import LogOutThunck from '@/Libraries/ReduxToolkit/AsyncThunck/LogOutThunck'
+import LogOutThunck from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogOutThunck'
 import React, { useState,useEffect } from 'react' 
 import { useDispatch,useSelector } from 'react-redux'
-import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/CheckLoginThunck'
+import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck'
 // set role is nul and 
- import { resetLogOut } from '@/Libraries/ReduxToolkit/Slices/LogOutSlice'
+ import { resetLogOut } from '@/Libraries/ReduxToolkit/Slices/Auth/LogOutSlice'
 const LogOut = () => {
 let dispatch=useDispatch()
 //IsLogIn is a state in a CheckLogInSlice whichs is used to check the user is login or not if a checklogin is true than it will show logout button while hide the login button and if a checklogin is false than it will shwo the login button while hide the logout button bro 

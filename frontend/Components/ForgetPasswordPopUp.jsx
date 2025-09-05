@@ -1,16 +1,16 @@
 //this is a pop up ofa  forget password 
 "use client";
 import Loader from "@/Components/Loader";
-import ForgetPasswordThunck from "@/Libraries/ReduxToolkit/AsyncThunck/FogetPasswordThunck";
+import ForgetPasswordThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/FogetPasswordThunck";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { HideLogIn } from "@/Libraries/ReduxToolkit/Slices/LogInSlice";
+import { HideLogIn } from "@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice";
 import {
   ShowForgetPassword,
   HideForgetPassword,
-} from "@/Libraries/ReduxToolkit/Slices/ForgetPasswordSlice";
+} from "@/Libraries/ReduxToolkit/Slices/Auth/ForgetPasswordSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const schema = yup.object({

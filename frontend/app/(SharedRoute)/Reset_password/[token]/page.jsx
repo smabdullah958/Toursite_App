@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import ResetPasswordThunck from "@/Libraries/ReduxToolkit/AsyncThunck/ResetPasswordThunck";
+import ResetPasswordThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/ResetPasswordThunck";
 import { useEffect } from "react";
 
 const schema = yup.object({

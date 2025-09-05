@@ -2,13 +2,13 @@
 
 import Loader from "@/Components/Loader";
 
-import { HideLogIn, resetLoginState } from "@/Libraries/ReduxToolkit/Slices/LogInSlice";
+import { HideLogIn, resetLoginState } from "@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import LogInThunck from "@/Libraries/ReduxToolkit/AsyncThunck/LogInThunck";
+import LogInThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogInThunck";
 import ForgetPasswordPopUp from "@/Components/ForgetPasswordPopUp";
-import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/CheckLoginThunck'
+import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck'
 const LoginForm = () => {
   //LogInSlice is come from a store bro 
   let {Loading,errorMessage,success}=useSelector((state)=>state.LogInSlice)

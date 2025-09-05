@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import PostFormThunck from "@/Libraries/ReduxToolkit/AsyncThunck/SignUpThunck";
+import PostFormThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/SignUpThunck";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Loader from "@/Components/Loader";
-import { resetSignUpState } from "@/Libraries/ReduxToolkit/Slices/PostFormSlice";
+import { resetSignUpState } from "@/Libraries/ReduxToolkit/Slices/Auth/PostFormSlice";
 
 
 const schema = yup.object({

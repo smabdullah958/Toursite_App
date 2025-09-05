@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react'
 import LoginForm from '@/Components/Form/LoginForm'
 
 import { useDispatch,useSelector } from 'react-redux';
-import { DisplayLogin, HideLogIn,resetLoginState } from '@/Libraries/ReduxToolkit/Slices/LogInSlice';  
+import { DisplayLogin, HideLogIn,resetLoginState } from '@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice';  
   const LogIn = () => {
 let dispatch=useDispatch()  
 //LogInSlice is come from a store bro and showLogIn is come from a LogInSlice and also ShowLogIn is a state

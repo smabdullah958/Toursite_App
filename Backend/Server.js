@@ -13,6 +13,8 @@ App.use(cors({
 }))
 App.use(express.json())
 let AuthController=require("./Controllers/AuthController")
+let DestinationController=require("./Controllers/DestinationControllers")
 App.use("/AuthController",AuthController)
+App.use("/Destination",DestinationController)
 
 App.listen(PortNo)
