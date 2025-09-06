@@ -2,7 +2,7 @@ import  { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios";
 
 let GetFirstTwentyImage=createAsyncThunk(
-    "user",
+    "getdestination",
     async({page,limit},{rejectWithValue})=>{
         try{
             let response=await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/Destination/twenty?page=${page}&limit=${limit}`);

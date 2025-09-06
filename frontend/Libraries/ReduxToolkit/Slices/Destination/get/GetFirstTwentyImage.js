@@ -12,12 +12,9 @@ let initialState={
 }
 
 let GetFirstTwentyImageSlice=createSlice({
-    name:'anytime',
+    name:'getdestination',
     initialState,
     reducers:{
-        increasePage:(state)=>{
-            state.page=page+1
-        },
           resetProducts: (state) => {
     state.success = false;
     state.Loading = false;

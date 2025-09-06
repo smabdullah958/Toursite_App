@@ -8,7 +8,7 @@ let initialState={
 }
 
 let PostImageSlice=createSlice({
-    name:"user",
+    name:"postdestination",
     initialState,
     reducers:{
         resetDestinationState:(state)=>{

@@ -1,15 +1,13 @@
-import LogIn from '@/Components/Buttons/LogIn'
-import LogOut from '@/Components/Buttons/LogOut'
+import GetSixDestination from '@/Components/GetSixDestination'
 import React from 'react'
+import HeroSection from '@/Components/HeroSection'
 const HomePage = () => {
   return (
     <div>
-      <div className="md:hidden flex justify-end m-5 mt-2">
+    {/* //inside hero section it has a login nad logout button */}
+<HeroSection/>
+<GetSixDestination/>
 
-   
-      <LogOut/><LogIn/>
-          </div>
-this is a home apge of a user
     </div>
   )
 }

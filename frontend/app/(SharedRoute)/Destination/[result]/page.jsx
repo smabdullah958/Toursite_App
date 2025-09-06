@@ -1,227 +1,9 @@
-// // // "use client"
-// // // import { useParams } from "next/navigation";
-
-// // // import React, { useEffect } from 'react'
-// // // import { useSelector,useDispatch } from 'react-redux'
-// // // import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetByID"
-
-// // // const FindById = () => {
-// // //   //this come forma backend
-// // //   const { result } = useParams();  // ✅ grabs the dynamic id from URL
-
-// // //   let dispatch=useDispatch()
-// // //   //this result is come froma slice
-// // // let {Loading,success,result:DisplayResult}=useSelector((state)=>state.GetByIDSlice)
-  
-// // // useEffect(()=>{
-// // //   if(success){
-// // //     dispatch(FindByIdThunck(result))
-// // //   }
-// // //   },[result,dispatch])
-// // //   //   return (
-// // //   //   <div>
-// // //   //       {DisplayResult.map((tour,i)=>(
-// // //   //           <div>
-// // //   //                     <div
-// // //   //           key={`${tour.BasePrice_id||i}`}
-// // //   //           className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden"
-// // //   //         >
-// // //   //           {/* Image wrapper with responsive aspect ratio */}
-// // //   //           <div className="w-full aspect-[4/3] overflow-hidden">
-// // //   //             <img
-// // //   //               src={tour.Image}
-// // //   //               alt={tour.Title}
-// // //   //               className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-// // //   //             />
-// // //   //           </div>
-
-// // //   //           {/* Card content */}
-// // //   //           <div className="p-4">
-// // //   //             <h2 className="text-lg font-semibold text-gray-800 truncate">
-// // //   //               {tour.Title || "No Title"}
-// // //   //             </h2>
-// // //   //             <p className="text-md font-bold text-blue-600 mt-2">
-// // //   //               ${tour.BasePrice || "N/A"}
-// // //   //             </p>
-// // //   //           </div>
-// // //   //         </div>
-// // //   //           </div>
-// // //   //       ))}      
-// // //   //   </div>
-// // //   // )
-
-// // //     return (
-// // //     <div>
-// // //       {Loading && <p>Loading...</p>}
-// // //       {success && result && (
-// // //         <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
-// // //           <div className="w-full aspect-[4/3] overflow-hidden">
-// // //             <img
-// // //               src={DisplayResult.Image}
-// // //               alt={DisplayResult.Title}
-// // //               className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-// // //             />
-// // //           </div>
-// // //           <div className="p-4">
-// // //             <h2 className="text-lg font-semibold text-gray-800 truncate">
-// // //               {DisplayResult.Title || "No Title"}
-// // //             </h2>
-// // //             <p className="text-md font-bold text-blue-600 mt-2">
-// // //               ${DisplayResult.BasePrice || "N/A"}
-// // //             </p>
-// // //             <p className="text-md font-bold text-blue-600 mt-2">
-// // //               ${DisplayResult.Discription || "N/A"}
-// // //             </p>
-// // //           </div>
-// // //         </div>
-// // //       )}
-// // //     </div>
-// // //   );
-
-// // // }
-
-// // // export default FindById
-
-
-// // "use client"
-// // import { useParams } from "next/navigation";
-// // import React, { useEffect } from "react";
-// // import { useSelector, useDispatch } from "react-redux";
-// // import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetByID";
-
-// // const FindById = () => {
-// //   const { result: id } = useParams(); // ✅ dynamic ID from URL
-// //   const dispatch = useDispatch();
-
-// //   const { Loading, success, result: DisplayResult } = useSelector(
-// //     (state) => state.GetByIDSlice
-// //   );
-
-// //   // fetch details
-// //   useEffect(() => {
-// //     if (id) {
-// //       dispatch(FindByIdThunck(id));
-// //     }
-// //   }, [id, dispatch]);
-
-// //   return (
-// //     <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
-// //       {Loading && (
-// //         <p className="text-lg font-medium text-gray-600">Loading details...</p>
-// //       )}
-
-// //       {success && DisplayResult && (
-// //         <div className="max-w-4xl w-full bg-white rounded-2xl shadow-lg overflow-hidden grid md:grid-cols-2">
-// //           {/* Left side (Image) */}
-// //           <div className="relative">
-// //             <img
-// //               src={DisplayResult.Image}
-// //               alt={DisplayResult.Title}
-// //               className="w-full h-full object-cover"
-// //             />
-// //             <div className="absolute top-4 left-4 bg-blue-600 text-white px-4 py-1 rounded-full shadow-md text-sm">
-// //               ${DisplayResult.BasePrice}
-// //             </div>
-// //           </div>
-
-// //           {/* Right side (Details) */}
-// //           <div className="p-6 flex flex-col justify-between">
-// //             <div>
-// //               <h2 className="text-2xl font-bold text-gray-800 mb-2">
-// //                 {DisplayResult.Title || "No Title"}
-// //               </h2>
-// //               <p className="text-gray-600 text-sm mb-4">
-// //                 {DisplayResult.Description || "No description available."}
-// //               </p>
-
-// //               <div className="flex items-center gap-6 text-sm text-gray-700 mb-4">
-// //                 <p>
-// //                   <span className="font-semibold">Slots:</span>{" "}
-// //                   {DisplayResult.Slots || "N/A"}
-// //                 </p>
-// //                 <p>
-// //                   <span className="font-semibold">Price:</span> $
-// //                   {DisplayResult.BasePrice || "N/A"}
-// //                 </p>
-// //               </div>
-// //             </div>
-
-// //             <button className="mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-xl shadow hover:bg-blue-700 transition">
-// //               Book Now
-// //             </button>
-// //           </div>
-// //         </div>
-// //       )}
-// //     </div>
-// //   );
-// // };
-
-// // export default FindById;
-
-
-// "use client"
-// import { useParams } from "next/navigation";
-// import React, { useEffect } from 'react'
-// import { useSelector, useDispatch } from 'react-redux'
-// import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetByID"
-
-// const FindById = () => {
-//   const { result } = useParams();  // This is the ID string from the URL
-//   const dispatch = useDispatch();
-//   const { Loading, success, result: DisplayResult } = useSelector((state) => state.GetByIDSlice);
-
-//   useEffect(() => {
-//     if (result && !success && !Loading) {  // Only dispatch if ID exists and not already successful/loading
-//       dispatch(FindByIdThunck(result));
-//     }
-//   }, [dispatch, result]);  // Dependencies: only re-run if dispatch or result changes
-
-//   return (
-//     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-//       {Loading && (
-//         <div className="flex justify-center">
-//           <p className="text-lg text-gray-700">Loading...</p>
-//         </div>
-//       )}
-//       {success && DisplayResult && (
-//         <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden transform transition-all duration-300 hover:shadow-3xl">
-//           <div className="relative w-full aspect-[4/3]">
-//             <img
-//               src={DisplayResult.Image}
-//               alt={DisplayResult.Title}
-//               className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-//             />
-//             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-//           </div>
-//           <div className="p-6 sm:p-8">
-//             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 truncate mb-2">
-//               {DisplayResult.Title || "No Title"}
-//             </h2>
-//             <p className="text-xl font-semibold text-blue-600 mb-4">
-//               ${DisplayResult.BasePrice || "N/A"}
-//             </p>
-//             <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-6">
-//               {DisplayResult.Description || "No description available"}
-//             </p>
-//             <div className="flex items-center space-x-4 text-sm text-gray-600">
-//               <span>Slots: {DisplayResult.Slots || "N/A"}</span>
-//               <span>Created: {new Date(DisplayResult.createdAt).toLocaleDateString()}</span>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default FindById;
-
 "use client"
 import { useParams } from "next/navigation";
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetByID"
-
+import Image from "next/image";
 const FindById = () => {
   const { result } = useParams(); //result is come forma backend and it is include a dynamic id
   const dispatch = useDispatch()
@@ -269,11 +51,12 @@ const FindById = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         {/* Hero Section */}
-        <div className="relative h-[60vh] overflow-hidden">
-          <img
-            src={DisplayResult.Image}
-            alt={DisplayResult.Title}
-            className="w-full h-full object-cover"
+        <div className="relative h-[80vh] overflow-hidden">
+          <Image
+            src={DisplayResult.Image||"/no image"}
+            alt={DisplayResult.Title||"Destination"}
+            fill
+            className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
           
@@ -291,7 +74,7 @@ const FindById = () => {
           {/* Title Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-8">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+              <h1 className="text-2xl md:text-4xl xl:text:5xl 3xl:text-6xl font-bold text-white mb-4 drop-shadow-lg">
                 {DisplayResult.Title || "Amazing Destination"}
               </h1>
               <div className="flex items-center gap-4 text-white/90">
@@ -399,22 +182,6 @@ const FindById = () => {
     )
   } 
 
-  // Fallback - No Data
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-//       <div className="text-center bg-white rounded-xl shadow-lg p-8 max-w-md mx-4">
-//         <div className="text-gray-400 text-6xl mb-4">🏝️</div>
-//         <h2 className="text-2xl font-bold text-gray-800 mb-2">Destination Not Found</h2>
-//         <p className="text-gray-600 mb-4">The destination you're looking for doesn't exist.</p>
-//         <button 
-//           onClick={() => window.history.back()} 
-//           className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300"
-//         >
-//           Go Back
-//         </button>
-//       </div>
-//     </div>
-//   )
  }
 
 export default FindById

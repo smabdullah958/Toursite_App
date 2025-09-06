@@ -60,11 +60,12 @@ const PostDestination = () => {
     dispatch(PostImageThunck(Data))
   };
 
+
    useEffect(()=>{
      if(success){
-       setTimeout(() => {
-        dispatch(resetDestinationState())
-         router.push("/Destination")
+       setTimeout(() => { 
+         router.push("/")
+          dispatch(resetDestinationState())   
        }, 1000);
 
      }

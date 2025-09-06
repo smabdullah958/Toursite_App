@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 let PostImageThunck=createAsyncThunk(
-        "user",
+        "postDestination",
 async(Data)=>{
     try{
             let formData=new FormData()

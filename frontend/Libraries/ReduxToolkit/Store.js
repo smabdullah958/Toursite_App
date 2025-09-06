@@ -12,6 +12,8 @@ import ResetPasswordSlice from '@/Libraries/ReduxToolkit/Slices/Auth/ResetPasswo
 import PostImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/PostImageSlice"
 import GetFirstTwentyImageSlice from '@/Libraries/ReduxToolkit/Slices/Destination/get/GetFirstTwentyImage'
 import GetByIDSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetByID"
+import GetSixImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetSixImage"
+import DeleteSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DeleteSlice"
 export const store = configureStore({
   reducer: {
     LogInSlice,
@@ -22,6 +24,8 @@ export const store = configureStore({
     ResetPasswordSlice,
     PostImageSlice,
     GetFirstTwentyImageSlice,
-  GetByIDSlice
+  GetByIDSlice,
+  GetSixImageSlice,
+  DeleteSlice
   },
 })
