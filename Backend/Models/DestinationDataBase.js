@@ -24,6 +24,9 @@ let Sche=new mongoose.Schema({
     Image:{
         type:String,
         required:true
+    },
+    Discount:{
+        type:Number
     }
 
 },{timestamps:true})

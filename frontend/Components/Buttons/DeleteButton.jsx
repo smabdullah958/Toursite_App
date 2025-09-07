@@ -31,7 +31,7 @@ try { //here we use unwrap because here for dispatch we dont use try ,catch so f
 
     return (
      <div>
-       <button onClick={deletebutton} disabled={localLoading}    className={`px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md  focus:outline-none focus:ring-2 focus:ring-red-400 ${localLoading?"bg-red-400 ":"hover:bg-red-700 hover:shadow-lg transition-all duration-300 ease-in-out"}`}>{localLoading?<Loader/>:"Delete"}</button>
+       <button onClick={deletebutton} disabled={localLoading}    className={`px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md  focus:outline-none focus:ring-2 focus:ring-red-400 hover:scale-105 active:scale-95 ${localLoading?"bg-red-400 ":"hover:bg-red-700 hover:shadow-lg transition-all duration-300 ease-in-out"}`}>{localLoading?<Loader/>:"Delete"}</button>
      </div>
    )
  }

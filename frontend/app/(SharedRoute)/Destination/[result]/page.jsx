@@ -2,7 +2,7 @@
 import { useParams } from "next/navigation";
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetByID"
+import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetDestinationByID"
 import Image from "next/image";
 const FindById = () => {
   const { result } = useParams(); //result is come forma backend and it is include a dynamic id

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import GetById from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetByID"
+import GetById from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetDestinationByID"
 
 let initialState={
     Loading:false,

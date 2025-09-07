@@ -4,7 +4,7 @@ import LogInSlice  from '@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice'
 import PostFormSlice from '@/Libraries/ReduxToolkit/Slices/Auth/PostFormSlice'
 import CheckLogInSlice from "@/Libraries/ReduxToolkit/Slices/Auth/CheckLogInSlice"
 import LogOutSlice from "@/Libraries/ReduxToolkit/Slices/Auth/LogOutSlice"
-// when user is enter a emial than this sice is for thsi it means for a popup bro
+// when user is click on a forget password link than its slice is this
 import ForgetPasswordSlice from '@/Libraries/ReduxToolkit/Slices/Auth/ForgetPasswordSlice'
 //when a user is click ona link which is sedn to gmail than its slice is this
 import ResetPasswordSlice from '@/Libraries/ReduxToolkit/Slices/Auth/ResetPasswordSlice'
@@ -14,6 +14,7 @@ import GetFirstTwentyImageSlice from '@/Libraries/ReduxToolkit/Slices/Destinatio
 import GetByIDSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetByID"
 import GetSixImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetSixImage"
 import DeleteSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DeleteSlice"
+import UpdateSlice from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice"
 export const store = configureStore({
   reducer: {
     LogInSlice,
@@ -26,6 +27,7 @@ export const store = configureStore({
     GetFirstTwentyImageSlice,
   GetByIDSlice,
   GetSixImageSlice,
-  DeleteSlice
+  DeleteSlice,
+  UpdateSlice
   },
 })

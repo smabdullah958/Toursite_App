@@ -50,7 +50,7 @@ const HeroSection = () => {
   return (
     <div className="relative h-[90vh] w-full overflow-hidden">
       {/* Login/Logout buttons - positioned at top right */}
-      <div className="absolute top-4 right-4 z-50 md:hidden">
+      <div className="absolute top-4 right-4 z-40 md:hidden">
            <div className="md:hidden flex justify-end">
               <LogOut/><LogIn/>
                   </div>
