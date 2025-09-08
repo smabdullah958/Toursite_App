@@ -37,7 +37,7 @@ if(!updatedDestination){
     return res.status(200).json({message:"Data is update SuccessFully",result:updatedDestination})    
     }
     catch(error){
-        console.log("internal error bro",error)
+        console.log("internal error bro",error) 
         res.status(500).json({message:"internal error",error})
     }
 }
