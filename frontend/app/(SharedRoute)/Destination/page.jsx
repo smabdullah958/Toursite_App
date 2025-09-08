@@ -7,11 +7,11 @@ import DeleteButton from "@/Components/Buttons/DeleteButton";
 import Image from "next/image";
 import UpdateButton from "@/Components/Buttons/UpdateButton";
 import UpdateForm from '@/Components/Form/UpdateForm';
-
+import SearchBar from "@/app/(SharedRoute)/Destination/SearchBar";
 
 
 const DestinationPage = () => {
-//hre the we get the formid from updateslice and also it is used to show a form 
+//hre the we get the formid from updateslice and also it is used to show a form
   const { FormId } = useSelector(state => state.UpdateSlice);
 
 // ✅ read login + role state from CheckLoginSlice
@@ -22,15 +22,22 @@ const DestinationPage = () => {
     (state) => state.GetFirstTwentyImageSlice
   );
 
+  let {SearchResult,loading,isSearched}=useSelector(state=>state.SearchBarSlice)
+
+  // If searchResult has items, show it; otherwise show default list
+  // let displayResult=Array.isArray(SearchResult)&& SearchResult.length > 0 ? SearchResult : result;
+
+  let displayResult = isSearched ? SearchResult : result;
+
   useEffect(() => {
-    if (result.length === 0) {
+    if (displayResult.length === 0) {
       dispatch(GetFirstTwentyImage({ page: 1, limit: 20 }));
     }
 
-  }, [dispatch]);
+  }, [dispatch,displayResult.length]);
 
-  const handleSeeMore = () => { 
-    
+  const handleSeeMore = () => {
+
     if (!Loading && hasMore) {
       dispatch(GetFirstTwentyImage({ page: page + 1, limit: 20 }));
     }
@@ -38,29 +45,36 @@ const DestinationPage = () => {
 
   return (
     <div className="min-h-screen  bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-     
+      <div className="max-w-screen mx-auto px-6 py-8">
+        <h1 className="text-4xl font-extrabold text-gray-800 mb-6 text-center">
+          Explore Our Exciting Destinations
+        </h1>
+        <div>
+          <SearchBar />
+        </div>
+      </div>
       {/* Main Content */}
       <div className="max-w-screen mx-auto px-6 py-8">
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800">
             Popular Destinations
-            <span className="text-lg text-gray-500 font-normal ml-2">({result.length} found)</span>
+            <span className="text-lg text-gray-500 font-normal ml-2">({displayResult.length} found)</span>
           </h2>
         </div>
 
-        {/* No Results State
-        {result.length === 0 && !Loading && (
+        {/* No Results State */}
+        { isSearched&& displayResult.length === 0 &&!loading && !Loading && (
           <div className="text-center py-16">
             <div className="text-6xl text-gray-300 mb-4">🏝️</div>
             <h3 className="text-2xl font-bold text-gray-600 mb-2">No destinations found</h3>
             <p className="text-gray-500">We couldn't find any destinations at the moment</p>
           </div>
-        )} */}
+        )}
 
         {/* Destinations Grid */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {result.map((tour, i) => (
+          {displayResult.map((tour, i) => (
             <div
               key={`${tour._id}-${i}`}
               className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
@@ -73,7 +87,7 @@ const DestinationPage = () => {
                   fill
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                
+
                 {/* Overlay Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 {/* Price Badge */}
@@ -113,14 +127,14 @@ const DestinationPage = () => {
                   </Link>
                                  </div>
   )}
-  
+
                 {/* Action Buttons */}
 {
   IsLogIn && Role==="Admin" &&(
 
                 <div className="flex gap-3 justify-between">
                   <DeleteButton id={tour._id}/>
-                     <UpdateButton id={tour._id}/>   
+                     <UpdateButton id={tour._id}/>
                                  </div>
   )}
               </div>
@@ -128,16 +142,17 @@ const DestinationPage = () => {
           ))}
         </div>
 {/* //show update form if  */}
-                {FormId && <UpdateForm id={FormId} />} 
+                {FormId && <UpdateForm id={FormId} />}
 
 
         {/* Loading State */}
-        {Loading && (
+        {(Loading || loading) && (
           <div className="flex justify-center items-center py-16">
-            <div className="text-center">
+          
+             <div className="text-center">
               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-xl text-gray-600 animate-pulse">Loading more destinations...</p>
-            </div>
+              <p className="text-xl text-gray-600 animate-pulse">Loading more destinations...</p> 
+             </div> 
           </div>
         )}
 

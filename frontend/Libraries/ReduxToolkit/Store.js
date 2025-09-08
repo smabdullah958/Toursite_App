@@ -15,6 +15,7 @@ import GetByIDSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetByI
 import GetSixImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetSixImage"
 import DeleteSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DeleteSlice"
 import UpdateSlice from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice"
+import SearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Destination/SearchBarSlice"
 export const store = configureStore({
   reducer: {
     LogInSlice,
@@ -28,6 +29,7 @@ export const store = configureStore({
   GetByIDSlice,
   GetSixImageSlice,
   DeleteSlice,
-  UpdateSlice
+  UpdateSlice,
+  SearchBarSlice
   },
 })
