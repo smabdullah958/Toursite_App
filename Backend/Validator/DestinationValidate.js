@@ -1,3 +1,4 @@
+//package and destination validator
 import { body } from "express-validator";
 
 let validator=[

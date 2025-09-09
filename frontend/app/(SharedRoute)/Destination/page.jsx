@@ -21,12 +21,9 @@ const DestinationPage = () => {
   const { result, page, Loading, hasMore } = useSelector(
     (state) => state.GetFirstTwentyImageSlice
   );
-
+//it will shwo the result of a sraching
   let {SearchResult,loading,isSearched}=useSelector(state=>state.SearchBarSlice)
-
-  // If searchResult has items, show it; otherwise show default list
-  // let displayResult=Array.isArray(SearchResult)&& SearchResult.length > 0 ? SearchResult : result;
-
+//is search is traack teh serch is done or not
   let displayResult = isSearched ? SearchResult : result;
 
   useEffect(() => {
@@ -64,7 +61,7 @@ const DestinationPage = () => {
         </div>
 
         {/* No Results State */}
-        { isSearched&& displayResult.length === 0 &&!loading && !Loading && (
+        { isSearched && displayResult.length === 0 && !loading && !Loading && (
           <div className="text-center py-16">
             <div className="text-6xl text-gray-300 mb-4">🏝️</div>
             <h3 className="text-2xl font-bold text-gray-600 mb-2">No destinations found</h3>

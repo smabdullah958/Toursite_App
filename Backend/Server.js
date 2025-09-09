@@ -14,7 +14,10 @@ App.use(cors({
 App.use(express.json())
 let AuthController=require("./Controllers/AuthController")
 let DestinationController=require("./Controllers/DestinationControllers")
+let PackagesController=require("./Controllers/PackagesController")
+
 App.use("/AuthController",AuthController)
 App.use("/Destination",DestinationController)
+App.use("/Packages",PackagesController)
 
 App.listen(PortNo)

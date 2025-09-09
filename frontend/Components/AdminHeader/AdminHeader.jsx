@@ -23,11 +23,6 @@ const AdminHeader= () => {
             className="text-white hover:text-yellow-300 transition-colors duration-300">
             PostDestination
           </Link>
-
-          <Link   href="/Analytics"
-            className="text-white hover:text-yellow-300 transition-colors duration-300">
-            Analytics
-          </Link>
           <Link
             href="/Destination"
             className="text-white hover:text-yellow-300 transition-colors duration-300"
@@ -35,10 +30,10 @@ const AdminHeader= () => {
             Destination
           </Link>
           <Link
-            href="/Packages"
+            href="/PostPackages"
             className="text-white hover:text-yellow-300 transition-colors duration-300"
           >
-            Packages
+            Post Packages
           </Link>
         </nav>
 

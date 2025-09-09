@@ -1,5 +1,6 @@
 "use client"
 import { configureStore } from '@reduxjs/toolkit'
+//auth slices
 import LogInSlice  from '@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice'
 import PostFormSlice from '@/Libraries/ReduxToolkit/Slices/Auth/PostFormSlice'
 import CheckLogInSlice from "@/Libraries/ReduxToolkit/Slices/Auth/CheckLogInSlice"
@@ -9,6 +10,7 @@ import ForgetPasswordSlice from '@/Libraries/ReduxToolkit/Slices/Auth/ForgetPass
 //when a user is click ona link which is sedn to gmail than its slice is this
 import ResetPasswordSlice from '@/Libraries/ReduxToolkit/Slices/Auth/ResetPasswordSlice'
 
+//destination slices
 import PostImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/PostImageSlice"
 import GetFirstTwentyImageSlice from '@/Libraries/ReduxToolkit/Slices/Destination/get/GetFirstTwentyImage'
 import GetByIDSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetByID"
@@ -16,6 +18,10 @@ import GetSixImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/Ge
 import DeleteSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DeleteSlice"
 import UpdateSlice from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice"
 import SearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Destination/SearchBarSlice"
+
+//packages slices
+import PostPackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/PostPackageSlice"
+
 export const store = configureStore({
   reducer: {
     LogInSlice,
@@ -30,6 +36,7 @@ export const store = configureStore({
   GetSixImageSlice,
   DeleteSlice,
   UpdateSlice,
-  SearchBarSlice
+  SearchBarSlice,
+  PostPackageSlice
   },
 })

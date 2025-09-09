@@ -1,3 +1,4 @@
+//here it is also used to upload multiple images in a destination
 let multer=require("multer")
 let {CloudinaryStorage}=require("multer-storage-cloudinary");
 let cloudinary=require("../cloudinaryConfig")

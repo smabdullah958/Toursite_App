@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { HideUpdateForm, ResetUpdateState } from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice";
 import UpdateThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/UpdateThunck";
 import * as yup from "yup";
+//it is used for refetch 
 import GetFirstTwentyImage from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetFirstTwentyImageThunck";
+//it is used for reset the state of getfirsttwentyimage
 import { resetProducts } from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetFirstTwentyImage";
 import Loader from "@/Components/Loader";
 //get by id for a prefill form thunck 
