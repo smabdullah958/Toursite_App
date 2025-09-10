@@ -1,11 +1,223 @@
-import React from 'react'
+
+
+"use client"
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import GetFirst12PackagesThuck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetFirst12PackagesThunck";
 
 const PackagesPage = () => {
-  return (
-    <div>
-      this is a packagepage bro dont tension rbo 
-    </div>
-  )
-}
+    const dispatch = useDispatch();
+    const { result, Loading, error, hasMore} = useSelector(
+        (state) => state.GetFirst12PackagesSlice
+    );
 
-export default PackagesPage
+    // Get login state (assuming you have similar login slice)
+    const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // Load first page on mount
+    useEffect(() => {
+        if (result.length === 0) {
+            console.log("Loading first page of packages");
+            dispatch(GetFirst12PackagesThuck({ limit: 12, page: 1 }));
+        }
+    }, [dispatch, result.length]);
+
+    // Load more packages function
+    const handleSeeMore = () => {
+        if (!Loading && hasMore) {
+            const nextPage = currentPage + 1;
+            setCurrentPage(nextPage);
+            dispatch(GetFirst12PackagesThuck({ limit: 12, page: nextPage }));
+        }
+    };
+
+    console.log("Component State:", { result, Loading, error, hasMore, currentPage });
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+            {/* Header Section */}
+            <div className="max-w-screen mx-auto px-6 py-8">
+                <h1 className="text-4xl font-extrabold text-gray-800  text-center">
+                    Explore Our Amazing Packages
+                </h1>
+            </div>
+
+            {/* Main Content */}
+            <div className="max-w-screen mx-auto px-6 py-8">
+                {/* Header Card */}
+                <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                    <h2 className="text-2xl font-bold text-gray-800">
+                        Popular Packages
+                        <span className="text-lg text-gray-500 font-normal ml-2">
+                            ({result.length} loaded)
+                        </span>
+                    </h2>
+                </div>
+                {/* No Results State */}
+                {!Loading && result.length === 0 && !error && (
+                    <div className="text-center py-16">
+                        <div className="text-6xl text-gray-300 mb-4">📦</div>
+                        <h3 className="text-2xl font-bold text-gray-600 mb-2">No packages found</h3>
+                        <p className="text-gray-500">We couldn't find any packages at the moment</p>
+                    </div>
+                )}
+
+                {/* Packages Grid */}
+                <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+                    {result?.map((pkg, index) => (
+                        <motion.div
+                            key={pkg._id || index}
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: index * 0.05 }}
+                            className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"  >
+                          {/* Image Section */}
+                      <div className="relative flex w-full h-48 overflow-hidden">
+                      {pkg.Image?.length > 1 ? (
+                        <>
+                     {/* Left half - first image */}
+                     <div className="relative w-1/2 h-full">
+                     <Image
+                      src={pkg.Image[0] || "/default.jpg"}
+                      alt={pkg.Title}
+                        fill
+                         className="object-cover"
+                          />
+                        </div>
+
+                           {/* Right half - second image */}
+                          <div className="relative w-1/2 h-full">
+                             <Image
+                              src={pkg.Image[1] || "/default.jpg"}
+                                   alt={pkg.Title}
+                                    fill
+                                  className="object-cover"
+                                  />
+                                    </div>
+                                           </>
+                                        ) : (
+    
+                            // ✅ If only one image, make it full width
+                                <div className="relative w-full h-full">
+                              <Image
+                               src={pkg.Image?.[0] || "/default.jpg"}
+                              alt={pkg.Title}
+                                fill
+                               className="object-cover"
+                                />
+                                    </div>
+                            )}
+
+                                {/* Overlay Gradient */}
+                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                                {/* Price Badge */}
+                                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                                    <span className="text-lg font-bold text-blue-600">
+                                        Rs{pkg.BasePrice || "N/A"}
+                                    </span>
+                                </div>
+
+                              
+                                {/* Quick View on Hover */}
+                                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                    <Link
+                                        href={`/Packages/${pkg._id}`}
+                                        className="bg-white text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
+                                    >
+                                        View Details
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* Card Content */}
+                            <div className="p-6">
+                                <div className="flex items-start justify-between mb-3">
+                                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                        {pkg.Title || "Amazing Package"}
+                                    </h3>
+                                </div>
+
+                              
+               
+                                {/* Action Buttons for Users */}
+                                {IsLogIn && Role === "User" && (
+                                    <div className="flex gap-3">
+                                        <Link
+                                            href={`/Packages/${pkg._id}`}
+                                            className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                                        >
+                                            Book Now
+                                        </Link>
+                                    </div>
+                                )}
+
+                                {/* Action Buttons for Admin */}
+                                {/* {IsLogIn && Role === "Admin" && (
+                                    <div className="flex gap-3 justify-between">
+                                        <button
+                                            className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-xl font-semibold transition-all duration-300"
+                                            onClick={() => console.log("Delete package:", pkg._id)}
+                                        >
+                                            Delete
+                                        </button>
+                                        <button
+                                            className="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-xl font-semibold transition-all duration-300"
+                                            onClick={() => console.log("Update package:", pkg._id)}
+                                        >
+                                            Update
+                                        </button>
+                                    </div>
+                                )} */}
+
+                                {/* Default action for non-logged users */}
+                                {!IsLogIn && (
+                                    <Link
+                                        href={`/Packages/${pkg._id}`}
+                                        className="md:hidden block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                                    >
+                                        View Details
+                                    </Link>
+                                )}
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Loading State */}
+                {Loading && (
+                    <div className="flex justify-center items-center py-16">
+                        <div className="text-center">
+                            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                            <p className="text-xl text-gray-600 animate-pulse">
+                                {result.length === 0 ? "Loading packages..." : "Loading more packages..."}
+                            </p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Load More Button */}
+                {hasMore && !Loading && result.length > 0 && (
+                    <div className="flex justify-center mt-12">
+                        <button
+                            type="button"
+                            onClick={handleSeeMore}
+                            disabled={Loading}
+                            className="group relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                            See More Packages
+                        </button>
+                    </div>
+                )}
+
+               
+                </div>
+        </div>
+    );
+};
+
+export default PackagesPage;

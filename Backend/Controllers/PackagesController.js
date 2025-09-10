@@ -1,11 +1,17 @@
 let express=require("express");
 let App=express.Router()
 
-let PostDestination=require("../Packages/PostPackages")
 //here it is also used to upload multiple images in a destination
 let upload=require("../MiddleWare/DestinationMiddleware")
 
+//post
+let PostDestination=require("../Packages/PostPackages")
+//get first 20 packages
+let GetFirst12Packages=require("../Packages/GetPackages/GetFirst12Packages")
+let GetByID=require("../Packages/GetPackages/GetByIDPackages")
 
 App.post("/postpackage",upload.array("Image",5),PostDestination) // uplaod multiple images
+App.get("/getpackages",GetFirst12Packages)
+App.get("/getbyid/:id",GetByID)
 
 module.exports=App

@@ -21,6 +21,8 @@ import SearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Destination/SearchBa
 
 //packages slices
 import PostPackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/PostPackageSlice"
+import GetFirst12PackagesSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetFirst12PackagesSlice"
+import GetByIdSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetByIDSlice"
 
 export const store = configureStore({
   reducer: {
@@ -37,6 +39,8 @@ export const store = configureStore({
   DeleteSlice,
   UpdateSlice,
   SearchBarSlice,
-  PostPackageSlice
+  PostPackageSlice,
+  GetFirst12PackagesSlice,
+  GetByIdSlice
   },
 })
