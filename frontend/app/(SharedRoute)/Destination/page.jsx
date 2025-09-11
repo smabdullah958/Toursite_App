@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import GetFirstTwentyImage from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetFirstTwentyImageThunck";
 import Link from "next/link";
-import DeleteButton from "@/Components/Buttons/DeleteButton";
+import DeleteButton from "@/Components/Buttons/DeleteDestination";
 import Image from "next/image";
-import UpdateButton from "@/Components/Buttons/UpdateButton";
+import UpdateButton from "@/Components/Buttons/UpdateDestination";
 import UpdateForm from '@/Components/Form/UpdateForm';
 import SearchBar from "@/app/(SharedRoute)/Destination/SearchBar";
 
@@ -112,8 +112,8 @@ const DestinationPage = () => {
                 </div>
 
                 {/* Action Buttons */}
-{
-  IsLogIn && Role==="User" &&(
+
+ {/* { IsLogIn && Role==="User" &&(
 
                 <div className="flex gap-3">
                   <Link
@@ -123,7 +123,7 @@ const DestinationPage = () => {
                     Book Now
                   </Link>
                                  </div>
-  )}
+  )} */}
 
   {/* Default action for non-logged users */}
                                  
@@ -139,7 +139,7 @@ const DestinationPage = () => {
 {
   IsLogIn && Role==="Admin" &&(
 
-                <div className="flex gap-3 justify-between">
+                <div className="flex gap-3 justify-between mt-3">
                   <DeleteButton id={tour._id}/>
                      <UpdateButton id={tour._id}/>
                                  </div>

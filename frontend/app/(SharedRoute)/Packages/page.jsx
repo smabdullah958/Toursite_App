@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import GetFirst12PackagesThuck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetFirst12PackagesThunck";
+import DeletePackage from "@/Components/Buttons/DeletePackage";
 
 const PackagesPage = () => {
     const dispatch = useDispatch();
@@ -142,39 +143,23 @@ const PackagesPage = () => {
                                         {pkg.Title || "Amazing Package"}
                                     </h3>
                                 </div>
+                                    <Link
+                                        href={`/Packages/${pkg._id}`}
+                                        className="md:hidden block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                                    >
+                                        View Details
+                                    </Link>
+                                
 
-                              
-               
-                                {/* Action Buttons for Users */}
-                                {IsLogIn && Role === "User" && (
-                                    <div className="flex gap-3">
-                                        <Link
-                                            href={`/Packages/${pkg._id}`}
-                                            className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
-                                        >
-                                            Book Now
-                                        </Link>
-                                    </div>
-                                )}
-
-                                {/* Action Buttons for Admin */}
-                                {/* {IsLogIn && Role === "Admin" && (
-                                    <div className="flex gap-3 justify-between">
-                                        <button
-                                            className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-xl font-semibold transition-all duration-300"
-                                            onClick={() => console.log("Delete package:", pkg._id)}
-                                        >
-                                            Delete
-                                        </button>
-                                        <button
-                                            className="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-xl font-semibold transition-all duration-300"
-                                            onClick={() => console.log("Update package:", pkg._id)}
-                                        >
-                                            Update
-                                        </button>
-                                    </div>
-                                )} */}
-
+                {/* Action Buttons */}
+    
+    { IsLogIn && Role==="Admin" &&(
+                <div className="flex gap-3 justify-between mt-3">
+                  <DeletePackage id={pkg._id}/>
+                     {/* <UpdateButton id={pkg._id}/> */}
+                                 </div>
+        )}
+        
                                 {/* Default action for non-logged users */}
                                 {!IsLogIn && (
                                     <Link

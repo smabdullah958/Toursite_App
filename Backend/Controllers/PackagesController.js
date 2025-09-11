@@ -10,10 +10,12 @@ let PostDestination=require("../Packages/PostPackages")
 let GetFirst12Packages=require("../Packages/GetPackages/GetFirst12Packages")
 let GetByID=require("../Packages/GetPackages/GetByIDPackages")
 let GetSixPackages=require("../Packages/GetPackages/GetSixPackages")
+let DeletePackage = require("../Packages/DeletePackage")
 
 App.post("/postpackage",upload.array("Image",5),PostDestination) // uplaod multiple images
 App.get("/getpackages",GetFirst12Packages)
 App.get("/getbyid/:id",GetByID)
 App.get("/getsix",GetSixPackages)
+App.delete("/DeletePackage/:id",DeletePackage)
 
 module.exports=App
