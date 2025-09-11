@@ -102,7 +102,7 @@ const PostPackage = () => {
             </label>
             <input
               type="file"
-              accept="image/jpg, image/png ,image/jpeg"
+              accept="image/png ,image/jpeg "
               {...register("Image1")}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
             />
@@ -116,7 +116,7 @@ const PostPackage = () => {
             </label>
             <input
               type="file"
-              accept="image/jpg, image/png ,image/jpeg"
+              accept="image/png ,image/jpeg "
               {...register("Image2")}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
             />
@@ -130,7 +130,7 @@ const PostPackage = () => {
             </label>
             <input
               type="file"
-              accept="image/jpg, image/png ,image/jpeg"
+              accept="image/png ,image/jpeg"
               {...register("Image3")}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
             />
@@ -144,7 +144,7 @@ const PostPackage = () => {
             </label>
             <input
               type="file"
-              accept="image/jpg, image/png ,image/jpeg"
+              accept="image/png ,image/jpeg"
               {...register("Image4")}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
             />
@@ -158,7 +158,7 @@ const PostPackage = () => {
             </label>
             <input
               type="file"
-              accept="image/jpg, image/png ,image/jpeg"
+              accept=" image/png ,image/jpeg"
               {...register("Image5")}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
             />

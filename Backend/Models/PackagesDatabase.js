@@ -1,7 +1,7 @@
-require("dotenv").config({path:"../.env"})
-console.log(process.env.Connection)
+// require("dotenv").config({path:"../.env"})
+// console.log(process.env.Connection)
 let mongoose=require("mongoose")
-mongoose.connect(`${process.env.Connection}`)
+// mongoose.connect(`${process.env.Connection}`)
 
 let Sch=new mongoose.Schema({
     Title:{

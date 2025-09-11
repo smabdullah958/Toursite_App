@@ -1,6 +1,6 @@
 import * as yup from "yup";
 const MAX_FILE_SIZE = 300 * 1024 ; // 300kb
-    const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+    const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];
 
 // ✅ Validation Schema
 export const schema = yup.object({
@@ -26,7 +26,7 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
              )
               .test(
                   'fileFormat',
-                  'Unsupported Format',
+                  'Only images (jpeg, jpg, png)  are allowed!',
                   // value => value && SUPPORTED_FORMATS.includes(value.type)
                   value=>value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)
                 ),
@@ -44,7 +44,7 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
              )
               .test(
                   'fileFormat',
-                  'Unsupported Format',
+                  'Only images (jpeg, jpg, png)  are allowed!',
                   // value => value && SUPPORTED_FORMATS.includes(value.type)
                   value=>value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)
                 ),
@@ -64,7 +64,7 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
              )
               .test(
                   'fileFormat',
-                  'Unsupported Format',
+                  'Only images (jpeg, jpg, png)  are allowed!',
                   // value => value && SUPPORTED_FORMATS.includes(value.type)
                   value=>{ 
                     if(!value || value.length===0) return true; //skip validation if no file is selected
@@ -87,11 +87,11 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
              )
               .test(
                   'fileFormat',
-                  'Unsupported Format',
+                  'Only images (jpeg, jpg, png)  are allowed!',
                   // value => value && SUPPORTED_FORMATS.includes(value.type)
                   value=>{ 
                     if(!value || value.length===0) return true; //skip validation if no file is selected
-                    SUPPORTED_FORMATS.includes(value[0].type)
+                  return  SUPPORTED_FORMATS.includes(value[0].type)
                   }
                 ),
 
@@ -111,11 +111,11 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
                       )
               .test(
                   'fileFormat',
-                  'Unsupported Format',
+                  'Only images (jpeg, jpg, png)  are allowed!',
                   // value => value && SUPPORTED_FORMATS.includes(value.type)
                   value=>{
                     if(!value || value.length===0) return true; //skip validation if no file is selected
-                    SUPPORTED_FORMATS.includes(value[0].type)
+                    return SUPPORTED_FORMATS.includes(value[0].type)
 
                   }
                 ),

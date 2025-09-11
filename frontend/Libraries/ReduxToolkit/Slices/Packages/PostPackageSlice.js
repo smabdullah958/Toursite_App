@@ -3,7 +3,7 @@ import PostPackageThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/Pos
 
 let initialState={
     loading:false,
-    error:null,
+    error:[],
     success:false
 }
 

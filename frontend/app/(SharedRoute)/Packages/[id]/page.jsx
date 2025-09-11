@@ -49,24 +49,6 @@ const FindById = () => {
     )
   }
 
-  // Error State
-  if (error && error.length > 0) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 flex items-center justify-center">
-        <div className="text-center bg-white rounded-xl shadow-lg p-8 max-w-md mx-4">
-          <div className="text-red-500 text-6xl mb-4">😞</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Oops! Something went wrong</h2>
-          <p className="text-gray-600">Unable to load destination details</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    )
-  }
 
   // Success State with Data
   if (success && result) {
@@ -75,7 +57,7 @@ const FindById = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         {/* Hero Section with Image Carousel */}
-        <div className="relative h-[85vh] overflow-hidden group">
+          <div className="relative h-[85vh] overflow-hidden group">
           {/* Main Image Display */}
           <div className="relative h-full w-full">
             {images.length > 0 && (
@@ -90,7 +72,7 @@ const FindById = () => {
           </div>
           
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+          <div className="absolute  inset-0 bg-gradient-to-t from-black/10 via-black/30 to-transparent"></div>
           
           {/* Navigation Arrows - Only show if more than 1 image */}
           {images.length > 1 && (
@@ -113,23 +95,6 @@ const FindById = () => {
                 </svg>
               </button>
             </>
-          )}
-          
-          {/* Image Indicators */}
-          {images.length > 1 && (
-            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-2">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => selectImage(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex 
-                      ? 'w-8 bg-white' 
-                      : 'w-2 bg-white/50 hover:bg-white/70'
-                  }`}
-                />
-              ))}
-            </div>
           )}
           
           {/* Back Button */}
@@ -175,45 +140,12 @@ const FindById = () => {
                   </svg>
                   <span>Available Now</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 16.5v-13h-.25a.75.75 0 010-1.5h12.5a.75.75 0 010 1.5H16v13h.25a.75.75 0 010 1.5h-3.5a.75.75 0 01-.75-.75v-2.5a.75.75 0 00-.75-.75h-2.5a.75.75 0 00-.75.75v2.5a.75.75 0 01-.75.75h-3.5a.75.75 0 010-1.5H4zm3-11a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-1a.5.5 0 01-.5-.5v-1zM7.5 9a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-1zM11 5.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-1a.5.5 0 01-.5-.5v-1zm.5 3.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-1z" clipRule="evenodd" />
-                  </svg>
-                  <span>{images.length} Gallery Images</span>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Image Thumbnail Strip */}
-        {images.length > 1 && (
-          <div className="bg-black/90 backdrop-blur-md py-4 px-6  ">
-            <div className="max-w-6xl mx-auto ">
-              <div className="flex gap-2 overflow-x-auto scrollbar-hide sm:overflow-y-hidden">
-                {images.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => selectImage(index)}
-                    className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden transition-all duration-300 ${
-                      index === currentImageIndex 
-                        ? 'ring-2 ring-white scale-110' 
-                        : 'opacity-70 hover:opacity-100'
-                    }`}
-                  >
-                    <Image
-                      src={img}
-                      alt={`Thumbnail ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
+        
         {/* Content Section */}
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="grid lg:grid-cols-3 gap-8">
@@ -233,49 +165,6 @@ const FindById = () => {
                   {result.Description || result.Discription || "Discover an incredible journey filled with unforgettable experiences, breathtaking views, and memories that will last a lifetime. This destination offers everything you need for the perfect getaway."}
                 </p>
               </div>
-
-              {/* Photo Gallery Preview */}
-              {images.length > 1 && (
-                <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                      <svg className="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    Photo Gallery
-                  </h2>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {images.slice(0, 5).map((img, index) => (
-                      <div
-                        key={index}
-                        onClick={() => {
-                          selectImage(index);
-                          setIsGalleryOpen(true);
-                        }}
-                        className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group"
-                      >
-                        <Image
-                          src={img}
-                          alt={`Gallery ${index + 1}`}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                          <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
-                          </svg>
-                        </div>
-                        {index === 4 && images.length > 5 && (
-                          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                            <span className="text-white text-2xl font-bold">+{images.length - 5}</span>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               {/* Features Grid */}
               <div className="grid sm:grid-cols-2 gap-6">
@@ -341,10 +230,11 @@ const FindById = () => {
 
         {/* Full Screen Gallery Modal */}
         {isGalleryOpen && images.length > 0 && (
-          <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center">
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center">
             <button
               onClick={() => setIsGalleryOpen(false)}
-              className="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full transition-colors duration-300"
+              className="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full 
+              transition-colors duration-300"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -364,8 +254,8 @@ const FindById = () => {
               <Image
                 src={images[currentImageIndex]}
                 alt={`Full view ${currentImageIndex + 1}`}
-                width={1200}
-                height={800}
+                  width={1200}
+                  height={800}
                 className="object-contain"
               />
               <div className="text-center mt-4 text-white">
@@ -408,8 +298,6 @@ const FindById = () => {
       </div>
     )
   }
-
   return null;
 }
-
 export default FindById

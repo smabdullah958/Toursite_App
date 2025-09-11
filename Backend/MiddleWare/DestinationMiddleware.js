@@ -6,7 +6,7 @@ let storage=new CloudinaryStorage({
 cloudinary,
 params:{
 folder:"DestinationImages",
-allowed_formats:["jpg","png","jpeg"], //only these files are allowed
+allowed_formats:["png","jpeg"], //only these files are allowed
 
     public_id:(req,file)=>{
            return   Date.now() + "-" + Math.round(Math.random() * 1e9) // unique file name
@@ -23,7 +23,7 @@ allowed_formats:["jpg","png","jpeg"], //only these files are allowed
              cb(null,true)
          }
          else{
-                 cb(new Error("Only images (jpeg, jpg, png)  are allowed!"));
+                 cb(new Error("Only images (jpeg, jpg, png)  are allowed!"),false);
 
          }
 

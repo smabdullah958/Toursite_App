@@ -14,18 +14,7 @@ let initialState={
 let GetFirst12PackagesSlice=createSlice({
     name:'getdestination',
     initialState,
-    reducers:{
-//     resetProducts: (state) => {
-//     state.success = false;
-//     state.Loading = false;
-//     state.error = false;
-//     state.result = [];
-//     state.page = 1;
-//     state.hasMore = true;
-//     state.loadedPages = [];
-//   }
-
-    },
+    reducers:{    },
     extraReducers:(builder)=>{
         builder
         .addCase(GetFirst12PackagesThuck.rejected,(state)=>{
@@ -70,7 +59,5 @@ let GetFirst12PackagesSlice=createSlice({
         })
     }
 })
-
-// export const {resetProducts} = GetFirst12PackagesSlice.actions;
 
 export default GetFirst12PackagesSlice.reducer
