@@ -110,7 +110,7 @@ const FindById = () => {
                   </div>
                   About This Destination
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-lg">
+                <p className="text-gray-600 leading-relaxed text-lg h-48 overflow-y-auto">
                   {DisplayResult.Description || DisplayResult.Discription || "Discover an incredible journey filled with unforgettable experiences, breathtaking views, and memories that will last a lifetime. This destination offers everything you need for the perfect getaway."}
                 </p>
               </div>

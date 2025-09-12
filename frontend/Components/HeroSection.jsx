@@ -68,7 +68,10 @@ const HeroSection = () => {
             src={item.img}
             alt={item.title}
             fill
-            className="w-full h-full object-cover"       />
+            className="w-full h-full object-cover"   
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                    loading="lazy"
+                />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
       ))}

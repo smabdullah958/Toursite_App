@@ -44,8 +44,8 @@ const GetFiveDestination = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-6 px-3 sm:py-10 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className=" p-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-6 px-3 sm:py-10 sm:px-6 lg:px-8">
+      <div className="max-w-screen mx-auto ">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-10">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent mb-2 sm:mb-3 animate-fade-in">
@@ -58,7 +58,7 @@ const GetFiveDestination = () => {
         </div>
 
         {/* Simple Grid - All 6 Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 ">
           {result && result.length > 0 ? (
             result.map((tour, i) => (
               <div 
@@ -67,7 +67,9 @@ const GetFiveDestination = () => {
               >
                 <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
                   {/* Image */}
-                  <div className="relative h-40 sm:h-48 md:h-56 overflow-hidden rounded-t-xl bg-gray-200">
+                  <div 
+                  // className="relative h-40 sm:h-48 md:h-56 overflow-hidden rounded-t-xl bg-gray-200"
+                  className="relative w-full aspect-[4/3] overflow-hidden">
                     {tour.Image ? (
                       <Image
                         src={tour.Image}

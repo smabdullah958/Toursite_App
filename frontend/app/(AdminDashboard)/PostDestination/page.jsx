@@ -74,8 +74,8 @@ const PostDestination = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-8">
-        <h2 className="text-3xl font-bold text-indigo-600 text-center mb-8">
+      <div className="bg-white w-full max-w-3xl max-h-4xl  rounded-2xl shadow-2xl p-8">
+        <h2 className="text-3xl xl:text-4xl font-bold text-indigo-600 text-center mb-8">
           🏝️ Post a Destination
         </h2>
 

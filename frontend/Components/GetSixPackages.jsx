@@ -1,4 +1,3 @@
-
 "use client"
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,7 +18,7 @@ const GetSixPackages = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-t-2 border-indigo-600 mx-auto mb-4"></div>
-          <p className="text-indigo-600 font-semibold text-sm sm:text-base">Loading amazing destinations...</p>
+          <p className="text-indigo-600 font-semibold text-sm sm:text-base">Loading amazing packages...</p>
         </div>
       </div>
     )
@@ -44,8 +43,8 @@ const GetSixPackages = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-6 px-3 sm:py-10 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="p-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-6 px-3 sm:py-10 sm:px-6 lg:px-8">
+      <div className="max-w-screen mx-auto">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-10">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent mb-2 sm:mb-3 animate-fade-in">
@@ -66,55 +65,76 @@ const GetSixPackages = () => {
                 className="animate-slide-in"
               >
                 <div className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
-         
-           <div className="relative flex w-full h-48 overflow-hidden">
-                               {Packages.Image?.length > 1 ? (
-                                 <>
-                              {/* Left half - first image */}
-                              <div className="relative w-1/2 h-full">
-                              <Image
-                               src={Packages.Image[0] || "/default.jpg"}
-                               alt={Packages.Title}
-                                 fill
-                                  className="object-cover"
-                                   />
-                                 </div>
-         
-                                    {/* Right half - second image */}
-                                   <div className="relative w-1/2 h-full">
-                                      <Image
-                                       src={Packages.Image[1] || "/default.jpg"}
-                                            alt={Packages.Title}
-                                             fill
-                                           className="object-cover"
-                                           />
-                                             </div>
-                                                    </>
-                                                 ) : (
-             
-                                     // ✅ If only one image, make it full width
-                                         <div className="relative w-full h-full">
-                                       <Image
-                                        src={Packages.Image?.[0] || "/default.jpg"}
-                                       alt={Packages.Title}
-                                         fill
-                                        className="object-cover"
-                                         />
-                                             </div>
-                                     )}
-         
-         
+                  {/* Image Container */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden">
+                    {Packages.Image?.length > 1 ? (
+                      // Two Images Side by Side
+                      <div className="flex w-full h-full">
+                        {/* Left half - first image */}
+                        <div className="relative w-1/2 h-full overflow-hidden">
+                          <Image
+                            src={Packages.Image[0] || "/default.jpg"}
+                            alt={Packages.Title || `Package ${i + 1}`}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 16vw"
+                            loading="lazy"
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="
+                          />
+                        </div>
+                        
+                        {/* Right half - second image */}
+                        <div className="relative w-1/2 h-full overflow-hidden border-l border-white/20">
+                          <Image
+                            src={Packages.Image[1] || "/default.jpg"}
+                            alt={Packages.Title || `Package ${i + 1}`}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 16vw"
+                            loading="lazy"
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      // Single Image (Full Width)
+                      <div className="relative w-full h-full">
+                        {Packages.Image?.[0] ? (
+                          <Image
+                            src={Packages.Image[0] || "/default.jpg"}
+                            alt={Packages.Title || `Package ${i + 1}`}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                            loading="lazy"
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full bg-gray-300 text-gray-500 text-xs sm:text-sm">
+                            No Image Available
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
+                    {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Price Badge */}
                     <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-xs font-semibold shadow-sm">
                       ${Packages.BasePrice}
                     </div>
                   </div>
+                  
                   {/* Content */}
                   <div className="p-3 sm:p-4 md:p-5">
                     <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-800 mb-1 sm:mb-2 group-hover:text-indigo-600 transition-colors duration-300 truncate">
-                      {Packages?.Title || `Amazing Destination ${i + 1}` }
+                      {Packages?.Title || `Amazing Package ${i + 1}`}
                     </h3>
-                    <Link  href={`Packages/${Packages._id}`} className="w-full mt-2 sm:mt-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-1.5 sm:py-2 rounded-xl font-semibold text-xs sm:text-sm hover:from-indigo-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300 shadow-sm hover:shadow-md block text-center">
+                    <Link href={`Packages/${Packages._id}`} className="w-full mt-2 sm:mt-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-1.5 sm:py-2 rounded-xl font-semibold text-xs sm:text-sm hover:from-indigo-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300 shadow-sm hover:shadow-md block text-center">
                       Explore Now
                     </Link>
                   </div>
@@ -123,9 +143,9 @@ const GetSixPackages = () => {
             ))
           ) : (
             <div className="col-span-full text-center py-10 sm:py-12">
-              <div className="text-3xl sm:text-4xl mb-3 animate-bounce">🏝️</div>
-              <h3 className="text-base sm:text-lg font-bold text-gray-700 mb-2">No destinations found</h3>
-              <p className="text-gray-500 text-xs sm:text-sm">Check back later for amazing travel destinations!</p>
+              <div className="text-3xl sm:text-4xl mb-3 animate-bounce">📦</div>
+              <h3 className="text-base sm:text-lg font-bold text-gray-700 mb-2">No packages found</h3>
+              <p className="text-gray-500 text-xs sm:text-sm">Check back later for amazing travel packages!</p>
             </div>
           )}
         </div>

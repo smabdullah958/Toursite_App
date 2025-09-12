@@ -8,7 +8,7 @@ import Image from "next/image";
 const FindById = () => {
   const { id } = useParams();
   const dispatch = useDispatch()
-  const { loading, success, result, error } = useSelector((state) => state.GetByIdSlice)
+  const { loading, success, result} = useSelector((state) => state.GetByIdSlice)
   
   // State for image gallery
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -59,13 +59,13 @@ const FindById = () => {
         {/* Hero Section with Image Carousel */}
           <div className="relative h-[85vh] overflow-hidden group">
           {/* Main Image Display */}
-          <div className="relative h-full w-full">
+            <div className="relative h-full w-full">
             {images.length > 0 && (
               <Image
                 src={images[currentImageIndex]}
                 alt={`${result.Title} - Image ${currentImageIndex + 1}`}
                 fill
-                className="object-cover transition-opacity duration-500"
+                className="object-contain transition-opacity duration-500"
                 priority
               />
             )}
@@ -79,7 +79,7 @@ const FindById = () => {
             <>
               <button
                 onClick={previousImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300  group-hover:opacity-100"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -88,7 +88,7 @@ const FindById = () => {
               
               <button
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300  group-hover:opacity-100"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
@@ -98,33 +98,33 @@ const FindById = () => {
           )}
           
           {/* Back Button */}
-          <button 
+           <button 
             onClick={() => window.history.back()}
-            className="absolute top-6 left-6 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full hover:bg-white/30 transition-all duration-300 flex items-center gap-2"
+            className="absolute top-6 left-6 bg-white/20 backdrop-blur-md text-black  px-4 py-2 rounded-full hover:bg-white/70 transition-all duration-300 flex items-center gap-2 "
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
             Back
-          </button>
+          </button> 
 
           {/* View Gallery Button */}
-          {images.length > 1 && (
+           {images.length > 1 && (
             <button
               onClick={() => setIsGalleryOpen(true)}
-              className="absolute top-6 right-6 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full hover:bg-white/30 transition-all duration-300 flex items-center gap-2"
+              className="absolute top-6 right-6  bg-white/20 backdrop-blur-md text-black px-4 py-2 rounded-full hover:bg-white/30 transition-all duration-300 flex items-center gap-2 hover:bg-white/70"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
               </svg>
               View All ({images.length})
             </button>
-          )}
+          )} 
 
           {/* Title Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-8">
             <div className="max-w-6xl mx-auto">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+              <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4 drop-shadow-lg">
                 {result.Title || "Amazing Destination"}
               </h1>
               <div className="flex flex-wrap items-center gap-4 text-white/90">
@@ -152,7 +152,7 @@ const FindById = () => {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Description Card */}
-              <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
+              <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl  transition-all duration-300">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3">
                   <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                     <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
@@ -161,7 +161,7 @@ const FindById = () => {
                   </div>
                   About This Destination
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-lg">
+                <p className="text-gray-600 leading-relaxed text-lg h-48 overflow-y-auto ">
                   {result.Description || result.Discription || "Discover an incredible journey filled with unforgettable experiences, breathtaking views, and memories that will last a lifetime. This destination offers everything you need for the perfect getaway."}
                 </p>
               </div>
@@ -233,8 +233,8 @@ const FindById = () => {
           <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center">
             <button
               onClick={() => setIsGalleryOpen(false)}
-              className="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full 
-              transition-colors duration-300"
+              className="absolute top-4 right-4 z-50 text-white p-2 hover:bg-white/10 rounded-full 
+              transition-colors duration-300 "
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -243,21 +243,32 @@ const FindById = () => {
             
             <button
               onClick={previousImage}
-              className="absolute left-4 text-white p-3 hover:bg-white/10 rounded-full transition-colors duration-300"
+              
+              className="absolute left-4 text-white p-3 hover:bg-white/10 rounded-full transition-colors duration-300 z-50"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             
-            <div className="relative max-w-6xl max-h-[90vh] mx-auto px-16">
-              <Image
+            {/* <div className="relative max-w-6xl max-h-[90vh] mx-auto px-16"> */}
+              {/* <Image
                 src={images[currentImageIndex]}
                 alt={`Full view ${currentImageIndex + 1}`}
                   width={1200}
                   height={800}
                 className="object-contain"
-              />
+              /> */}
+
+                  <div className="relative w-screen h-[90vh] flex justify-center items-center">
+  <Image
+    src={images[currentImageIndex]}
+    alt={`Full view ${currentImageIndex + 1}`}
+    fill
+    className="object-contain"
+  />
+
+
               <div className="text-center mt-4 text-white">
                 <p className="text-lg">Image {currentImageIndex + 1} of {images.length}</p>
               </div>

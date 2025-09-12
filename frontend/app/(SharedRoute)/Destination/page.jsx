@@ -106,7 +106,7 @@ const DestinationPage = () => {
               {/* Card Content */}
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2 truncate">
                     {tour.Title || "Amazing Destination"}
                   </h3>
                 </div>
