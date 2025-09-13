@@ -3,7 +3,7 @@ import React, { useState,useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 //it contain the validation schema
-import { schema } from "@/app/(AdminDashboard)/PostPackages/YupValidation";
+import { schema } from "@/app/(AdminDashboard)/PostPackages/PostYupValidation";
 import { useDispatch, useSelector } from "react-redux";
 import PostPackageThunck  from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/PostPackageThunck"
 import Loader from "@/Components/Loader";

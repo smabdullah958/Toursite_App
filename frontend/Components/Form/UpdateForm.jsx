@@ -99,9 +99,9 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
 
   useEffect(() => {
     if (success) {
-      dispatch(ResetUpdateState());
-      dispatch(resetProducts());
-      dispatch(GetFirstTwentyImage({ page: 1, limit: 20 }));
+      dispatch(ResetUpdateState()); //this will reset the updatestate
+      dispatch(resetProducts()); // this will reset all the tour it means now it will fetch again from a 0
+      dispatch(GetFirstTwentyImage({ page: 1, limit: 20 })); //again refetch
       dispatch(HideUpdateForm());
     }
   }, [success]);
@@ -111,6 +111,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
       {/* Modal Container */}
       <div className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
 
+    <div className="sticky top-0 z-20  text-center rounded-t-2xl">
         {/* Close Button */}
         <button
           onClick={() => dispatch(HideUpdateForm())}
@@ -124,7 +125,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
           <h2 className="text-2xl font-bold text-white">🏝️ Update Destination</h2>
           <p className="text-indigo-100 text-sm">Transform your travel experience with stunning destinations</p>
         </div>
-
+</div>
         {/* Form */}
         <div className="p-6 space-y-6">
           <div className="grid md:grid-cols-2 gap-6">

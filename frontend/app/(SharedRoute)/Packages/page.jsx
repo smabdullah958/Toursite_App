@@ -6,8 +6,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import GetFirst12PackagesThuck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetFirst12PackagesThunck";
 import DeletePackage from "@/Components/Buttons/DeletePackage";
+import UpdatePackages from "@/Components/Buttons/UpdatePackagesButton";
+import UpdatePackageForm from "@/Components/Form/UpdatePackageForm"
 
 const PackagesPage = () => {
+//hre the we get the formid from UpdatePackageSlice and also it is used to show a form
+  const { FormID } = useSelector(state => state.UpdatePackageSlice);
+
   const dispatch = useDispatch();
   const { result, Loading, error, hasMore } = useSelector(
     (state) => state.GetFirst12PackagesSlice
@@ -155,8 +160,11 @@ const PackagesPage = () => {
                 {IsLogIn && Role === "Admin" && (
                   <div className="flex gap-3 justify-between mt-3">
                     <DeletePackage id={pkg._id} />
+                    <UpdatePackages id={pkg._id}/>
                   </div>
                 )}
+
+             
 
                 {/* Non-logged users */}
                 {!IsLogIn && (
@@ -171,6 +179,10 @@ const PackagesPage = () => {
             </motion.div>
           ))}
         </div>
+
+             {/* //show update form if  */}
+                {FormID && <UpdatePackageForm id={FormID} />}
+
 
         {/* Loading State */}
         {Loading && (

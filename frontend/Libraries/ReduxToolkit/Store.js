@@ -24,6 +24,7 @@ import PostPackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/PostPacka
 import GetFirst12PackagesSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetFirst12PackagesSlice"
 import GetByIdSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetByIDSlice"
 import GetSixPackagesSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetSixPackagesSlice"
+import UpdatePackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/UpdateSlice"
 
 export const store = configureStore({
   reducer: {
@@ -43,6 +44,7 @@ export const store = configureStore({
   PostPackageSlice,
   GetFirst12PackagesSlice,
   GetByIdSlice,
-  GetSixPackagesSlice
+  GetSixPackagesSlice,
+  UpdatePackageSlice
   },
 })
