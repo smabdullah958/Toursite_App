@@ -8,6 +8,7 @@ import GetFirst12PackagesThuck from "@/Libraries/ReduxToolkit/AsyncThunck/Packag
 import DeletePackage from "@/Components/Buttons/DeletePackage";
 import UpdatePackages from "@/Components/Buttons/UpdatePackagesButton";
 import UpdatePackageForm from "@/Components/Form/UpdatePackageForm"
+import SearchBar from "@/app/(SharedRoute)/Packages/SearchBar";
 
 const PackagesPage = () => {
 //hre the we get the formid from UpdatePackageSlice and also it is used to show a form
@@ -22,6 +23,12 @@ const PackagesPage = () => {
   const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  //it will shwo the result of a sraching
+    let {SearchResult,loading,isSearched}=useSelector(state=>state.PackageSearchBarSlice)
+  //is search is traack teh serch is done or not
+    let displayResult = isSearched ? SearchResult : result;
+  
 
   // Load first page on mount
   useEffect(() => {
@@ -43,25 +50,29 @@ const PackagesPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header Section */}
       <div className="max-w-screen mx-auto px-6 py-8">
+       
+        <div className="py-5">
+          <SearchBar />
+        </div>
         <h1 className="text-4xl font-extrabold text-gray-800 text-center">
           Explore Our Amazing Packages
         </h1>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-screen mx-auto px-6 py-8">
+      <div className="max-w-screen mx-auto px-6 ">
         {/* Header Card */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800">
             Popular Packages
             <span className="text-lg text-gray-500 font-normal ml-2">
-              ({result.length} loaded)
+              ({displayResult.length} loaded)
             </span>
           </h2>
         </div>
 
         {/* No Results */}
-        {!Loading && result.length === 0 && !error && (
+        { isSearched && displayResult.length === 0 && !loading && !Loading && (
           <div className="text-center py-16">
             <div className="text-6xl text-gray-300 mb-4">📦</div>
             <h3 className="text-2xl font-bold text-gray-600 mb-2">
@@ -75,7 +86,7 @@ const PackagesPage = () => {
 
         {/* Packages Grid */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {result?.map((pkg, index) => (
+          {displayResult?.map((pkg, index) => (
             <motion.div
               key={pkg._id || index}
               initial={{ opacity: 0, y: 30 }}
@@ -167,14 +178,14 @@ const PackagesPage = () => {
              
 
                 {/* Non-logged users */}
-                {!IsLogIn && (
+                {/* {!IsLogIn && (
                   <Link
                     href={`/Packages/${pkg._id}`}
                     className="md:hidden block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
                   >
                     View Details
                   </Link>
-                )}
+                )} */}
               </div>
             </motion.div>
           ))}
@@ -185,7 +196,7 @@ const PackagesPage = () => {
 
 
         {/* Loading State */}
-        {Loading && (
+        {(Loading || loading) && (
           <div className="flex justify-center items-center py-16">
             <div className="text-center">
               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>

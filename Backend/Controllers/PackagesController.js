@@ -14,6 +14,7 @@ let GetByID=require("../Packages/GetPackages/GetByIDPackages")
 let GetSixPackages=require("../Packages/GetPackages/GetSixPackages")
 let UpdatePackage=require("../Packages/UpdatePackage")
 let DeletePackage = require("../Packages/DeletePackage")
+let SearchBar =require("../Packages/SearchBar")
 
 App.post("/postpackage",upload.array("Image",5),PostDestination) // uplaod multiple images
 App.get("/getpackages",GetFirst12Packages)
@@ -21,5 +22,6 @@ App.get("/getbyid/:id",GetByID)
 App.get("/getsix",GetSixPackages)
 App.delete("/DeletePackage/:id",DeletePackage)
 App.put("/UpdatePackage/:id",UpdatePackageMiddleWare,UpdatePackage)
+App.get("/Searching",SearchBar)
 
 module.exports=App

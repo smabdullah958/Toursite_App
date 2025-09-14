@@ -25,6 +25,7 @@ import GetFirst12PackagesSlice from "@/Libraries/ReduxToolkit/Slices/Packages/Ge
 import GetByIdSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetByIDSlice"
 import GetSixPackagesSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetSixPackagesSlice"
 import UpdatePackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/UpdateSlice"
+import PackageSearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Packages/SearchBarSlice"
 
 export const store = configureStore({
   reducer: {
@@ -45,6 +46,7 @@ export const store = configureStore({
   GetFirst12PackagesSlice,
   GetByIdSlice,
   GetSixPackagesSlice,
-  UpdatePackageSlice
+  UpdatePackageSlice,
+  PackageSearchBarSlice
   },
 })

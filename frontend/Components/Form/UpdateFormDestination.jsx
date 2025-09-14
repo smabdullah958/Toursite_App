@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect,useState } from "react";
-import { useForm } from "react-hook-form";
+//usefieldarray is used for a dynamic input field like user can add and remove fields
+import { useForm,useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { HideUpdateForm, ResetUpdateState } from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice";
@@ -14,6 +15,9 @@ import Loader from "@/Components/Loader";
 //get by id for a prefill form thunck 
 import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetDestinationByID"
 
+//this is used to add a AM and PM bro 
+import to12Hour from "@/Components/Form/AddingAMPM"
+
 const MAX_FILE_SIZE = 300 * 1024; // 300kb
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
@@ -21,26 +25,54 @@ const schema = yup.object({
   Title: yup.string().required("Title is required"),
   Slots: yup.number().typeError("Slots must be a number").positive("Slots must be a positive number").required("Slots are required"),
   BasePrice: yup.number().typeError("Price must be a number").positive("Price must be positive").required("Price is required"),
+
+  TravelTimes:yup.array().of(yup.object({ 
+    time:yup.string().required("Time is required")
+  })
+  ).min(1, "At least one time is required"),
+  
   Image: yup
     .mixed()
     .nullable()
     .test("fileSize", "File must be less than 300kb", (value) => !value || (value && value[0] && value[0].size <= MAX_FILE_SIZE))
     .test("fileFormat", "Unsupported Format", (value) => !value || (value && value[0] && SUPPORTED_FORMATS.includes(value[0].type))),
   Description: yup.string().required("Description is required"),
+
+
 });
 
 const UpdateForm = ({ id }) => {
   let { Loading, success } = useSelector((state) => state.UpdateSlice);
-  const { register, handleSubmit, formState: { errors },setValue,watch } = useForm({ 
+  const { register,
+     handleSubmit,  
+       control,
+ formState: { errors },
+ setValue,
+ watch } = useForm({ 
     resolver: yupResolver(schema),
   defaultValues:{
     Title: "",
     Slots: "",
     BasePrice: "",
     Image: null,
-    Description: ""
+    Description: "",
+    TravelTimes: [{ time: "" }] // default 1 field is display
+
   }
    });
+// fields: gives  the list of all time objects in your form.
+
+// append: adds  new time object (like { time: "" }).
+
+// remove: deletes one.
+
+     const { fields, append, remove } = useFieldArray({
+  control,  // comes from useForm(), it controls the whole form state 
+    name: "TravelTimes", 
+     //tells react-hook-form that this field array is bound to your form’s TravelTimes field.
+   });
+   
+
   let dispatch = useDispatch();
 //for show the image 
   const [existingImage, setExistingImage] = useState(null);
@@ -64,6 +96,26 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
       setValue("BasePrice", result.BasePrice || "");
       setValue("Description", result.Description || "");
       setExistingImage(result.Image || null); // Assuming Image is a URL or path
+
+        // ✅ Pre-fill travel times in 24h format
+    if (result.TravelTimes?.length > 0) {
+      const formattedTimes = result.TravelTimes.map(t => {
+        let [time, modifier] = t.time.split(" ");
+        let [hours, minutes] = time.split(":");
+
+        if (modifier === "PM" && hours !== "12") {
+          hours = String(parseInt(hours, 10) + 12);
+        }
+        if (modifier === "AM" && hours === "12") {
+          hours = "00";
+        }
+
+        return { time: `${hours.padStart(2, "0")}:${minutes}` };
+      });
+
+      setValue("TravelTimes", formattedTimes);
+    }
+
     }
   }, [result, setValue]);
 
@@ -87,6 +139,17 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
     formData.append("BasePrice", data.BasePrice);
     formData.append("Description", data.Description);
     
+      // ✅ TravelTimes (with AM/PM)
+  (data.TravelTimes || []).forEach((t, index) => {
+    const raw = typeof t === "string" ? t : (t.time ?? "");
+    const timeWithAmPm = to12Hour(raw); // convert to 12h format (AM/PM)
+
+    if (timeWithAmPm) {
+      formData.append(`TravelTimes[${index}][time]`, timeWithAmPm);
+    }
+  });
+
+
     // If a new image is selected, append it; otherwise, append the existing image URL
     if (data.Image && data.Image[0]) {
       formData.append("Image", data.Image[0]);
@@ -164,6 +227,41 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
               <p className="text-red-500 text-xs mt-1">{errors.Slots?.message}</p>
             </div>
           </div>
+
+{/* Travel Times */}
+<div>
+  <label className="block text-gray-800 font-semibold mb-2">🕒 Travel Times</label>
+
+  {fields.map((field, index) => (
+    <div key={field.id} className="flex items-center gap-3 mb-2">
+      <input
+        type="time"
+        {...register(`TravelTimes.${index}.time`)}
+        defaultValue={field.time}
+        className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
+      />
+      <button
+        type="button"
+        onClick={() => remove(index)}
+        className="px-3 py-2 bg-red-200 text-white rounded-lg text-sm hover:bg-red-300 duration-300 
+        transition"
+      >
+        ❌
+      </button>
+    </div>
+  ))}
+
+  <button
+    type="button"
+    onClick={() => append({ time: "" })}
+    className="mt-2 px-4 py-2 bg-green-400 text-white rounded-lg text-sm hover:bg-green-500 duration-300 transition"
+  >
+    ➕ Add Time
+  </button>
+
+  <p className="text-red-500 text-xs mt-1">{errors.TravelTimes?.message}</p>
+</div>
+
           {/* Image Preview */}
           {previewImage && (
             <div>
@@ -184,6 +282,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
               </div>
             </div>
           )}
+
 
           {/* Upload New Image */}
           <div>

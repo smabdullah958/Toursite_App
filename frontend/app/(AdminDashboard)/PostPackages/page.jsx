@@ -1,6 +1,7 @@
 "use client";
 import React, { useState,useEffect } from "react";
-import { useForm } from "react-hook-form";
+//usefieldarray is used for a dynamic input field like user can add and remove fields
+import { useForm,useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 //it contain the validation schema
 import { schema } from "@/app/(AdminDashboard)/PostPackages/PostYupValidation";
@@ -20,10 +21,26 @@ const PostPackage = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+        defaultValues:{
+      TravelTimes:[{time:""}] // start with one empty time
+        }
   });
+// fields: gives  the list of all time objects in your form.
+
+// append: adds  new time object (like { time: "" }).
+
+// remove: deletes one.
+
+    const { fields, append, remove } = useFieldArray({
+  control,  // comes from useForm(), it controls the whole form state 
+    name: "TravelTimes", 
+     //tells react-hook-form that this field array is bound to your form’s TravelTimes field.
+  });
+  
 
   let [AddImages,SetAddImages]=useState(0)
 
@@ -95,6 +112,43 @@ const PostPackage = () => {
               {errors.Slots?.message}
             </p>
           </div>
+
+
+{/* Travel Times */}
+<div>
+  <label className="block text-gray-700 font-semibold mb-2">
+    Travel Times
+  </label>
+  {fields.map((field, index) => (
+    <div key={field.id} className="flex items-center gap-2 mb-2">
+      <input
+        type="time"
+        {...register(`TravelTimes.${index}.time`)} // ✅ bind field
+        className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      />
+      {fields.length>1 && (
+      <button
+        type="button"
+        onClick={() => remove(index)}
+        className="bg-red-200 text-white px-3 py-2 rounded-lg hover:bg-red-300 duration-300 transition"
+      >
+        ❌
+      </button>
+      )}
+    </div>
+  ))}
+  <p className="text-red-400 text-sm mt-1">
+    {errors.TravelTimes?.message || errors.TravelTimes?.[0]?.time?.message}
+  </p>
+  <button
+    type="button"
+    onClick={() => append({time:""})}
+    className="mt-2 bg-green-400 text-white px-4 py-2 rounded-lg hover:bg-green-500 duration-300 transition"
+  >
+    ➕ Add Time
+  </button>
+</div>
+
           {/* required */}
                    <div>
             <label className="block text-gray-700 font-semibold mb-2">

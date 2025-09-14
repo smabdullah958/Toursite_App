@@ -8,7 +8,7 @@ let PostDestination=async(req,res)=>{
         return res.status(401).json({message:"validation error bro",error:error.array()})
     }
 
-   let {BasePrice,Title,Description,Slots}=req.body
+   let {BasePrice,Title,Description,Slots,TravelTimes}=req.body
  
 
     let result=new Database({
@@ -16,6 +16,7 @@ let PostDestination=async(req,res)=>{
         Title,
         Description,
         Slots,
+        TravelTimes,
         Image:req.file ? req.file.path:null,
     })
     let display=await result.save()

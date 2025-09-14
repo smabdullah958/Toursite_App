@@ -6,7 +6,7 @@ import Link from "next/link";
 import DeleteButton from "@/Components/Buttons/DeleteDestination";
 import Image from "next/image";
 import UpdateButton from "@/Components/Buttons/UpdateDestination";
-import UpdateForm from '@/Components/Form/UpdateForm';
+import UpdateForm from '@/Components/Form/UpdateFormDestination';
 import SearchBar from "@/app/(SharedRoute)/Destination/SearchBar";
 
 

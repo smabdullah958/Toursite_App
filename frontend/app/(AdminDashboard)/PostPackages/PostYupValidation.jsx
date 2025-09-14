@@ -12,6 +12,11 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
     .positive("Price must be positive")
     .required("Price is required"),
   Description: yup.string().required("Description is required"),
+  TravelTimes:yup.array().of(yup.object({ 
+    time:yup.string().required("Time is required")
+  })
+  ).min(1, "At least one time is required"),
+  
  
         Image1: yup.mixed().required("Image is required")
                   .test(
