@@ -18,6 +18,7 @@ import GetSixImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/Ge
 import DeleteSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DeleteSlice"
 import UpdateSlice from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice"
 import SearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Destination/SearchBarSlice"
+import DestinationBookNowSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DestinationBookNow"
 
 //packages slices
 import PostPackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/PostPackageSlice"
@@ -26,15 +27,19 @@ import GetByIdSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/G
 import GetSixPackagesSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPackages/GetSixPackagesSlice"
 import UpdatePackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/UpdateSlice"
 import PackageSearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Packages/SearchBarSlice"
+import PackageBookNowSlice from "@/Libraries/ReduxToolkit/Slices/Packages/PackageBookNow"
 
 export const store = configureStore({
   reducer: {
+    //auth
     LogInSlice,
     PostFormSlice,
     CheckLogInSlice,
     LogOutSlice,
     ForgetPasswordSlice,
     ResetPasswordSlice,
+    
+    //destination
     PostImageSlice,
     GetFirstTwentyImageSlice,
   GetByIDSlice,
@@ -42,11 +47,15 @@ export const store = configureStore({
   DeleteSlice,
   UpdateSlice,
   SearchBarSlice,
+DestinationBookNowSlice,
+
+//packages
   PostPackageSlice,
   GetFirst12PackagesSlice,
   GetByIdSlice,
   GetSixPackagesSlice,
   UpdatePackageSlice,
-  PackageSearchBarSlice
+  PackageSearchBarSlice,
+  PackageBookNowSlice
   },
 })

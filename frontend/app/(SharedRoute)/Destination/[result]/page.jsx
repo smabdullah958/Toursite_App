@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetDestinationByID"
 import Image from "next/image";
+import DestinationBookNow from "@/Components/Buttons/Destination/DestinationBookNowButton";
 const FindById = () => {
   const { result } = useParams(); //result is come forma backend and it is include a dynamic id
   const dispatch = useDispatch()
@@ -96,7 +97,7 @@ const FindById = () => {
         </div>
 
         {/* Content Section */}
-        <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="max-w-full mx-auto px-4 py-12">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="md:col-span-2 space-y-8">
@@ -159,10 +160,10 @@ const FindById = () => {
                     <span className="text-2xl font-bold text-blue-600">${DisplayResult.BasePrice}</span>
                   </div>
                   
-                  <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    Book Now
-                  </button>
-                  
+                   <DestinationBookNow 
+                   id={DisplayResult._id}
+                   basePrice={DisplayResult.BasePrice} 
+                   time={DisplayResult.TravelTimes} />
                 </div>
                 
                 <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">

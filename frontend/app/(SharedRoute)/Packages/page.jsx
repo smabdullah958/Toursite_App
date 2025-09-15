@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import GetFirst12PackagesThuck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetFirst12PackagesThunck";
-import DeletePackage from "@/Components/Buttons/DeletePackage";
-import UpdatePackages from "@/Components/Buttons/UpdatePackagesButton";
-import UpdatePackageForm from "@/Components/Form/UpdatePackageForm"
+import DeletePackage from "@/Components/Buttons/Package/DeletePackage";
+import UpdatePackages from "@/Components/Buttons/Package/UpdatePackagesButton";
+import UpdatePackageForm from "@/Components/Form/DestinationaAndPackages/UpdatePackageForm"
 import SearchBar from "@/app/(SharedRoute)/Packages/SearchBar";
 
 const PackagesPage = () => {

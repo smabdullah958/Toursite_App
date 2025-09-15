@@ -3,10 +3,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import GetFirstTwentyImage from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetFirstTwentyImageThunck";
 import Link from "next/link";
-import DeleteButton from "@/Components/Buttons/DeleteDestination";
+import DeleteButton from "@/Components/Buttons/Destination/DeleteDestination";
 import Image from "next/image";
-import UpdateButton from "@/Components/Buttons/UpdateDestination";
-import UpdateForm from '@/Components/Form/UpdateFormDestination';
+import UpdateButton from "@/Components/Buttons/Destination/UpdateDestination";
+import UpdateForm from '@/Components/Form/DestinationaAndPackages/UpdateFormDestination';
 import SearchBar from "@/app/(SharedRoute)/Destination/SearchBar";
 
 

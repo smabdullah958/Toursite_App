@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 //usefieldarray is used for a dynamic input field like user can add and remove fields
 import { useForm,useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "@/app/(AdminDashboard)/PostPackages/UpdateYupValidation"; //it contain the validation schema
+import { schema } from "@/Components/yupValidation/UpdatePackageYupValidation"; //it contain the validation schema
 import { useDispatch, useSelector } from 'react-redux';
 
 import UpdatePackageThunck from '@/Libraries/ReduxToolkit/AsyncThunck/Packages/UpdatePackageThunck';
@@ -16,7 +16,7 @@ import { resetProducts } from "@/Libraries/ReduxToolkit/Slices/Packages/GetPacka
 import GetByIDThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetByIDThunck" //this will get the data for a prefilled 
 
 //this is used to add a AM and PM bro 
-import to12Hour from "@/Components/Form/AddingAMPM"
+import to12Hour from "@/Components/Form/DestinationaAndPackages/AddingAMPM"
 
 
 const UpdatePackageForm = ({ id }) => {
@@ -167,7 +167,7 @@ const UpdatePackageForm = ({ id }) => {
 
         {/* Form */}
         <div className="p-6 space-y-6 overflow-y-auto">
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid  gap-6">
             {/* Title */}
             <div>
               <label className="block text-gray-800 font-semibold mb-2">📍 Destination Title</label>
