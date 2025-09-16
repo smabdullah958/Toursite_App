@@ -35,7 +35,7 @@ let MySecretKey=process.env.SecretKey
     console.log("hashPassword",hashPassword)
     //create token
     const token = JWT.sign(
-        { Email,Role},
+        { Email,Role,_id},
         MySecretKey,
         { expiresIn: '1w' });
     console.log('Token', token, '\n')

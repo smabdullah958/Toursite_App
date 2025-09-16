@@ -3,11 +3,15 @@
 import { schema } from "@/Components/yupValidation/BookNowValidation"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useDispatch } from "react-redux"
-import { HideBookNowForm,ResetStates } from "@/Libraries/ReduxToolkit/Slices/Destination/DestinationBookNow"
+import { useDispatch, useSelector } from "react-redux"
+import { HideBookNowForm,ResetStates } from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNow"
 import { useEffect } from "react"
 
-let DestinationForm=({TravelTime,basePrice})=>{
+import BookNowFormThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/BookNowFormThunck"
+
+import Loader from "@/Components/Loader"
+
+let DestinationForm=({TravelTime,basePrice,DestinationID})=>{
 
 let dispatch=useDispatch()
    
@@ -20,15 +24,11 @@ let dispatch=useDispatch()
     }=useForm({
         resolver:yupResolver(schema),
         defaultValues:{
-            ContactNumber:null,
-            WhatsAppNumber:null,
-            PickUpAddress:"",
-            Days:1,
-            TotalPrice:0,
-            NumberOfAdultChild:null,
-            NumberOfNoneAdultChild:null,
             BasePrice:basePrice,  //prefill from a props
-            TravelTimes:""
+          TotalPrice:null,
+          NumberOfAdultChild:1,
+          NumberOfNoneAdultChild:0,
+          Days:1
         }
     })
 //calculate total price
@@ -44,8 +44,9 @@ let dispatch=useDispatch()
     },[watch("Days"),watch("NumberOfAdultChild"),basePrice,setValue])
 
     let HandleButton=(Data)=>{
-        alert(id)
-        console.log(Data)
+      dispatch(BookNowFormThunck({Data,DestinationID}))       
+      console.log(Data,DestinationID)
+      // dispatch(ResetStates())
     }
 
     let CloseForm=()=>{
@@ -53,6 +54,9 @@ let dispatch=useDispatch()
          dispatch(HideBookNowForm())
      
     }
+
+    //  DestinationBookNowSlice is come from a store 
+    let {loading}=useSelector((state)=>state.DestinationBookNowSlice)
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
@@ -82,7 +86,7 @@ let dispatch=useDispatch()
               <input
               type="tel"
                 {...register("ContactNumber")}
-                placeholder="e.g. Paradise Beach Resort"
+                placeholder="01234567890"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
               <p className="text-red-500 text-xs mt-1">{errors.ContactNumber?.message}</p>
@@ -94,7 +98,7 @@ let dispatch=useDispatch()
               <input
                 type="tel"
                 {...register("WhatsAppNumber")}
-                placeholder="e.g. 2500"
+                placeholder="12345678909"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
               <p className="text-red-500 text-xs mt-1">{errors.WhatsAppNumber?.message}</p>
@@ -118,7 +122,7 @@ let dispatch=useDispatch()
               <input
                 type="number"
                 {...register("Days")}
-                placeholder="eg 1,2"
+                placeholder=" eg 3"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
               <p className="text-red-500 text-xs mt-1">{errors.Days?.message}</p>
@@ -128,7 +132,7 @@ let dispatch=useDispatch()
 
            {/* Number of Adult Child */}
              <div>
-              <label className="block text-gray-800 font-semibold mb-2">Number of Adults(Parents)</label>
+              <label className="block text-gray-800 font-semibold mb-2">Number of Adults/Parents</label>
               <input
                 type="number"
                 {...register("NumberOfAdultChild")}
@@ -147,12 +151,28 @@ let dispatch=useDispatch()
                 placeholder="age less than 12"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
+
+                 <p className="text-red-500 text-xs mt-1">{errors.NumberOfNoneAdultChild?.message}</p>
             </div>
+
+
+                                   {/* Date */}
+             <div>
+              <label className="block text-gray-800 font-semibold mb-2">Select Booking Date</label>
+              <input
+                type="date"
+                {...register("Date")}
+                placeholder="Select Date"
+                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
+              />
+               <p className="text-red-500 text-xs mt-1">{errors.Date?.message}</p>
+            </div>
+
 
                 {/* select time */}
             <div>
                 <label className="block text-gray-800 font-semibold mb-2">🕒 Travel Time</label>
-           <select {...register("TravelTimes")}
+           <select {...register("TravelTime")}
            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm">
 
                 <option value="">Select a time</option>
@@ -169,7 +189,7 @@ let dispatch=useDispatch()
                 )
                 }
               </select>
-
+                   <p className="text-red-500 text-xs mt-1">{errors.TravelTime?.message}</p>
             </div>
 
                       {/* Base Price */}
@@ -177,8 +197,9 @@ let dispatch=useDispatch()
               <label className="block text-gray-800 font-semibold mb-2">Base Price</label>
               <input
                 type="number"
-                {...register("BasePrice")}
-                readOnly
+
+                value={basePrice}
+                  readOnly
                 placeholder="age less than 12"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
@@ -206,9 +227,9 @@ let dispatch=useDispatch()
             </button>
             <button
               onClick={handleSubmit(HandleButton)}
-            //   disabled={Loading}
-              className="flex-1 py-3 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105">
-              BookNow
+               disabled={loading}
+              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold text-sm shadow-md ${loading?"opacity-50":"hover:shadow-lg transition-all duration-500 hover:scale-105 opacity-100"} `}>
+              {loading?<Loader/>:"BookNow"}
             </button>
           </div>
         </div>

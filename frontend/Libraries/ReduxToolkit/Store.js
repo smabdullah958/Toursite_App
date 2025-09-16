@@ -18,7 +18,6 @@ import GetSixImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/Ge
 import DeleteSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DeleteSlice"
 import UpdateSlice from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice"
 import SearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Destination/SearchBarSlice"
-import DestinationBookNowSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DestinationBookNow"
 
 //packages slices
 import PostPackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/PostPackageSlice"
@@ -28,6 +27,9 @@ import GetSixPackagesSlice from "@/Libraries/ReduxToolkit/Slices/Packages/GetPac
 import UpdatePackageSlice from "@/Libraries/ReduxToolkit/Slices/Packages/UpdateSlice"
 import PackageSearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Packages/SearchBarSlice"
 import PackageBookNowSlice from "@/Libraries/ReduxToolkit/Slices/Packages/PackageBookNow"
+
+//DestinationBookNow
+import DestinationBookNowSlice from '@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNow'
 
 export const store = configureStore({
   reducer: {
@@ -56,6 +58,9 @@ DestinationBookNowSlice,
   GetSixPackagesSlice,
   UpdatePackageSlice,
   PackageSearchBarSlice,
-  PackageBookNowSlice
+  PackageBookNowSlice,
+  
+  //DestinationBookNow
+  DestinationBookNowSlice
   },
 })

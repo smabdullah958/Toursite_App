@@ -21,11 +21,21 @@ WhatsAppNumber: yup
     NumberOfAdultChild: yup.number()
     .typeError("Number of child must be a number")
     .positive("Number of child must be positive")
+    .default(1)
+    .required("field is required"),
+
+    NumberOfNoneAdultChild: yup.number()
+    .typeError(" child must be a number")
+    .min(0,"Number of child can not be negative")
+    .default(0)
     .required("field is required"),
 
     Days:yup.number()
     .typeError("Days must be a number")
-    .positive("Days must be positive")
+    .min("1","minimum days is one")
     .required("Number of Days is required"),
+Date:yup.string()
+  .required("Date is required"),
+  TravelTime:yup.string().required("field is required")
 
             });

@@ -16,10 +16,12 @@ App.use(express.json())
 let AuthController=require("./Controllers/AuthController")
 let DestinationController=require("./Controllers/DestinationControllers")
 let PackagesController=require("./Controllers/PackagesController")
+let DestinationBookingNow=require("./Controllers/DestinationBookNowController.js")
 
 ConnectDB()
 App.use("/AuthController",AuthController)
 App.use("/Destination",DestinationController)
 App.use("/Packages",PackagesController)
+App.use("/DestinationBooking",DestinationBookingNow)
 
 App.listen(PortNo)

@@ -18,7 +18,7 @@ const UpdatePackage = async (req, res) => {
     if (req.body.Title) updates.Title = req.body.Title;
     if (req.body.Slots) updates.Slots = req.body.Slots;
     if (req.body.BasePrice) updates.BasePrice = req.body.BasePrice;
-    if (req.body.Description) updates.Description = req.body.Description;
+    if (req.body.Description) updates.Description = req.body.Description; 
     if(req.body.TravelTimes)    updates.TravelTimes=req.body.TravelTimes
 
 

@@ -20,7 +20,7 @@ let LogInAuth=async(req,res)=>{
         }
 
         // if password match than generate token
-        let token=JWT.sign({Email,Role:ExistUser.Role},process.env.SecretKey,
+        let token=JWT.sign({Email,Role:ExistUser.Role,_id:ExistUser._id},process.env.SecretKey,
 {           expiresIn: '1w'     }) 
 //send token to a frontend 
 res.cookie("token",token,{      httpOnly: true,
