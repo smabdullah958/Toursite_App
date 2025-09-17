@@ -7,7 +7,7 @@ let initialState={
     DestinationID:null,
     success:false,
     loading:false,
-    error:[]
+    error:null
 }
 
 let DestinationBookNowSlice=createSlice({

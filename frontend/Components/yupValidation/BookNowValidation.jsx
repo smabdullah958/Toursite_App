@@ -34,8 +34,11 @@ WhatsAppNumber: yup
     .typeError("Days must be a number")
     .min("1","minimum days is one")
     .required("Number of Days is required"),
-Date:yup.string()
-  .required("Date is required"),
-  TravelTime:yup.string().required("field is required")
 
+    Date:yup.string()
+  .required("Date is required"),
+  
+  TravelTime:yup.string().required("field is required"),
+
+PaymentMethod:yup.string().oneOf(["Stripe","Cash"]).required("PaymentMethod is Stripe or Cash")
             });

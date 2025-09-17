@@ -16,7 +16,7 @@ import GetFirstTwentyImageSlice from '@/Libraries/ReduxToolkit/Slices/Destinatio
 import GetByIDSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetByID"
 import GetSixImageSlice from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetSixImage"
 import DeleteSlice from "@/Libraries/ReduxToolkit/Slices/Destination/DeleteSlice"
-import UpdateSlice from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice"
+import UpdateSlice from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice" 
 import SearchBarSlice from "@/Libraries/ReduxToolkit/Slices/Destination/SearchBarSlice"
 
 //packages slices

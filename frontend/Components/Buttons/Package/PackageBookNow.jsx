@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import DestinationForm from '@/Components/Form/DestinationaAndPackages/DestinationBookNowForm'
+import DestinationForm from '@/Components/Form/DestinationaAndPackagesForm/DestinationBookNowForm'
 import {DisplayBookNowForm} from "@/Libraries/ReduxToolkit/Slices/Packages/PackageBookNow"
 import { useDispatch, useSelector } from 'react-redux'
 const PackageBookNow = ({id,time,basePrice}) => {

@@ -63,7 +63,10 @@ let validation = [
     .isInt({ min: 1 }).withMessage("Must be a number"),
 
   body("Date")
-    .notEmpty().withMessage("Date is required")
-]
+    .notEmpty().withMessage("Date is required"),
+
+    body("PaymentMethod")
+    .notEmpty().isIn(["Stripe","Cash"]).withMessage("PaymentMethod is only Stripe or Cash")
+  ]
 
 module.exports=validation

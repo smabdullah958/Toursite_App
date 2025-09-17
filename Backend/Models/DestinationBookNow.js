@@ -50,6 +50,10 @@ let Sch=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true
+    },
+    PaymentMethod:{
+        type:String,
+        enum:["Stripe","Cash"]
     }
 })
 
