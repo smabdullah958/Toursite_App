@@ -7,8 +7,10 @@ import CheckLogIn  from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThu
 let initialState={
     IsLogIn:false,
     Role:"",
-    success:false
-}
+    success:false,
+Name:"",
+Email:""
+  }
 
 let CheckLoginSlice=createSlice({
     name:"slice",
@@ -30,7 +32,9 @@ let CheckLoginSlice=createSlice({
         // CheckLogin is come form a backend bro
         state.IsLogIn = action.payload.CheckLogin;  
         state.Role=action.payload?.decode?.Role   //decode.Role is come from a backend and file is a CheckLogin
-        state.success=true
+       state.Name=action.payload?.decode?.Name //decode.Role is come from a backend and file is a CheckLogin
+        state.Email=action.payload?.decode?.Email //decode.Role is come from a backend and file is a CheckLogin
+       state.success=true
       })
       .addCase(CheckLogIn.rejected, (state) => {
         state.IsLogIn = false;

@@ -18,6 +18,9 @@ let DestinationForm=({TravelTime,basePrice,DestinationID})=>{
 
   let [clientSecret,setClientSecret]=useState(null);
 
+    let [bookingId, setBookingId] = useState(null) // ✅ store bookingId for later
+
+
 let dispatch=useDispatch()
    
     let {
@@ -54,7 +57,9 @@ let dispatch=useDispatch()
       
       if(Data.PaymentMethod==="Stripe" && response.clientSecret){
             setClientSecret(response.clientSecret); // store in state
-      }
+            setBookingId(response.result._id) // ✅ save bookingId from backend
+
+          }
       else{
         dispatch(ResetStates())
       } 
@@ -175,6 +180,7 @@ let dispatch=useDispatch()
                 type="date"
                 {...register("Date")}
                 placeholder="Select Date"
+                min={new Date().toISOString().split("T")[0]}
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
                <p className="text-red-500 text-xs mt-1">{errors.Date?.message}</p>
@@ -295,6 +301,8 @@ let dispatch=useDispatch()
       {/* Stripe Form */}
       <StripeCheckoutForm
         clientSecret={clientSecret}
+         bookingId={bookingId}   // ✅ pass bookingId here
+
         onSuccess={(pi) => {
           console.log("payment success", pi)
           setClientSecret(null) // close after success

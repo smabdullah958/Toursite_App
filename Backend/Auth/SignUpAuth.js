@@ -33,6 +33,11 @@ let MySecretKey=process.env.SecretKey
         Role
     })
     console.log("hashPassword",hashPassword)
+
+    
+//save ina databse bro 
+    await result.save()
+
     //create token
     const token = JWT.sign(
         { Email,Role,_id,Name},
@@ -50,8 +55,6 @@ let MySecretKey=process.env.SecretKey
 )
 
 
-//save ina databse bro 
-    await result.save()
     console.log(Password,Role)
     res.status(200).json({message:"account is created successfully",result})
 }

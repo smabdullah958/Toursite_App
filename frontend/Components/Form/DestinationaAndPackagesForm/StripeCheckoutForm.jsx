@@ -3,8 +3,18 @@
 import Loader from '@/Components/Loader'
 import React, { useState } from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
-const StripeCheckoutForm = ({ clientSecret, onSuccess }) => {
+const StripeCheckoutForm = ({ clientSecret, onSuccess,bookingId }) => {
+
+    const { Name, Email } = useSelector((state) => state.CheckLogInSlice)
+
+
+  let route=useRouter()
+
+
   const stripe = useStripe()
   const elements = useElements()
 
@@ -12,7 +22,6 @@ const StripeCheckoutForm = ({ clientSecret, onSuccess }) => {
   const [error, setError] = useState("")
 
   const HandleButton = async (e) => {
-    e.preventDefault()
     if (!stripe || !elements) return
 
     setLoading(true)
@@ -23,19 +32,27 @@ const StripeCheckoutForm = ({ clientSecret, onSuccess }) => {
     const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: { card: cardElement,
         billing_details:{
-          name:"abdullah",
-          email:"abdullah@gmail.com"
+          name:Name,
+          email:Email
         }
        },
     })
+
+
 
     if (error) {
       setError(error.message)
       setLoading(false)
     } else if (paymentIntent.status === "succeeded") {
+      
+      await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/DestinationBooking/payment/success`,
+       { bookingId},
+        {withCredentials:true}
+)
+      
       onSuccess(paymentIntent)
 
-      alert("✅ Payment Success: " + JSON.stringify(paymentIntent, null, 2))
+           route.push("/PayementSuccessful")
 
       setLoading(false)
     }

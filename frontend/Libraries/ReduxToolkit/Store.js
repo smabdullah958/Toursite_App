@@ -30,6 +30,8 @@ import PackageBookNowSlice from "@/Libraries/ReduxToolkit/Slices/Packages/Packag
 
 //DestinationBookNow
 import DestinationBookNowSlice from '@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNow'
+import GetFirstTwentyBookingSlice from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/GetFirstTwentyBooking"
+import GetBookingByIDSlice from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/GetByIDSlice"
 
 export const store = configureStore({
   reducer: {
@@ -61,6 +63,8 @@ DestinationBookNowSlice,
   PackageBookNowSlice,
   
   //DestinationBookNow
-  DestinationBookNowSlice
-  },
+  DestinationBookNowSlice,
+GetFirstTwentyBookingSlice,
+GetBookingByIDSlice
+},
 })

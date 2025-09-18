@@ -35,6 +35,14 @@ const AdminHeader= () => {
           >
             Post Packages
           </Link>
+
+            <Link
+            href="/GetDestinationBooking"
+            className="text-white hover:text-yellow-300 transition-colors duration-300"
+          >
+            Get Booking
+          </Link>
+
         </nav>
 
       <div className="flex gap-2">

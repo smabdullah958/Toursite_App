@@ -7,7 +7,7 @@ let initialState={
     DestinationID:null,
     success:false,
     loading:false,
-    error:null
+    error:null,
 }
 
 let DestinationBookNowSlice=createSlice({
@@ -28,7 +28,7 @@ let DestinationBookNowSlice=createSlice({
         }
     },
     extraReducers:(builder)=>{
-        builder.addCase(BookNowFormThunck.fulfilled,(state)=>{
+        builder.addCase(BookNowFormThunck.fulfilled,(state,action)=>{
             state.success=true;
             state.error=[];
             state.loading=false

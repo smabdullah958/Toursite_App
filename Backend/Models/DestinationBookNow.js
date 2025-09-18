@@ -54,7 +54,14 @@ let Sch=new mongoose.Schema({
     PaymentMethod:{
         type:String,
         enum:["Stripe","Cash"]
+    },
+    PaymentStatus:{
+        type:String,
+        enum:["Paid","Not Paid"],
+        default:"Not Paid"
     }
+},{
+    timestamps:true
 })
 
 let model=mongoose.model("DestinationBookNow",Sch)
