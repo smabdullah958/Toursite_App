@@ -12,7 +12,7 @@ import BookNowFormThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationB
 import Loader from "@/Components/Loader"
 
 // form is present in a form folder
-import StripeCheckoutForm from "./StripeCheckoutForm"
+import StripeCheckoutForm from "./DestinationStripeCheckoutForm"
 
 let DestinationForm=({TravelTime,basePrice,DestinationID})=>{
 

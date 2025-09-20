@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux'
 import { resetSearch } from '@/Libraries/ReduxToolkit/Slices/Packages/SearchBarSlice'
 import SearchBarThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/SearchBarThunck"
 
+import GetFirst12PackagesThuck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetFirst12PackagesThunck";
+
 const SearchBar = () => {
     let dispatch=useDispatch()
     let [FormState,SetFormState]=useState({
@@ -13,9 +15,10 @@ const SearchBar = () => {
     })
 
     useEffect(()=>{
+      //if both search bar is emtp and we click oan button than show only 12 packages
         if(FormState.SearchByAnyThing==="" && FormState.SearchBySorting===""){
             dispatch(resetSearch())
-    
+          dispatch(GetFirst12PackagesThuck({limit:12,page:1}))
         }    
     },[dispatch,FormState])
     
@@ -28,6 +31,9 @@ const SearchBar = () => {
     }
 
     let HandleButton=()=>{
+      if(FormState.SearchByAnyThing===""&&FormState.SearchBySorting===""){
+
+      }
         dispatch(SearchBarThunck({
             SearchByAnyThing:FormState.SearchByAnyThing,
             SearchBySorting:FormState.SearchBySorting

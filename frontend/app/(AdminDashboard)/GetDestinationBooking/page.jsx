@@ -2,21 +2,37 @@
 "use client";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+import SearchBar from "@/app/(AdminDashboard)/GetDestinationBooking/SearchBar";
+
 //here we can get 20 bookings
 import GetFistTwentyBookingThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/GetFirstTwentyBooking";
 import Link from "next/link";
 
+import DestinationBookingUpdateButton from "@/Components/Buttons/BookingNow/DestinationBookingUpdateButton"
+
+
 const GetFirstTwentyBooking = () => {
-  const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
+
+  //it will shwo the result of a searching
+    let {SearchResult,loading,isSearched}=useSelector(state=>state.DestinationBookNowSearchBarSlice)
+  
   const dispatch = useDispatch();
   //GetFirstTwentyBookingSlice is come from a store
   const { GetBooking, page, Loading, hasMore } = useSelector(
     (state) => state.GetFirstTwentyBookingSlice
   );
 
+  
+    //is search is traack teh serch is done or not
+  let displayResult = isSearched ? SearchResult : GetBooking;
+
+
   useEffect(() => {
+if(displayResult.length===0){
     dispatch(GetFistTwentyBookingThunck({ page: 1, limit: 20 }));
-  }, []);
+}
+  }, [dispatch,dispatch.length]);
 
   const handleSeeMore = () => {
     if (!Loading && hasMore) {
@@ -32,12 +48,16 @@ const GetFirstTwentyBooking = () => {
           All Destination Bookings
         </h1>
 
+           <div>
+          <SearchBar />
+        </div>
+
         {/* Booking Summary */}
         <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-8 mb-5 flex justify-between items-center border border-gray-200 flex-wrap ">
           <h2 className="text-lg md:text-3xl font-bold text-gray-900">
             Booking Summary
             <span className="text-sm md:text-lg text-gray-500 font-medium ">
-              ({GetBooking?.length} found)
+              ({displayResult?.length} found)
             </span>
           </h2>
           <div className="text-gray-500 font-medium text-sm md:text-lg  ">
@@ -46,7 +66,7 @@ const GetFirstTwentyBooking = () => {
         </div>
 
         {/* No Results */}
-        {GetBooking?.length === 0 && !Loading && (
+        {isSearched && displayResult?.length === 0 && !Loading &&!loading && (
           <div className="text-center py-20">
             <div className="text-8xl md:text-9xl text-gray-300 mb-6 animate-bounce">🏝️</div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-700 mb-2">
@@ -60,7 +80,7 @@ const GetFirstTwentyBooking = () => {
 
         {/* Booking Cards Grid */}
         <div className="grid gap-10 sm:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {GetBooking.map((booking, i) => (
+          {displayResult.map((booking, i) => (
             <div
               key={`${booking._id}-${i}`}
               className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-transparent hover:border-blue-300 overflow-hidden"
@@ -104,15 +124,25 @@ const GetFirstTwentyBooking = () => {
                   <span className="bg-green-50 text-green-600 px-3 py-1 rounded-full shadow-sm">Booking Date: {booking.Date}</span>
 
                 </div>
-
-                <Link href={`GetDestinationBooking/${booking._id}`} className="bg-green-50 text-blue-600 font-bold   px-3 py-1 rounded-full shadow-sm">Learn More</Link>
+              <div className="flex flex-wrap md:justify-between justify-normal">
+                <Link href={`GetDestinationBooking/${booking._id}`} className="px-6 py-2 rounded-xl  bg-gradient-to-r from-[#3fb7eb] to-[#23a4dc] text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 opacity-100 hover:from-[#0693cf] hover:to-[#0f94cd] mt-3">View Detail</Link>
+                
+                {
+                  booking.PaymentMethod==="Cash" && booking.PaymentStatus==="Not Paid"   ?
+                <DestinationBookingUpdateButton id={booking?._id}/>   :
+                  (<span className="text-green-600 font-bold mt-3">✔ Paid</span>)
+                }
+                
               </div>
+              </div>
+           
             </div>
+
           ))}
         </div>
 
         {/* Loading State */}
-        {Loading && (
+        {(loading ||Loading) && (
           <div className="flex justify-center items-center py-16">
             <div className="text-center">
               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 border-b-4 mx-auto mb-4"></div>

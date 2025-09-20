@@ -6,7 +6,7 @@ import Link from "next/link";
 import DeleteButton from "@/Components/Buttons/Destination/DeleteDestination";
 import Image from "next/image";
 import UpdateButton from "@/Components/Buttons/Destination/UpdateDestination";
-import UpdateForm from '@/Components/Form/DestinationaAndPackagesForm/UpdateFormDestination';
+import UpdateForm from '@/Components/Form/DestinationAndBookNowForm/UpdateFormDestination';
 import SearchBar from "@/app/(SharedRoute)/Destination/SearchBar";
 
 
@@ -80,7 +80,7 @@ const DestinationPage = () => {
               <div className="relative w-full aspect-[4/3] overflow-hidden">
                 <Image
                   src={tour.Image||"/no imaae.jpg"}
-                  alt={tour.Title}
+                  alt={tour.Title||"destination"}
                   fill
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
@@ -164,7 +164,7 @@ const DestinationPage = () => {
         )}
 
         {/* Load More Button */}
-        {hasMore && !Loading && (
+        {hasMore && !Loading &&!loading && (
           <div className="flex justify-center mt-12">
             <button
               type="button"

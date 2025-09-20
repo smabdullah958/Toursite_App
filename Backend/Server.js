@@ -17,11 +17,13 @@ let AuthController=require("./Controllers/AuthController")
 let DestinationController=require("./Controllers/DestinationControllers")
 let PackagesController=require("./Controllers/PackagesController")
 let DestinationBookingNow=require("./Controllers/DestinationBookNowController.js")
+let PackageBookNow=require("./Controllers/PackageBookNowController.js")
 
 ConnectDB()
 App.use("/AuthController",AuthController)
 App.use("/Destination",DestinationController)
 App.use("/Packages",PackagesController)
 App.use("/DestinationBooking",DestinationBookingNow)
+App.use("/PackageBooking",PackageBookNow)
 
 App.listen(PortNo)

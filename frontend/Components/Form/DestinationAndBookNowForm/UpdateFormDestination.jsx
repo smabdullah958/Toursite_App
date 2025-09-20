@@ -16,7 +16,7 @@ import Loader from "@/Components/Loader";
 import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetDestinationByID"
 
 //this is used to add a AM and PM bro 
-import to12Hour from "@/Components/Form/DestinationaAndPackagesForm/AddingAMPM"
+import to12Hour from "@/Components/Form/DestinationAndBookNowForm/AddingAMPM"
 
 const MAX_FILE_SIZE = 300 * 1024; // 300kb
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];

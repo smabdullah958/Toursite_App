@@ -7,6 +7,9 @@ let DestinationBookNow=require("../DestinationBookNow/PostBooking")
 let PaymentSuccess=require("../DestinationBookNow/PayementSuccess")
 let GetFirstTwenty=require("../DestinationBookNow/GetFirstTwentyBooking")
 let GetByID=require("../DestinationBookNow/GetByID")
+let UpdateBooking=require("../DestinationBookNow/UpdateBooking");
+let SearchBar=require("../DestinationBookNow/SearchBar")
+
 //this file is used to send user id , name and email to a destination booking and a package booking bro 
 let AuthMiddleWare=require("../MiddleWare/AuthMiddleWare")
 
@@ -15,5 +18,7 @@ route.post("/Booking/:DestinationID",AuthMiddleWare,DestinationBookNow)
 route.post("/payment/success", AuthMiddleWare, PaymentSuccess);
 route.get("/GetBooking",GetFirstTwenty)
 route.get("/GetByID/:id",GetByID)
+route.put("/UpdateBooking/:id",UpdateBooking)
+route.get("/SearchBar",SearchBar)
 
 module.exports=route

@@ -1,16 +1,16 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { useDispatch} from "react-redux";
-import SearchBarThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/SearchBarThunck";
-import {resetSearch} from "@/Libraries/ReduxToolkit/Slices/Destination/SearchBarSlice"
+import DestinationBookNowSearchBarThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/SearchBarThunck";
+import {resetSearch} from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNowSearchBar"
+import GetFistTwentyBookingThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/GetFirstTwentyBooking";
 
-import GetFirstTwentyImage from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetFirstTwentyImageThunck";
 
 const SearchBar = () => {
 let dispatch=useDispatch()
     let [searchTerm, setSearchTerm] = useState({
     SearchByAnyThing: "",
-    SortByCategory: "",
+    SearchByDate: "",
   });
 
   let HandleFields = (e) => {
@@ -21,27 +21,28 @@ let dispatch=useDispatch()
   };
 
   let HandleButton = () => {
+//if click and search bar is null than show only twenty booking
+        if(searchTerm.SearchByAnyThing==="" && searchTerm.SearchByDate===""){
+        dispatch(GetFistTwentyBookingThunck({page:1,limit:20}))
+return 
+      }    
 
-    if(searchTerm.SearchByAnyThing===""&&searchTerm.SortByCategory===""){
-      dispatch(GetFirstTwentyImage({limit:20,page:1}))
-    }
 
-    dispatch(SearchBarThunck({
+    dispatch(DestinationBookNowSearchBarThunck({
         SearchByAnyThing: searchTerm.SearchByAnyThing,
-        SortByCategory: searchTerm.SortByCategory
+        SearchByDate: searchTerm.SearchByDate
     }))
     console.log(searchTerm)
   };
 
 useEffect(()=>{
-    if(searchTerm.SearchByAnyThing==="" && searchTerm.SortByCategory===""){
+    if(searchTerm.SearchByAnyThing==="" && searchTerm.SearchByDate===""){
         dispatch(resetSearch())
-
     }    
 },[dispatch,searchTerm])
 
   return (
-    <div className="xl:flex xl:justify-center ">
+    <div className="xl:flex xl:justify-center mb-5 ">
       <div className="flex flex-col sm:flex-row gap-3">
         {/* Input */}
         <input
@@ -53,21 +54,19 @@ useEffect(()=>{
           className="flex-1 border border-gray-300 rounded-lg  text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-400 outline-none sm:w-[40vw] p-3 hover:border-gray-500"/>
 
         {/* Select */}
-        <select
-          name="SortByCategory"
+
+        <input
+          type="date"
+          placeholder=" Search By Date"
+          value={searchTerm.SearchByDate}
+          name="SearchByDate"
           onChange={HandleFields}
-          value={searchTerm.SortByCategory}
-          className="border border-gray-300 rounded-lg p-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-400 outline-none sm:w-[40vw] xl:w-[25vw] hover:border-gray-500" >
-          <option value="">📂 Category</option>
-          <option value="a">🔠 A-Z</option>
-          <option value="0">🔢 0-9</option>
-          <option value="time">⏰ Time</option>
-        </select>
+          className="flex-1 border border-gray-300 rounded-lg  text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-400 outline-none sm:w-[40vw] p-3 hover:border-gray-500"/>
 
         {/* Button */}
         <button
           onClick={HandleButton}
-          className=" sm:w-40 bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-3 text-sm transition">
+className={`sm:w-40 rounded-lg p-3 text-sm transition bg-blue-500 hover:bg-blue-600 text-white"}`}>
           🚀 Go
         </button>
       </div>

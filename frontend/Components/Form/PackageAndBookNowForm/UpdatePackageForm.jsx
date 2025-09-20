@@ -16,7 +16,7 @@ import { resetProducts } from "@/Libraries/ReduxToolkit/Slices/Packages/GetPacka
 import GetByIDThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetByIDThunck" //this will get the data for a prefilled 
 
 //this is used to add a AM and PM bro 
-import to12Hour from "@/Components/Form/DestinationaAndPackagesForm/AddingAMPM"
+import to12Hour from "@/Components/Form/DestinationAndBookNowForm/AddingAMPM"
 
 
 const UpdatePackageForm = ({ id }) => {
