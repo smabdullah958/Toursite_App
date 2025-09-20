@@ -40,7 +40,14 @@ const AdminHeader= () => {
             href="/GetDestinationBooking"
             className="text-white hover:text-yellow-300 transition-colors duration-300"
           >
-            Get Booking
+            Destination Booking
+          </Link>
+
+          <Link
+            href="/GetPackageBookNow"
+            className="text-white hover:text-yellow-300 transition-colors duration-300"
+          >
+            Package Booking
           </Link>
 
         </nav>

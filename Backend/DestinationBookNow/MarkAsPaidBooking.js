@@ -1,6 +1,6 @@
 let Database=require("../Models/DestinationBookNow");
 
-let UpdateBooking=async(req,res)=>{
+let MarkAsPaidBooking=async(req,res)=>{
     try{
         let {id}=req.params;
         let {PaymentStatus}=req.body;
@@ -22,4 +22,4 @@ let UpdateBooking=async(req,res)=>{
     }
 }
 
-module.exports=UpdateBooking
+module.exports=MarkAsPaidBooking

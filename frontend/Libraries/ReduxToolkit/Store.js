@@ -32,12 +32,15 @@ import PackageBookNowSlice from "@/Libraries/ReduxToolkit/Slices/Packages/Packag
 import DestinationBookNowSlice from '@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNow'
 import GetFirstTwentyBookingSlice from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/GetFirstTwentyBooking"
 import GetBookingByIDSlice from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/GetByIDSlice";
-import DestinationBookingSlice from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookingUpdateSlice"
+import DestinationMarkAsPaid from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationMarkAsPaid"
 import DestinationBookNowSearchBarSlice from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNowSearchBar"
 
 //PackagesBookNow
-
 import PackageBookNow from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/PackageBookNowSlice"
+import GetFirstTwentyPackagesBookNow from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/GetFirstTwentyPackageBookingSlice"
+import GetPackageByIDSlice from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/GetPackageByIDSlice"
+import PackageMarkAsPaid from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/PackageMarkAsPaidSLice"
+
 export const store = configureStore({
   reducer: {
     //auth
@@ -71,10 +74,13 @@ DestinationBookNowSlice,
   DestinationBookNowSlice,
 GetFirstTwentyBookingSlice,
 GetBookingByIDSlice,
-DestinationBookingSlice,
+DestinationMarkAsPaid,
 DestinationBookNowSearchBarSlice,
 
 //package book now
-PackageBookNow
+PackageBookNow,
+GetFirstTwentyPackagesBookNow,
+GetPackageByIDSlice,
+PackageMarkAsPaid
 },
 })

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import DestinationBookingUpdateThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/UpdateBooking"
+import PackageMarkAsPaid from "@/Libraries/ReduxToolkit/AsyncThunck/PackagaBookNow/PackageMarkAsPaid"
 let initialState = {
 Loading:false,
 success:false,
@@ -8,23 +8,23 @@ UpdateId:null,
 UpdateData:null
 };
 
-let DestinationBookingSlice = createSlice({
-name:"UpdateSlice",
+let PackageMarkAsPaidSlice = createSlice({
+name:"MarkSlice",
 initialState,
 reducers:{ },
 extraReducers:(builder)=>{
     builder
-        .addCase(DestinationBookingUpdateThunck.fulfilled,(state)=>{
+        .addCase(PackageMarkAsPaid.fulfilled,(state)=>{
         state.Loading=false
         state.success=true
         state.error=[]
         })
-        .addCase(DestinationBookingUpdateThunck.rejected,(state,action)=>{
+        .addCase(PackageMarkAsPaid.rejected,(state,action)=>{
         state.Loading=false
         state.success=false
         state.error=action.payload
         })
-        .addCase(DestinationBookingUpdateThunck.pending,(state)=>{
+        .addCase(PackageMarkAsPaid.pending,(state)=>{
         state.Loading=true
         state.success=false
         state.error=[]
@@ -32,4 +32,4 @@ extraReducers:(builder)=>{
 }
 })
 
-export default DestinationBookingSlice.reducer
+export default PackageMarkAsPaidSlice.reducer

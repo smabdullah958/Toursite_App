@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-let DestinationBookingUpdateThunck=createAsyncThunk(
-    "updatethunck",
+let PackageMarkAsPaid=createAsyncThunk(
+    "Markthunck",
     async({id},{rejectWithValue})=>{
         try{     
-     let response=await axios.put(`${process.env.NEXT_PUBLIC_BackendURL}/DestinationBooking/UpdateBooking/${id}`,        { PaymentStatus: "Paid" },
+     let response=await axios.put(`${process.env.NEXT_PUBLIC_BackendURL}/PackageBooking/Update/${id}`,        { PaymentStatus: "Paid" },
         {
         withCredentials:true
      })
@@ -18,4 +18,4 @@ let DestinationBookingUpdateThunck=createAsyncThunk(
         }
     }
 )
-export default DestinationBookingUpdateThunck
+export default PackageMarkAsPaid

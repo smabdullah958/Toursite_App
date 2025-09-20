@@ -79,6 +79,14 @@ const AdminMobileHeader = () => {
             >
               DestinationBooking
             </Link>
+
+             <Link
+              href="/GetPackageBookNow"
+              className="text-white hover:text-yellow-300 transition-colors duration-300"
+              onClick={closeMenu}
+            >
+              Package Booking
+            </Link>
           
           </nav>
     

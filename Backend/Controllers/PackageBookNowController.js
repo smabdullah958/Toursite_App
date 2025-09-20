@@ -2,8 +2,9 @@ let express=require("express");
 let route=express.Router()
 
 let PackageBookNow=require("../PackageBookNow/PostPackages");
-
-
+let GetFirstTwentyPackageBooking=require("../PackageBookNow/GetFirstTwentyPackagesBooking")
+let PackageByID=require("../PackageBookNow/GetByID")
+let MarkAsPaidBooking=require("../PackageBookNow/MarkAsPaidBooking")
 
 //if payment is successfully reciveve than through stripe send email
 let PaymentSuccess=require("../PackageBookNow/PaymentSuccessful")
@@ -15,6 +16,8 @@ let AuthMiddleWare=require("../MiddleWare/AuthMiddleWare")
 route.post("/Booking/:PackageID",AuthMiddleWare,PackageBookNow)
 //if payment is successfully reciveve than through stripe send email
 route.post("/payment/success", AuthMiddleWare, PaymentSuccess);
-
+route.get("/getPackagesBooking",GetFirstTwentyPackageBooking)
+route.get("/getByID/:id",PackageByID)
+route.put("/Update/:id",MarkAsPaidBooking);
 
 module.exports=route
