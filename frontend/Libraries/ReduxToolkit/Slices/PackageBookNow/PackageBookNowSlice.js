@@ -8,6 +8,8 @@ let initialState={
     success:false,
     loading:false,
     error:null,
+    errorMessage:"",
+    updateSlots:null
 }
 
 let PackageBookNowSlice=createSlice({
@@ -21,22 +23,26 @@ let PackageBookNowSlice=createSlice({
         HideBookNowForm(state){
             state.ShowForm=false;
             state.PackageID=null
+            state.errorMessage=""
         },
         ResetStates(state){
             state.ShowForm=false;
             state.PackageID=null
+            state.errorMessage=""
         }
     },
     extraReducers:(builder)=>{
-        builder.addCase(PackageBookNowFormThunck.fulfilled,(state)=>{
+        builder.addCase(PackageBookNowFormThunck.fulfilled,(state,action)=>{
             state.success=true;
             state.error=[];
             state.loading=false
+            state.updateSlots=action.payload.updateSlots
         })
         .addCase(PackageBookNowFormThunck.rejected,(state,action)=>{
             state.success=false;
-            state.error=action.payload;
+            state.error="amount must be less than  a 999,999.99";
             state.loading=false
+            state.errorMessage=action.payload
         })
         .addCase(PackageBookNowFormThunck.pending,(state)=>{
             state.success=false;

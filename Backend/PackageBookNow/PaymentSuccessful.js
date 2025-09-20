@@ -3,6 +3,8 @@
 
 let Database = require("../Models/PackagesBookNow");
 let SendEmail = require("../GmailTranporter");
+let PackageDatabase =require("../Models/PackagesDatabase")
+
 
 let PaymentSuccess = async (req, res) => {
   try {
@@ -14,8 +16,21 @@ let PaymentSuccess = async (req, res) => {
       return res.status(404).json({ message: "Booking not found" });
     }
 
+    //if adult child is greater than a slots than show error
+    if(booking.NumberOfAdultChild>booking.PackageID?.Slots){
+      return res.status(400).json({message:"we have not enough slots available "})
+    }
+
+
     booking.PaymentStatus = "Paid";
     await booking.save();
+
+    //  decrease slots from Destination collection
+    let updateSlots = await PackageDatabase.findByIdAndUpdate(
+      booking.PackageID._id,
+      { $inc: { Slots: -(booking.NumberOfAdultChild) } }, // sirf adults slots count kar rahe ho
+      { new: true }
+    );
 
 
     //Send Email
@@ -71,7 +86,7 @@ let PaymentSuccess = async (req, res) => {
 
     await SendEmail(user.Email, "Payment Successful", EmailHTML);
 
-    return res.status(200).json({ message: "Payment confirmed & email sent", booking });
+    return res.status(200).json({ message: "Payment confirmed & email sent", booking,updateSlots });
   } catch (error) {
     console.error("Payment success error:", error);
     return res.status(500).json({ message: "Internal error", error });

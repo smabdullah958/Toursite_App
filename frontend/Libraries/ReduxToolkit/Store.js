@@ -40,6 +40,7 @@ import PackageBookNow from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/Packa
 import GetFirstTwentyPackagesBookNow from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/GetFirstTwentyPackageBookingSlice"
 import GetPackageByIDSlice from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/GetPackageByIDSlice"
 import PackageMarkAsPaid from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/PackageMarkAsPaidSLice"
+import PackageBookNowSearchBarSlice from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/PackageBookNowSearch"
 
 export const store = configureStore({
   reducer: {
@@ -81,6 +82,7 @@ DestinationBookNowSearchBarSlice,
 PackageBookNow,
 GetFirstTwentyPackagesBookNow,
 GetPackageByIDSlice,
-PackageMarkAsPaid
+PackageMarkAsPaid,
+PackageBookNowSearchBarSlice
 },
 })

@@ -32,6 +32,7 @@
     }
 
     console.log(DestinationID)
+    //find destination 
     let destination=await DestinationDatabase.findOne({_id:DestinationID});
     if(!destination){
         return res.status(401).json({message:"invalid destination"})
@@ -65,6 +66,13 @@
             console.log("domcunet is created")
 
             let result=await booking.save()
+
+            let totalslots=NumberOfAdultChild;
+//if adult child is greater than the slots than show message
+            if(totalslots>destination.Slots){
+              return res.status(400).json({message:"we have not enough slots available"})
+            }
+
             console.log("successfull",result);
 
 
@@ -90,6 +98,7 @@
 
                 return res.status(200).json({message:"booking created , processed with stripe payement method",result,
                     clientSecret:paymentIntent.client_secret,
+                    
                 })
             }
 
@@ -153,7 +162,14 @@
 
                 await SendEmail(Email,"payement is successful",EmailHTML);
 
-            return res.status(200).json({message:"booking successfully",result})
+              //if adult child is smaller than a slots than subtract and send to  frontend  
+         let  updateSlots=  await DestinationDatabase.findByIdAndUpdate(DestinationID,
+              {$inc:{Slots:-totalslots}},
+              {new:true}
+            )
+
+
+            return res.status(200).json({message:"booking successfully",result,updateSlots})
 
         }
         catch(error){

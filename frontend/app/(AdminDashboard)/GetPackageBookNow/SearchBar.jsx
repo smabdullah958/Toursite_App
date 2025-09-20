@@ -1,9 +1,9 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { useDispatch} from "react-redux";
-import DestinationBookNowSearchBarThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/SearchBarThunck";
-import {resetSearch} from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNowSearchBar"
-import GetFistTwentyBookingThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/GetFirstTwentyBooking";
+import PackageBookNowSearchBarThunck from "@/Libraries/ReduxToolkit/AsyncThunck/PackagaBookNow/PackageBookNowSearchBar";
+import {resetSearch} from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/PackageBookNowSearch"
+import GetFistTwentyPackagsBooking from "@/Libraries/ReduxToolkit/AsyncThunck/PackagaBookNow/GetFirstTwentyPackagesBooking";
 
 
 const SearchBar = () => {
@@ -23,12 +23,12 @@ let dispatch=useDispatch()
   let HandleButton = () => {
 //if click and search bar is null than show only twenty booking
         if(searchTerm.SearchByAnyThing==="" && searchTerm.SearchByDate===""){
-        dispatch(GetFistTwentyBookingThunck({page:1,limit:20}))
+        dispatch(GetFistTwentyPackagsBooking({page:1,limit:20}))
 return 
       }    
 
 
-    dispatch(DestinationBookNowSearchBarThunck({
+    dispatch(PackageBookNowSearchBarThunck({
         SearchByAnyThing: searchTerm.SearchByAnyThing,
         SearchByDate: searchTerm.SearchByDate
     }))
@@ -42,7 +42,7 @@ useEffect(()=>{
 },[dispatch,searchTerm])
 
   return (
-    <div className="xl:flex xl:justify-center mb-5 2xl:my-10 ">
+    <div className="xl:flex xl:justify-center mb-5 2xl:m-10">
       <div className="flex flex-col sm:flex-row gap-3">
         {/* Input */}
         <input

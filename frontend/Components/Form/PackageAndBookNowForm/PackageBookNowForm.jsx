@@ -392,7 +392,7 @@ let dispatch=useDispatch()
     }
 
     //  DestinationBookNowSlice is come from a store 
-    let {loading}=useSelector((state)=>state.PackageBookNow)
+    let {loading,errorMessage}=useSelector((state)=>state.PackageBookNow)
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
@@ -468,6 +468,8 @@ let dispatch=useDispatch()
 
            {/* Number of Adult Child */}
              <div>
+              {errorMessage ? <p className="text-red-500">{errorMessage}</p> : null}
+
               <label className="block text-gray-800 font-semibold mb-2">Number of Adults/Parents</label>
               <input
                 type="number"

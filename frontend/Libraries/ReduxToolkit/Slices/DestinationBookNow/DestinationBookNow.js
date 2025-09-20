@@ -5,9 +5,11 @@ import BookNowFormThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationB
 let initialState={
     ShowForm:false,
     DestinationID:null,
+    errorMessage:"",
     success:false,
     loading:false,
     error:null,
+    updateSlots:null
 }
 
 let DestinationBookNowSlice=createSlice({
@@ -21,10 +23,12 @@ let DestinationBookNowSlice=createSlice({
         HideBookNowForm(state){
             state.ShowForm=false;
             state.DestinationID=null
+            state.errorMessage=""
         },
         ResetStates(state){
             state.ShowForm=false;
             state.DestinationID=null
+            state.errorMessage=""
         }
     },
     extraReducers:(builder)=>{
@@ -32,11 +36,13 @@ let DestinationBookNowSlice=createSlice({
             state.success=true;
             state.error=[];
             state.loading=false
+            state.updateSlots=action.payload.updateSlots
         })
         .addCase(BookNowFormThunck.rejected,(state,action)=>{
             state.success=false;
             state.error=action.payload;
-            state.loading=false
+            state.loading=false,
+            state.errorMessage=action.payload
         })
         .addCase(BookNowFormThunck.pending,(state)=>{
             state.success=false;

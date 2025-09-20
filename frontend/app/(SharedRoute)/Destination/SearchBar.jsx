@@ -22,6 +22,13 @@ let dispatch=useDispatch()
 
   let HandleButton = () => {
 
+//if click and search bar is null than show only twenty booking
+        if(searchTerm.SearchByAnyThing==="" && searchTerm.SortByCategory===""){
+        dispatch(GetFirstTwentyImage({page:1,limit:20}))
+return 
+      }    
+
+    
     if(searchTerm.SearchByAnyThing===""&&searchTerm.SortByCategory===""){
       dispatch(GetFirstTwentyImage({limit:20,page:1}))
     }

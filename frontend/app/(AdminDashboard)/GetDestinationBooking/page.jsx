@@ -53,7 +53,7 @@ if(displayResult.length===0){
         </div>
 
         {/* Booking Summary */}
-        <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-8 mb-5 flex justify-between items-center border border-gray-200 flex-wrap ">
+        <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-8 mb-5 2xl:mb-10 flex justify-between items-center border border-gray-200 flex-wrap ">
           <h2 className="text-lg md:text-3xl font-bold text-gray-900">
             Booking Summary
             <span className="text-sm md:text-lg text-gray-500 font-medium ">

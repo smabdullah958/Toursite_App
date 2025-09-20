@@ -31,9 +31,14 @@ const SearchBar = () => {
     }
 
     let HandleButton=()=>{
-      if(FormState.SearchByAnyThing===""&&FormState.SearchBySorting===""){
+     
+      //if click and search bar is null than show only twenty booking
+        if(FormState.SearchByAnyThing==="" && FormState.SearchBySorting===""){
+        dispatch(GetFirst12PackagesThuck({page:1,limit:20}))
+return 
+      }    
 
-      }
+
         dispatch(SearchBarThunck({
             SearchByAnyThing:FormState.SearchByAnyThing,
             SearchBySorting:FormState.SearchBySorting

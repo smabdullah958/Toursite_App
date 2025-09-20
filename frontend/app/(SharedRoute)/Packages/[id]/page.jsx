@@ -11,6 +11,10 @@ const FindById = () => {
   const dispatch = useDispatch()
   const { loading, success, result} = useSelector((state) => state.GetByIdSlice)
   
+    //PackageBookNow is come froma a store
+    let {updateSlots}=useSelector((state)=>state.PackageBookNow)
+  
+
   // State for image gallery
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -193,7 +197,8 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Available Slots</h3>
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
-                  <p className="text-3xl font-bold">{result.Slots || "Limited"}</p>
+                  <p className="text-3xl font-bold">{updateSlots?.Slots ?? result.Slots ?? "Limited"}</p>
+
                 </div>
               </div>
             </div>
@@ -224,7 +229,8 @@ const FindById = () => {
                     </svg>
                     <span className="font-semibold">Limited Availability</span>
                   </div>
-                  <p className="text-sm text-yellow-600">Only {result.Slots || 5} spots left! Book soon to secure your place.</p>
+         <p className="text-sm text-yellow-600">Only 
+         {" "} {updateSlots?.Slots ?? result.Slots ?? "Limited"} {" "} spots left! Book soon to secure your place.</p>
                 </div>
               </div>
             </div>

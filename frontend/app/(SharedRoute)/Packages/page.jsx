@@ -14,8 +14,9 @@ const PackagesPage = () => {
 //hre the we get the formid from UpdatePackageSlice and also it is used to show a form
   const { FormID } = useSelector(state => state.UpdatePackageSlice);
 
+
   const dispatch = useDispatch();
-  const { result, Loading, error, hasMore } = useSelector(
+  const { result, Loading, hasMore } = useSelector(
     (state) => state.GetFirst12PackagesSlice
   );
 
@@ -46,6 +47,15 @@ const PackagesPage = () => {
     }
   };
 
+    // Filter results according to role & slots
+  // Admin → show all
+  // Other users → show only slots > 0
+  const filteredResult = displayResult.filter((tour) => {
+    if (Role === "Admin") return true;
+    return tour.Slots > 0;
+  });
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header Section */}
@@ -72,7 +82,7 @@ const PackagesPage = () => {
         </div>
 
         {/* No Results */}
-        { isSearched && displayResult.length === 0 && !loading && !Loading && (
+        { isSearched && filteredResult.length === 0 && !loading && !Loading && (
           <div className="text-center py-16">
             <div className="text-6xl text-gray-300 mb-4">📦</div>
             <h3 className="text-2xl font-bold text-gray-600 mb-2">
@@ -86,7 +96,7 @@ const PackagesPage = () => {
 
         {/* Packages Grid */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {displayResult?.map((pkg, index) => (
+          {filteredResult?.map((pkg, index) => (
             <motion.div
               key={pkg._id || index}
               initial={{ opacity: 0, y: 30 }}

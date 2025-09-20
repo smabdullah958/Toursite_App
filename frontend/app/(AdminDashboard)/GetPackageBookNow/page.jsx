@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import SearchBar from "@/app/(AdminDashboard)/GetPackageBookNow/SearchBar";
 
 //here we can get 20 bookings
 import GetFistTwentyPackagsBooking from "@/Libraries/ReduxToolkit/AsyncThunck/PackagaBookNow/GetFirstTwentyPackagesBooking";
@@ -12,6 +13,9 @@ import PackageBookingMarkAsPaidButton from "@/Components/Buttons/BookingNow/Pack
 
 const GetFirstTwentyPackageBookingNow = () => {
 
+    //it will shwo the result of a searching
+      let {SearchResult,loading,isSearched}=useSelector(state=>state.PackageBookNowSearchBarSlice)
+    
   
   const dispatch = useDispatch();
 
@@ -20,13 +24,15 @@ const GetFirstTwentyPackageBookingNow = () => {
     (state) => state.GetFirstTwentyPackagesBookNow
   );
 
-  
-  
+    //is search is traack teh serch is done or not
+  let displayResult = isSearched ? SearchResult : Booking;
 
   useEffect(() => {
+if(displayResult.length===0){
     dispatch(GetFistTwentyPackagsBooking({ page: 1, limit: 20 }));
+}
+  }, [dispatch,dispatch.length]);
 
-  }, []);
 
   const handleSeeMore = () => {
     if (!Loading && hasMore) {
@@ -35,19 +41,23 @@ const GetFirstTwentyPackageBookingNow = () => {
   };
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="max-w-full mx-auto px-6 py-5 md:py-10 ">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="max-w-screen mx-auto px-6 py-5 md:py-10 ">
         {/* Page Title */}
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center mb-5 tracking-tight">
           All Destination Bookings
         </h1>
 
+          <div>
+          <SearchBar />
+        </div>
+
                    {/* Booking Summary */}
-        <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-8 mb-5 flex justify-between items-center border border-gray-200 flex-wrap ">
+        <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-8 mb-5 2xl:mb-10 flex justify-between items-center border border-gray-200 flex-wrap ">
           <h2 className="text-lg md:text-3xl font-bold text-gray-900">
             Booking Summary
             <span className="text-sm md:text-lg text-gray-500 font-medium ">
-              ({Booking?.length} found)
+              ({displayResult?.length} found)
             </span>
           </h2>
           <div className="text-gray-500 font-medium text-sm md:text-lg  ">
@@ -56,7 +66,7 @@ const GetFirstTwentyPackageBookingNow = () => {
         </div>
 
         {/* No Results */}
-        { Booking?.length === 0 && !Loading && (
+        {isSearched && displayResult?.length === 0 && !Loading && !loading && (
           <div className="text-center py-20">
             <div className="text-8xl md:text-9xl text-gray-300 mb-6 animate-bounce">🏝️</div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-700 mb-2">
@@ -70,7 +80,7 @@ const GetFirstTwentyPackageBookingNow = () => {
 
         {/* Booking Cards Grid */}
         <div className="grid gap-10 sm:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {Booking.map((booking, i) => (
+          {displayResult.map((booking, i) => (
             <div
               key={`${booking._id}-${i}`}
               className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-transparent hover:border-blue-300 overflow-hidden"
@@ -134,7 +144,7 @@ const GetFirstTwentyPackageBookingNow = () => {
         </div>
 
         {/* Loading State */}
-        {Loading && (
+        {(Loading || loading) && (
           <div className="flex justify-center items-center py-16">
             <div className="text-center">
               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 border-b-4 mx-auto mb-4"></div>

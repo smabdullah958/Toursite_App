@@ -10,8 +10,10 @@ import UpdateForm from '@/Components/Form/DestinationAndBookNowForm/UpdateFormDe
 import SearchBar from "@/app/(SharedRoute)/Destination/SearchBar";
 
 
+
 const DestinationPage = () => {
-//hre the we get the formid from updateslice and also it is used to show a form
+
+  //hre the we get the formid from updateslice and also it is used to show a form
   const { FormId } = useSelector(state => state.UpdateSlice);
 
 // ✅ read login + role state from CheckLoginSlice
@@ -26,6 +28,8 @@ const DestinationPage = () => {
 //is search is traack teh serch is done or not
   let displayResult = isSearched ? SearchResult : result;
 
+
+
   useEffect(() => {
     if (displayResult.length === 0) {
       dispatch(GetFirstTwentyImage({ page: 1, limit: 20 }));
@@ -39,6 +43,14 @@ const DestinationPage = () => {
       dispatch(GetFirstTwentyImage({ page: page + 1, limit: 20 }));
     }
   };
+
+  // Filter results according to role & slots
+  // Admin → show all
+  // Other users → show only slots > 0
+  const filteredResult = displayResult.filter((tour) => {
+    if (Role === "Admin") return true;
+    return tour.Slots > 0;
+  });
 
   return (
     <div className="min-h-screen  bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -56,12 +68,12 @@ const DestinationPage = () => {
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800">
             Popular Destinations
-            <span className="text-lg text-gray-500 font-normal ml-2">({displayResult.length} found)</span>
+            <span className="text-lg text-gray-500 font-normal ml-2">({filteredResult.length} found)</span>
           </h2>
         </div>
 
         {/* No Results State */}
-        { isSearched && displayResult.length === 0 && !loading && !Loading && (
+        { isSearched && filteredResult.length === 0 && !loading && !Loading && (
           <div className="text-center py-16">
             <div className="text-6xl text-gray-300 mb-4">🏝️</div>
             <h3 className="text-2xl font-bold text-gray-600 mb-2">No destinations found</h3>
@@ -71,7 +83,8 @@ const DestinationPage = () => {
 
         {/* Destinations Grid */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {displayResult.map((tour, i) => (
+          {filteredResult.map((tour, i) => (
+           (Role ==="Admin" || tour.Slots>0) && (
             <div
               key={`${tour._id}-${i}`}
               className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
@@ -146,7 +159,7 @@ const DestinationPage = () => {
   )}
               </div>
             </div>
-          ))}
+          )))}
         </div>
 {/* //show update form if  */}
                 {FormId && <UpdateForm id={FormId} />}

@@ -1,7 +1,7 @@
     require("dotenv").config()
     let {validationResult} = require("express-validator")
     let Database=require("../Models/PackagesBookNow");
-    let DestinationDatabase=require("../Models/PackagesDatabase")
+    let PackageDatabase=require("../Models/PackagesDatabase")
 
     let Stripe=require("stripe");
     let stripe=new Stripe(process.env.Stirpe_Secret_key)
@@ -34,7 +34,8 @@
     }
 
     console.log(PackageID)
-    let package=await DestinationDatabase.findOne({_id:PackageID});
+//find package
+    let package=await PackageDatabase.findOne({_id:PackageID});
     if(!package){
         return res.status(401).json({message:"invalid Package"})
     }
@@ -69,6 +70,14 @@
             let result=await booking.save()
             console.log(result,"successfull");
 
+                        let totalslots=NumberOfAdultChild;
+//if adult child is greater than the slots than show message
+            if(totalslots>package.Slots){
+              return res.status(400).json({message:"we have not enough slots available"})
+            }
+
+            console.log("successfull",result);
+
 
             //payement method through stripe
 
@@ -96,9 +105,6 @@
             }
 
 
-            let Package=await DestinationDatabase.findOne({_id:PackageID})
-
-
             //if payement is cash
             
             //Send Email
@@ -118,7 +124,7 @@
       <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Destination:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${Package.Title}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${package.Title}</td>
         </tr>
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Booking Date:</b></td>
@@ -155,7 +161,14 @@
                 //send email
                 await SendEmail(Email,"payement is successful",EmailHTML);
 
-            return res.status(200).json({message:"booking successfully",result})
+                
+                              //if adult child is smaller than a slots than subtract and send to  frontend  
+                         let  updateSlots=  await PackageDatabase.findByIdAndUpdate(PackageID,
+                              {$inc:{Slots:-totalslots}},
+                              {new:true}
+                            )
+
+            return res.status(200).json({message:"booking successfully",result,updateSlots})
 
         }
         catch(error){

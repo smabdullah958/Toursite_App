@@ -10,6 +10,9 @@ const FindById = () => {
   const dispatch = useDispatch()
   const { Loading, success, result: DisplayResult, error } = useSelector((state) => state.GetByIDSlice)
   
+  //DestinationBookNowSlice is come froma a store
+  let {updateSlots}=useSelector((state)=>state.DestinationBookNowSlice)
+
   useEffect(() => {
     if (result) {  
       dispatch(FindByIdThunck(result))
@@ -27,6 +30,7 @@ const FindById = () => {
       </div>
     )
   }
+
 
   // Error State
   if (error && error.length > 0) {
@@ -142,7 +146,9 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Available Slots</h3>
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
-                  <p className="text-3xl font-bold">{DisplayResult.Slots || "Limited"}</p>
+                  <p className="text-3xl font-bold"> 
+                   {updateSlots?.Slots ?? DisplayResult.Slots ?? "Limited"}
+</p>
                 </div>
               </div>
 
@@ -173,7 +179,7 @@ const FindById = () => {
                     </svg>
                     <span className="font-semibold">Limited Availability</span>
                   </div>
-                  <p className="text-sm text-yellow-600">Only {DisplayResult.Slots || 5} spots left! Book soon to secure your place.</p>
+                  <p className="text-sm text-yellow-600">Only {updateSlots?.Slots ?? DisplayResult.Slots ?? "Limited"} spots left! Book soon to secure your place.</p>
                 </div>
               </div>
             </div>
