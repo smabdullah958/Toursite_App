@@ -1,7 +1,9 @@
 let express=require("express");
 let App=express.Router();
 let PostDestination=require("../Destination/PostImage")
+//upload image
 let upload=require("../MiddleWare/DestinationMiddleware")
+
 let GetTwentyImage=require("../Destination/GetImages/GetTwentyImage")
 let GetToursByID=require("../Destination/GetImages/GetByID")
 let GetSixImage=require("../Destination/GetImages/GetSixImage")

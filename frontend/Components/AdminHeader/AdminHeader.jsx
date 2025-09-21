@@ -5,7 +5,7 @@ import LogOut from "../Buttons/LogOut";
 const AdminHeader= () => {
   return (
     <header className=" sticky top-0 z-50">
-      <div className=" hidden md:flex justify-between items-center md:h-16 bg-[#92c7f2] shadow-lg  mx-auto px-3 lg:px-6  h-16 2xl:h-24 ">
+      <div className=" hidden md:flex justify-between items-center md:h-16 bg-[#92c7f2] shadow-lg  mx-auto px-3 lg:px-6  h-16 2xl:h-24  ">
         
         {/* Logo / Brand */}
         <p  className="text-2xl 2xl:text-6xl font-bold text-white tracking-wide hover:scale-105 transition-transform">
@@ -49,6 +49,21 @@ const AdminHeader= () => {
           >
             Package Booking
           </Link>
+
+          <Link
+            href="/PostOurTeam"
+            className="text-white hover:text-yellow-300 transition-colors duration-300"
+          >
+            Post Team
+          </Link>
+        
+        {/* <Link
+            href="/OurTeam"
+            className="text-white hover:text-yellow-300 transition-colors duration-300"
+          >
+            Our Team
+          </Link> */}
+          
 
         </nav>
 

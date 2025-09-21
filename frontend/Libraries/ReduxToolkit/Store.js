@@ -42,6 +42,12 @@ import GetPackageByIDSlice from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/
 import PackageMarkAsPaid from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/PackageMarkAsPaidSLice"
 import PackageBookNowSearchBarSlice from "@/Libraries/ReduxToolkit/Slices/PackageBookNow/PackageBookNowSearch"
 
+//About 
+import PostAboutSlice from "@/Libraries/ReduxToolkit/Slices/Team/PostTeam"
+import GetAboutSlice from "@/Libraries/ReduxToolkit/Slices/Team/GetTeam"
+import DeleteTeamSlice from "@/Libraries/ReduxToolkit/Slices/Team/DeleteTeam"
+import UpdateTeamSlice from "@/Libraries/ReduxToolkit/Slices/Team/UpdateTeam"
+
 export const store = configureStore({
   reducer: {
     //auth
@@ -83,6 +89,12 @@ PackageBookNow,
 GetFirstTwentyPackagesBookNow,
 GetPackageByIDSlice,
 PackageMarkAsPaid,
-PackageBookNowSearchBarSlice
+PackageBookNowSearchBarSlice,
+
+//About
+PostAboutSlice,
+GetAboutSlice,
+DeleteTeamSlice,
+UpdateTeamSlice
 },
 })

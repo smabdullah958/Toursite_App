@@ -1,10 +1,10 @@
 "use client"
 
 import { schema } from "@/Components/yupValidation/BookNowValidation"
-import { useForm } from "react-hook-form"
+import { useForm} from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useDispatch, useSelector } from "react-redux"
-import { HideBookNowForm,ResetStates } from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNow"
+import { HideBookNowForm,ResetStates} from "@/Libraries/ReduxToolkit/Slices/DestinationBookNow/DestinationBookNow"
 import { useEffect, useState } from "react"
 
 import BookNowFormThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/BookNowFormThunck"
@@ -75,7 +75,6 @@ let dispatch=useDispatch()
          dispatch(HideBookNowForm())
     }
 
-   
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
       {/* Modal Container */}

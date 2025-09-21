@@ -6,7 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { HideUpdateForm, ResetUpdateState } from "@/Libraries/ReduxToolkit/Slices/Destination/UpdateSlice";
 import UpdateThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/UpdateThunck";
-import * as yup from "yup";
+
+//import validation
+import schema from "@/Components/yupValidation/DestinationValidation";
+
 //it is used for refetch 
 import GetFirstTwentyImage from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetFirstTwentyImageThunck";
 //it is used for reset the state of getfirsttwentyimage
@@ -18,28 +21,6 @@ import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get
 //this is used to add a AM and PM bro 
 import to12Hour from "@/Components/Form/DestinationAndBookNowForm/AddingAMPM"
 
-const MAX_FILE_SIZE = 300 * 1024; // 300kb
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
-
-const schema = yup.object({
-  Title: yup.string().required("Title is required"),
-  Slots: yup.number().typeError("Slots must be a number").positive("Slots must be a positive number").required("Slots are required"),
-  BasePrice: yup.number().typeError("Price must be a number").positive("Price must be positive").required("Price is required"),
-
-  TravelTimes:yup.array().of(yup.object({ 
-    time:yup.string().required("Time is required")
-  })
-  ).min(1, "At least one time is required"),
-  
-  Image: yup
-    .mixed()
-    .nullable()
-    .test("fileSize", "File must be less than 300kb", (value) => !value || (value && value[0] && value[0].size <= MAX_FILE_SIZE))
-    .test("fileFormat", "Unsupported Format", (value) => !value || (value && value[0] && SUPPORTED_FORMATS.includes(value[0].type))),
-  Description: yup.string().required("Description is required"),
-
-
-});
 
 const UpdateForm = ({ id }) => {
   let { Loading, success } = useSelector((state) => state.UpdateSlice);

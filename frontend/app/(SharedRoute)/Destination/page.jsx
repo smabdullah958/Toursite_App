@@ -17,7 +17,7 @@ const DestinationPage = () => {
   const { FormId } = useSelector(state => state.UpdateSlice);
 
 // ✅ read login + role state from CheckLoginSlice
-  const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
+const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
 
   const dispatch = useDispatch();
   const { result, page, Loading, hasMore } = useSelector(
@@ -27,7 +27,6 @@ const DestinationPage = () => {
   let {SearchResult,loading,isSearched}=useSelector(state=>state.SearchBarSlice)
 //is search is traack teh serch is done or not
   let displayResult = isSearched ? SearchResult : result;
-
 
 
   useEffect(() => {

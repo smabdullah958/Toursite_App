@@ -50,11 +50,11 @@ const MobileHeader = () => {
               Home
             </Link>
             <Link
-              href="/About"
+              href="/OurTeam"
               className="text-white hover:text-yellow-300 transition-colors duration-300"
               onClick={closeMenu}
             >
-              About
+              Our Team
             </Link>
             <Link
               href="/Destination"

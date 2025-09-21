@@ -76,7 +76,7 @@ const PackagesPage = () => {
           <h2 className="text-2xl font-bold text-gray-800">
             Popular Packages
             <span className="text-lg text-gray-500 font-normal ml-2">
-              ({displayResult.length} loaded)
+              ({filteredResult.length} loaded)
             </span>
           </h2>
         </div>

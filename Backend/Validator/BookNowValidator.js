@@ -1,33 +1,3 @@
-// let {body}=require("express-validator")
-
-// let validation=[
-//     body("ContactNumber").notEmpty().withMessage("field is required").
-//     matches(/^\d{11}$/,"only number is allowed"),
-
-// body("WhatsAppNumber").optional().withMessage("field is required").
-//     matches(/^\d{11}$/,"only number is allowed"),
-
-//     body("PickUpAddress").notEmpty().withMessage("password is required"),
-
-//     body("NumberOfNoneAdultChild").withMessage("field is required").
-//     matches(/^\d$/,"only number is allowed"),
-
-//     body("NumberOfAdultChild").notEmpty().withMessage("name is required").
-//     matches(/^\d$/,"only number is allowed"),
-
-//     body("Days").notEmpty().withMessage("field is required").
-//     matches(/^\d$/,"only number is allowed"),
-    
-//     body("TravelTime").notEmpty().withMessage("field is required").
-    
-//     body("TotalPrice").notEmpty().withMessage("field is required").
-//     matches(/^\d$/,"only number is allowed"),
-    
-//     body("Date").notEmpty().withMessage("Date is required")
-   
-//     ]
-
-// module.exports=validation
 
 let {body}=require("express-validator")
 
