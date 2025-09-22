@@ -88,7 +88,7 @@ const GetFiveDestination = () => {
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-xs font-semibold shadow-sm">
-                      ${tour.BasePrice}
+                      Rs {tour.BasePrice}
                     </div>
                   </div>
                   {/* Content */}

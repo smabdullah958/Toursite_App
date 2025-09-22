@@ -1,15 +1,20 @@
 "use client"
 
 import Loader from "@/Components/Loader";
-
 import { HideLogIn, resetLoginState } from "@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import LogInThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogInThunck";
+
 import ForgetPasswordPopUp from "@/Components/ForgetPasswordPopUp";
 import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck'
+import { useRouter } from "next/navigation";
 const LoginForm = () => {
+  let route=useRouter()
+//it is check user is admin or not  if admin than redirect toa  admin panel
+  let {Role}=useSelector((state)=>state.CheckLogInSlice)
+
   //LogInSlice is come from a store bro 
   let {Loading,errorMessage,success}=useSelector((state)=>state.LogInSlice)
   let dispatch=useDispatch()
@@ -42,9 +47,16 @@ const LoginForm = () => {
             dispatch(CheckLogIn());   // ✅ refetch role after login
           dispatch(resetLoginState())
          
+          if(Role==="Admin"){
+              route.push("/AdminDashboard")
+          }
+          else{
+            route.push("/")
+          }
+
       }, 1000);
     }
-  },[success,dispatch])
+  },[success,dispatch,Role,route])
   
 
   return (

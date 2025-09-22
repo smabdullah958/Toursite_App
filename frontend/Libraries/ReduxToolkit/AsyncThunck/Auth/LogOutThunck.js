@@ -13,8 +13,8 @@ let URL=process.env.NEXT_PUBLIC_BackendURL
         console.log("logout successfully")
      
               dispatch(DisplayLogIn()); // 👈 sets IsLogIn = false and also it shwo the login button
-      dispatch(HideLogIn());    // 👈 resets ShowLogIn = false (form closed safely)
-            dispatch(resetLoginState()) //resets login slice flags 
+    //   dispatch(HideLogIn());    // 👈 resets ShowLogIn = false (form closed safely)
+            // dispatch(resetLoginState()) //resets login slice flags 
      
         return response.data
     }

@@ -68,7 +68,7 @@ const FindById = () => {
           {/* Floating Back Button */}
           <button 
             onClick={() => window.history.back()}
-            className="absolute top-6 left-6 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full hover:bg-white/30 transition-all duration-300 flex items-center gap-2"
+            className="absolute top-6 left-6 bg-white/80 backdrop-blur-md text-black  px-4 py-2 rounded-full hover:bg-white/70 transition-all duration-300 flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -133,7 +133,7 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Best Value</h3>
                   </div>
                   <p className="text-white/90 mb-2">Starting from</p>
-                  <p className="text-3xl font-bold">${DisplayResult.BasePrice}</p>
+                  <p className="text-3xl font-bold">Rs {DisplayResult.BasePrice}</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -163,7 +163,7 @@ const FindById = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                     <span className="text-gray-600">Price per person</span>
-                    <span className="text-2xl font-bold text-blue-600">${DisplayResult.BasePrice}</span>
+                    <span className="text-2xl font-bold text-blue-600">Rs {DisplayResult.BasePrice}</span>
                   </div>
                   
                    <DestinationBookNow 

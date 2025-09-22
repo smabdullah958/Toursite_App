@@ -101,14 +101,14 @@ const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 {/* Price Badge */}
                 <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
-                  <span className="text-lg font-bold text-blue-600">${tour.BasePrice || "N/A"}</span>
+                  <span className="text-lg font-bold text-blue-600">Rs{tour.BasePrice || "N/A"}</span>
                 </div>
 
                 {/* Quick View on Hover */}
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                   <Link
                     href={`Destination/${tour._id}`}
-                    className="bg-white text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
+                    className="bg-white text-gray-800 px-6 py-3 rounde  d-full font-semibold hover:bg-gray-100 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
                   >
                     View Details
                   </Link>
@@ -122,20 +122,6 @@ const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
                     {tour.Title || "Amazing Destination"}
                   </h3>
                 </div>
-
-                {/* Action Buttons */}
-
- {/* { IsLogIn && Role==="User" &&(
-
-                <div className="flex gap-3">
-                  <Link
-                    href={`Destination/${tour._id}`}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
-                  >
-                    Book Now
-                  </Link>
-                                 </div>
-  )} */}
 
   {/* Default action for non-logged users */}
                                  

@@ -125,7 +125,7 @@ const GetSixPackages = () => {
                     
                     {/* Price Badge */}
                     <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-xs font-semibold shadow-sm">
-                      ${Packages.BasePrice}
+                      Rs {Packages.BasePrice}
                     </div>
                   </div>
                   

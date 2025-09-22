@@ -43,19 +43,11 @@ const AdminMobileHeader = () => {
         <div className="absolute top-16 left-0 w-full bg-[#92c7f2] shadow-md z-50 animate-slideDown">
           <nav className="flex flex-col gap-4 p-6 text-lg font-medium">
             <Link
-              href="/"
+              href="/AdminDashboard"
               className="text-white hover:text-yellow-300 transition-colors duration-300"
               onClick={closeMenu}
             >
               Home
-            </Link>
-
-            <Link
-              href="/PostDestination"
-              className="text-white hover:text-yellow-300 transition-colors duration-300"
-              onClick={closeMenu}
-            >
-              PostDestination
             </Link>
             <Link
               href="/Destination"
@@ -65,38 +57,21 @@ const AdminMobileHeader = () => {
               Destination
             </Link>
             <Link
-              href="/PostPackages"
+              href="/Packages"
               className="text-white hover:text-yellow-300 transition-colors duration-300"
               onClick={closeMenu}
             >
               Packages
             </Link>
-          
-          <Link
-              href="/GetDestinationBooking"
+            <Link
+              href="/OurTeam"
               className="text-white hover:text-yellow-300 transition-colors duration-300"
               onClick={closeMenu}
             >
-              DestinationBooking
+              Our Team
             </Link>
 
-             <Link
-              href="/GetPackageBookNow"
-              className="text-white hover:text-yellow-300 transition-colors duration-300"
-              onClick={closeMenu}
-            >
-              Package Booking
-            </Link>
-
-             <Link
-              href="/PostOurTeam"
-              className="text-white hover:text-yellow-300 transition-colors duration-300"
-              onClick={closeMenu}
-            >
-                     Post Team
-            </Link>
-
-
+            
 
           </nav>
     

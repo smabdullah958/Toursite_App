@@ -14,55 +14,31 @@ const AdminHeader= () => {
 
         {/* Navigation Links */}
         <nav className="flex gap-6 text-lg 2xl:text-4xl font-medium">
-          <Link   href="/"
+          <Link   href="/AdminDashboard"
             className="text-white hover:text-yellow-300 transition-colors duration-300">
             Home
           </Link>
 
-          <Link   href="/PostDestination"
-            className="text-white hover:text-yellow-300 transition-colors duration-300">
-            PostDestination
-          </Link>
           <Link
             href="/Destination"
             className="text-white hover:text-yellow-300 transition-colors duration-300"
           >
             Destination
           </Link>
-          <Link
-            href="/PostPackages"
-            className="text-white hover:text-yellow-300 transition-colors duration-300"
-          >
-            Post Packages
-          </Link>
-
-            <Link
-            href="/GetDestinationBooking"
-            className="text-white hover:text-yellow-300 transition-colors duration-300"
-          >
-            Destination Booking
-          </Link>
-
-          <Link
-            href="/GetPackageBookNow"
-            className="text-white hover:text-yellow-300 transition-colors duration-300"
-          >
-            Package Booking
-          </Link>
-
-          <Link
-            href="/PostOurTeam"
-            className="text-white hover:text-yellow-300 transition-colors duration-300"
-          >
-            Post Team
-          </Link>
         
-        {/* <Link
+        <Link
+            href="/Packages"
+            className="text-white hover:text-yellow-300 transition-colors duration-300"
+          >
+            Packages
+          </Link>
+
+        <Link
             href="/OurTeam"
             className="text-white hover:text-yellow-300 transition-colors duration-300"
           >
             Our Team
-          </Link> */}
+          </Link>
           
 
         </nav>

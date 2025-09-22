@@ -184,7 +184,7 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Best Value</h3>
                   </div>
                   <p className="text-white/90 mb-2">Starting from</p>
-                  <p className="text-3xl font-bold">${result.BasePrice}</p>
+                  <p className="text-3xl font-bold">Rs {result.BasePrice}</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -212,7 +212,7 @@ const FindById = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                     <span className="text-gray-600">Price per person</span>
-                    <span className="text-2xl font-bold text-blue-600">${result.BasePrice}</span>
+                    <span className="text-2xl font-bold text-blue-600"> Rs {result.BasePrice}</span>
                   </div>
                   
                   <PackageBookNow 

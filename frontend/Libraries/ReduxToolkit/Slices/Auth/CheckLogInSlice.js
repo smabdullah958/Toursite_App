@@ -8,6 +8,7 @@ let initialState={
     IsLogIn:false,
     Role:"",
     success:false,
+    Loading:false,
 Name:"",
 Email:""
   }
@@ -35,10 +36,15 @@ let CheckLoginSlice=createSlice({
        state.Name=action.payload?.decode?.Name //decode.Role is come from a backend and file is a CheckLogin
         state.Email=action.payload?.decode?.Email //decode.Role is come from a backend and file is a CheckLogin
        state.success=true
+       state.Loading=false
       })
       .addCase(CheckLogIn.rejected, (state) => {
         state.IsLogIn = false;
-      });
+        state.Loading=false
+      })
+      .addCase(CheckLogIn.pending,(state)=>{
+        state.Loading=true
+      })
   }
 })
 

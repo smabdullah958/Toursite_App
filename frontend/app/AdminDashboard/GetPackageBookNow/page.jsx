@@ -3,56 +3,56 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import SearchBar from "@/app/(AdminDashboard)/GetDestinationBooking/SearchBar";
+import SearchBar from "@/app/AdminDashboard/GetPackageBookNow/SearchBar";
 
 //here we can get 20 bookings
-import GetFistTwentyBookingThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/GetFirstTwentyBooking";
+import GetFistTwentyPackagsBooking from "@/Libraries/ReduxToolkit/AsyncThunck/PackagaBookNow/GetFirstTwentyPackagesBooking";
 import Link from "next/link";
 
-import DestinationBookingMarkAsPaidButton from "@/Components/Buttons/BookingNow/DestinationBookingMarkAsPaidButton"
+import PackageBookingMarkAsPaidButton from "@/Components/Buttons/BookingNow/PackageMarkAsPaid";
 
+const GetFirstTwentyPackageBookingNow = () => {
 
-const GetFirstTwentyBooking = () => {
-
-  //it will shwo the result of a searching
-    let {SearchResult,loading,isSearched}=useSelector(state=>state.DestinationBookNowSearchBarSlice)
+    //it will shwo the result of a searching
+      let {SearchResult,loading,isSearched}=useSelector(state=>state.PackageBookNowSearchBarSlice)
+    
   
   const dispatch = useDispatch();
-  //GetFirstTwentyBookingSlice is come from a store
-  const { GetBooking, page, Loading, hasMore } = useSelector(
-    (state) => state.GetFirstTwentyBookingSlice
+
+  //GetFirstTwentyPackagesBookNow is come from a store
+  const { Booking, page, Loading, hasMore } = useSelector(
+    (state) => state.GetFirstTwentyPackagesBookNow
   );
 
-  
     //is search is traack teh serch is done or not
-  let displayResult = isSearched ? SearchResult : GetBooking;
-
+  let displayResult = isSearched ? SearchResult : Booking;
 
   useEffect(() => {
 if(displayResult.length===0){
-    dispatch(GetFistTwentyBookingThunck({ page: 1, limit: 20 }));
+    dispatch(GetFistTwentyPackagsBooking({ page: 1, limit: 20 }));
 }
   }, [dispatch,dispatch.length]);
 
+
   const handleSeeMore = () => {
     if (!Loading && hasMore) {
-      dispatch(GetFistTwentyBookingThunck({ page: page + 1, limit: 20 }));
+      dispatch(GetFistTwentyPackagsBooking({ page: page + 1, limit: 20 }));
     }
   };
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="max-w-full mx-auto px-6 py-5 md:py-10 ">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="max-w-screen mx-auto px-6 py-5 md:py-10 ">
         {/* Page Title */}
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center mb-5 tracking-tight">
           All Destination Bookings
         </h1>
 
-           <div>
+          <div>
           <SearchBar />
         </div>
 
-        {/* Booking Summary */}
+                   {/* Booking Summary */}
         <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-8 mb-5 2xl:mb-10 flex justify-between items-center border border-gray-200 flex-wrap ">
           <h2 className="text-lg md:text-3xl font-bold text-gray-900">
             Booking Summary
@@ -66,7 +66,7 @@ if(displayResult.length===0){
         </div>
 
         {/* No Results */}
-        {isSearched && displayResult?.length === 0 && !Loading &&!loading && (
+        {isSearched && displayResult?.length === 0 && !Loading && !loading && (
           <div className="text-center py-20">
             <div className="text-8xl md:text-9xl text-gray-300 mb-6 animate-bounce">🏝️</div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-700 mb-2">
@@ -94,8 +94,8 @@ if(displayResult.length===0){
                   {booking.UserID?.Email || "No Email"}
                 </p>
 
-                <h4 className="text-lg md:text-xl font-semibold text-gray-700 mb-2">
-                  Destination: {booking.DestinationID?.Title || "Unknown"}
+                <h4 className="text-lg md:text-xl font-semibold text-gray-700 mb-2 truncate">
+                  Destination: {booking.PackageID?.Title || "Unknown"}
                 </h4>
                 <p className="text-gray-600 mb-4">
                   Total Price: <span className="font-bold text-blue-600">${booking.TotalPrice}</span>
@@ -123,17 +123,19 @@ if(displayResult.length===0){
 
                   <span className="bg-green-50 text-green-600 px-3 py-1 rounded-full shadow-sm">Booking Date: {booking.Date}</span>
 
-                </div>
-              <div className="flex flex-wrap md:justify-between justify-normal">
-                <Link href={`GetDestinationBooking/${booking._id}`} className="px-6 py-2 rounded-xl  bg-gradient-to-r from-[#3fb7eb] to-[#23a4dc] text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 opacity-100 hover:from-[#0693cf] hover:to-[#0f94cd] mt-3">View Detail</Link>
+                </div> 
+
+                <div className="flex flex-wrap md:justify-between justify-normal">
+                <Link href={`GetPackageBookNow/${booking._id}`} className="px-6 py-2 rounded-xl  bg-gradient-to-r from-[#3fb7eb] to-[#23a4dc] text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 opacity-100 hover:from-[#0693cf] hover:to-[#0f94cd] mt-3">View Detail</Link>
                 
                 {
                   booking.PaymentMethod==="Cash" && booking.PaymentStatus==="Not Paid"   ?
-                <DestinationBookingMarkAsPaidButton id={booking?._id}/>   :
+                <PackageBookingMarkAsPaidButton id={booking?._id}/>   :
                   (<span className="text-green-600 font-bold mt-3">✔ Paid</span>)
                 }
                 
               </div>
+
               </div>
            
             </div>
@@ -142,7 +144,7 @@ if(displayResult.length===0){
         </div>
 
         {/* Loading State */}
-        {(loading ||Loading) && (
+        {(Loading || loading) && (
           <div className="flex justify-center items-center py-16">
             <div className="text-center">
               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 border-b-4 mx-auto mb-4"></div>
@@ -177,4 +179,4 @@ if(displayResult.length===0){
   );
 };
 
-export default GetFirstTwentyBooking;
+export default GetFirstTwentyPackageBookingNow;

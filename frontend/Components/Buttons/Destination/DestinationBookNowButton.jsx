@@ -8,9 +8,13 @@ const DestinationBookNow = ({id,time,basePrice}) => {
     let {ShowForm,DestinationID}=useSelector((state)=>state.DestinationBookNowSlice)
 let dispatch=useDispatch()
 
+  const { IsLogIn} = useSelector((state) => state.CheckLogInSlice);
+
+
   return (
     <div>
-      <button onClick={()=>{dispatch(DisplayBookNowForm(id))}} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+      <button disabled={!IsLogIn}
+       onClick={()=>{dispatch(DisplayBookNowForm(id))}} className={`w-full bg-gradient-to-r from-blue-600 to-blue-700  text-white font-semibold py-4 px-6 rounded-xl   shadow-lg hover:shadow-xl ${IsLogIn?"opacity-100 hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105":"opacity-15"}`}>
                     Book Now
                   </button>
                   {ShowForm && DestinationID===id && <DestinationForm DestinationID={id} TravelTime={time} basePrice={basePrice}/>}

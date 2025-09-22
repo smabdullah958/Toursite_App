@@ -61,12 +61,12 @@ const PackagesPage = () => {
       {/* Header Section */}
       <div className="max-w-screen mx-auto px-6 py-8">
        
-        <div className="py-5">
-          <SearchBar />
-        </div>
-        <h1 className="text-4xl font-extrabold text-gray-800 text-center">
+        
+        <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-5 sm:mb-10">
           Explore Our Amazing Packages
         </h1>
+          <SearchBar />
+        
       </div>
 
       {/* Main Content */}
