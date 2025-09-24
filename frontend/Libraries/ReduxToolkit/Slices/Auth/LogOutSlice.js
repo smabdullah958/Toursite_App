@@ -5,7 +5,7 @@ let initialState={
     success:false,
     error:false,
     Loading:false,
-    Role:""
+    Role:null
 }
 let LogOutSlice=createSlice({
     name:"slice",
@@ -15,7 +15,7 @@ let LogOutSlice=createSlice({
              state.success=false
              state.Loading=false
              state.error=false
-             state.Role=""
+             state.Role=null
          }
     },
     extraReducers:(builder)=>{
@@ -33,7 +33,7 @@ let LogOutSlice=createSlice({
             state.Loading=false
             state.error=false
             state.success=true,
-            state.Role=""
+            state.Role=null
         })
     }
 })

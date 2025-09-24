@@ -64,7 +64,7 @@
                 Date:BookingDate,
                 PaymentMethod
             })
-              
+
             console.log("domcunet is created")
 
             let result=await booking.save()

@@ -33,18 +33,17 @@ const LoginForm = () => {
   let CloseForm=()=>{
     setTimeout(() => {
       dispatch(HideLogIn())
-    }, 1000);
+    }, 300);
   }
   
   let HandleButton=()=>{
     dispatch(LogInThunck(Form))
-  }
+  } 
 
   useEffect(()=>{
     if(success){
-      setTimeout(() => {
           dispatch(resetLoginState())
-        dispatch(HideLogIn())
+        dispatch(HideLogIn()) //close fomr 
              dispatch(CheckLogIn());   // ✅ refetch role after login
           if(Role!=="Admin"){
               route.push("/")
@@ -53,9 +52,9 @@ const LoginForm = () => {
             route.push("/AdminDashboard")
           }
 
-      }, 1000);
+  
     }
-  },[success,dispatch,route])
+  },[success,dispatch,route,Role])
   
 
   return (

@@ -4,7 +4,9 @@ let Database=require("../../Models/DestinationDataBase");
 
 let GetSixImage=async(req,res)=>{
     try{
-        let result=await Database.find().sort({createdAt:-1}).limit(6);
+        let result=await Database.find({Slots:{$gt  :0}})
+        .select("Title Image BasePrice Slots _id")
+        .sort({createdAt:-1}).limit(6);
         console.log(result)
             return res.status(200).json({message:"image is show",result})   
     }

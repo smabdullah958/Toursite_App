@@ -2,6 +2,9 @@
 import LogOutThunck from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogOutThunck'
 import React, { useState,useEffect } from 'react' 
 import { useDispatch,useSelector } from 'react-redux'
+//it is show the login button after the user is logout 
+import { DisplayLogIn } from "@/Libraries/ReduxToolkit/Slices/Auth/CheckLogInSlice";
+
 import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck'
 // set role is nul and 
  import { resetLogOut } from '@/Libraries/ReduxToolkit/Slices/Auth/LogOutSlice'
@@ -13,16 +16,14 @@ let route=useRouter()
  let {IsLogIn,Role}=useSelector((state)=>state.CheckLogInSlice)
  let {Loading,success}=useSelector((state)=>state.LogOutSlice)
 let HandleButton=()=>{
-  setTimeout(() => {
-dispatch(LogOutThunck())    
-}, 700);
+dispatch(LogOutThunck())   
   }
 
   useEffect(()=>{
    if(success){
   dispatch(resetLogOut())
-    // dispatch(CheckLogIn());   // ✅ refetch role after login   
-    route.push("/")
+  dispatch(CheckLogIn()) 
+  route.push("/")
   }
  },[success,dispatch,route])
 

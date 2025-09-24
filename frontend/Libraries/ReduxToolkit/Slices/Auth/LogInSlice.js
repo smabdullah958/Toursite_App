@@ -27,6 +27,7 @@ export let LogInSlice=createSlice({
       state.Loading = false;
       state.success = false;
       state.errorMessage = "";
+      state.Role=null
     },
 
     },

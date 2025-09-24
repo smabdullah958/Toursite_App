@@ -24,6 +24,10 @@ let CheckLoginSlice=createSlice({
     // this si diaply the login button 
         DisplayLogIn: (state) => {
       state.IsLogIn = false;
+      state.Role = ""; // Reset to prevent stale Role
+      state.Name = "";
+      state.Email = "";
+      state.success = false;
     },
 
       },
