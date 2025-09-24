@@ -10,7 +10,7 @@ const HeroSection = () => {
   
   const Images = [
     {
-      img: "/t1.avif",
+      img: "/t1.jpeg",
       title: "Discover Paradise",
       subtitle: "Explore the world's most breathtaking destinations"
     },

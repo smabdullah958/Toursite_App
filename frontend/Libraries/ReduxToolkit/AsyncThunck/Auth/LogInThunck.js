@@ -10,7 +10,6 @@ let LogInThunck=createAsyncThunk(
             let response=await axios.post(`${URL}/AuthController/LogInAuth`,Form,
                 {withCredentials:true})
             console.log(response.data)
-
                  dispatch(DisplayLogOut())
             return response?.data
         }

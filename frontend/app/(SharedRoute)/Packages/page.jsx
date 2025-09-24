@@ -184,18 +184,6 @@ const PackagesPage = () => {
                     <UpdatePackages id={pkg._id}/>
                   </div>
                 )}
-
-             
-
-                {/* Non-logged users */}
-                {/* {!IsLogIn && (
-                  <Link
-                    href={`/Packages/${pkg._id}`}
-                    className="md:hidden block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
-                  >
-                    View Details
-                  </Link>
-                )} */}
               </div>
             </motion.div>
           ))}
@@ -220,7 +208,7 @@ const PackagesPage = () => {
         )}
 
         {/* Load More Button */}
-        {hasMore && !Loading && result.length > 0 && (
+        {  hasMore && !Loading && result.length > 0 && (
           <div className="flex justify-center mt-12">
             <button
               type="button"

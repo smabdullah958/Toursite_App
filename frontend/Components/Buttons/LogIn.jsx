@@ -17,8 +17,8 @@ let dispatch=useDispatch()
   if (!mounted) return null;
 
   let handlebutton=()=>{
-    dispatch(DisplayLogin()) //this will display the form bro
     dispatch(resetLoginState()) //this will reset all the error success message
+    dispatch(DisplayLogin()) //this will display the form bro
   }
 
   return (

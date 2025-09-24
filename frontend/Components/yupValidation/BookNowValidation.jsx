@@ -40,5 +40,7 @@ WhatsAppNumber: yup
   
   TravelTime:yup.string().required("field is required"),
 
-PaymentMethod:yup.string().oneOf(["Stripe","Cash"]).required("PaymentMethod is Stripe or Cash")
+PaymentMethod:yup.string().oneOf(["Stripe","Cash"]).required("PaymentMethod is Stripe or Cash"),
+TotalPrice:yup.number()
+    .max(999999.99, "Total price cannot exceed 999,999.99")
             });

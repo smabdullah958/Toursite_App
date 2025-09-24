@@ -14,6 +14,9 @@ let PaymentSuccess = async (req, res) => {
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     }
+    if(booking.TotalPrice>999999.99){
+      return res.status(400).json({message:"you can not do transction more than a 999,999"})
+    }
 //if adult child is greater than a slots than show error
     if(booking.NumberOfAdultChild>booking.DestinationID?.Slots){
       return res.status(400).json({message:"we have not enough slots available "})

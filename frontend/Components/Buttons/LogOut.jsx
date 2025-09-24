@@ -21,8 +21,8 @@ dispatch(LogOutThunck())
   useEffect(()=>{
    if(success){
   dispatch(resetLogOut())
-    dispatch(CheckLogIn());   // ✅ refetch role after login
-  route.push("/")
+    // dispatch(CheckLogIn());   // ✅ refetch role after login   
+    route.push("/")
   }
  },[success,dispatch,route])
 

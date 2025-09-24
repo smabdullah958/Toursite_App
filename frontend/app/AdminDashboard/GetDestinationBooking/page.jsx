@@ -98,7 +98,7 @@ if(displayResult.length===0){
                   Destination: {booking.DestinationID?.Title || "Unknown"}
                 </h4>
                 <p className="text-gray-600 mb-4">
-                  Total Price: <span className="font-bold text-blue-600">${booking.TotalPrice}</span>
+                  Total Price: <span className="font-bold text-blue-600">Rs {booking.TotalPrice}</span>
                 </p>
 
                 {/* Payment Method */}
@@ -153,7 +153,7 @@ if(displayResult.length===0){
         )}
 
         {/* Load More Button */}
-        {hasMore && !Loading && (
+        { !isSearched && hasMore && !Loading && (
           <div className="flex justify-center mt-12">
             <button
               type="button"

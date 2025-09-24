@@ -559,6 +559,8 @@ let dispatch=useDispatch()
 
              {/* Total Price */}
              <div>
+                <p className="text-red-500 text-xs mt-1">{errors.TotalPrice?.message}</p>
+          
               <label className="block text-gray-800 font-semibold mb-2">Total Price</label>
               <input
                 type="number"

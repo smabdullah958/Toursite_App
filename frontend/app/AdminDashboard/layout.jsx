@@ -21,7 +21,7 @@ export default function AdminLayout({ children }) {
     }
   }, [IsLogIn, Role, Loading, router, isMounted]);
 
-  if (!isMounted || Loading) {
+  if (!isMounted || Loading || !IsLogIn || !Role) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="text-center">

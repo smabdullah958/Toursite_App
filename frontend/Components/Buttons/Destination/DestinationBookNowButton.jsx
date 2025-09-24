@@ -8,6 +8,7 @@ const DestinationBookNow = ({id,time,basePrice}) => {
     let {ShowForm,DestinationID}=useSelector((state)=>state.DestinationBookNowSlice)
 let dispatch=useDispatch()
 
+//CheckLogInSlice si come from a store and also it is used to check user is login or not 
   const { IsLogIn} = useSelector((state) => state.CheckLogInSlice);
 
 

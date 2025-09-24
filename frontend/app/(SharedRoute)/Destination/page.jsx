@@ -108,7 +108,7 @@ const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                   <Link
                     href={`Destination/${tour._id}`}
-                    className="bg-white text-gray-800 px-6 py-3 rounde  d-full font-semibold hover:bg-gray-100 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
+                    className="bg-white text-gray-800 px-6 py-3 rounde rounded-full   d-full font-semibold hover:bg-gray-100 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
                   >
                     View Details
                   </Link>
@@ -127,7 +127,7 @@ const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
                                  
                                     <Link
                                         href={`/Destination/${tour._id}`}
-                                        className="md:hidden block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                                        className="md:hidden  block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
                                     >
                                         View Details
                                     </Link>

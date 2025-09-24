@@ -95,7 +95,7 @@ const page = () => {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-4">
-              <div className="bg-indigo-100 text-indigo-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold">Total Price: ${UserDetail.TotalPrice || 0}</div>
+              <div className="bg-indigo-100 text-indigo-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold">Total Price: Rs {UserDetail.TotalPrice || 0}</div>
               <div className="bg-green-100 text-green-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold">Payment Method: {UserDetail.PaymentMethod || "N/A"}</div>
               <div className="bg-red-100 text-red-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold">Payment Status: {UserDetail.PaymentStatus || "N/A"}</div>
             </div>

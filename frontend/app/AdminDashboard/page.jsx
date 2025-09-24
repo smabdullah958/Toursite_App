@@ -48,7 +48,7 @@ const HomePage = () => {
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-pink-600 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-pulse delay-1000"></div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-pulse delay-500"></div>
 
-      <div className="md:hidden relative pt-5 px-5 ">
+      <div className="md:hidden relative pt-5 px-5 flex justify-end">
         <LogOut />
       </div>
 

@@ -98,7 +98,7 @@ if(displayResult.length===0){
                   Destination: {booking.PackageID?.Title || "Unknown"}
                 </h4>
                 <p className="text-gray-600 mb-4">
-                  Total Price: <span className="font-bold text-blue-600">${booking.TotalPrice}</span>
+                  Total Price: <span className="font-bold text-blue-600">Rs {booking.TotalPrice}</span>
                 </p>
 
                 {/* Payment Method */}
@@ -115,7 +115,7 @@ if(displayResult.length===0){
 
                 {/* Booking Details */}
                 <div className="flex flex-wrap gap-2 text-gray-500 text-sm md:text-base mt-2">
-                  <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full shadow-sm">Days: {booking.Days}</span>
+                  <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full shadow-sm">Days: {booking.Days||1}</span>
 
                   <span className="bg-purple-50 text-purple-600 px-3 py-1 rounded-full shadow-sm">Adults: {booking.NumberOfAdultChild}</span>
 
@@ -154,7 +154,7 @@ if(displayResult.length===0){
         )}
 
         {/* Load More Button */}
-        {hasMore && !Loading && (
+        { !isSearched && hasMore && !Loading && (
           <div className="flex justify-center mt-12">
             <button
               type="button"
