@@ -5,13 +5,11 @@ const { createSlice } = require("@reduxjs/toolkit");
 import CheckLogIn  from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck";
 
 let initialState={
-    IsLogIn:false,
+    IsLogIn:null,
     Role:"",
     success:false,
-    Loading:false,
-Name:"",
-Email:""
-  }
+    Loading:true
+    }
 
 let CheckLoginSlice=createSlice({
     name:"slice",
@@ -25,8 +23,6 @@ let CheckLoginSlice=createSlice({
         DisplayLogIn: (state) => {
       state.IsLogIn = false;
       state.Role = ""; // Reset to prevent stale Role
-      state.Name = "";
-      state.Email = "";
       state.success = false;
     },
 
@@ -36,9 +32,7 @@ let CheckLoginSlice=createSlice({
       .addCase(CheckLogIn.fulfilled, (state, action) => {
         // CheckLogin is come form a backend bro
         state.IsLogIn = action.payload.CheckLogin;  
-        state.Role=action.payload?.decode?.Role   //decode.Role is come from a backend and file is a CheckLogin
-       state.Name=action.payload?.decode?.Name //decode.Role is come from a backend and file is a CheckLogin
-        state.Email=action.payload?.decode?.Email //decode.Role is come from a backend and file is a CheckLogin
+        state.Role=action.payload?.Role   //Role is come from a backend and file is a CheckLogin
        state.success=true
        state.Loading=false
       })

@@ -5,7 +5,11 @@ let GetFirst12Packages=async(req,res)=>{
         let limit=parseInt(req.query.limit)||12
         let page=parseInt(req.query.page)||1
         let skip=(page-1)*limit
-        let result=await DataBase.find().sort({createdAt:-1}).skip(skip).limit(limit)
+        let result=await DataBase.find()
+        .select("Title Image BasePrice Slots _id")
+        .sort({createdAt:-1})
+        .skip(skip).limit(limit)
+        console.log(result,result.length)
         console.log(result,result.length)
         return res.status(200).json({message:"first twenty packages",result})
     }

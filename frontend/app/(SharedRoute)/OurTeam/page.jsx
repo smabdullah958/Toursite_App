@@ -8,6 +8,7 @@ import UpdateTeamButton from "@/Components/Buttons/Team/UpdateTeam";
 import UpdateTeamForm from "@/Components/Form/UpdateTeamForm";
 import { Facebook,  Linkedin, Mail } from "lucide-react"; // ✅ icons
 import Link from "next/link";
+import Loader from "@/app/loading";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -150,23 +151,7 @@ const About = () => {
         )}
 
         {/* Loading State */}
-        {Loading && (
-          <div className="flex flex-col justify-center items-center py-20 space-y-6">
-            {/* Spinner */}
-            <div className="relative">
-              <div className="w-16 h-16 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-blue-600 font-bold animate-pulse">
-                  ⚡
-                </span>
-              </div>
-            </div>
-            {/* Shimmer Text */}
-            <p className="text-xl font-semibold bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 bg-clip-text text-transparent animate-pulse">
-              Loading Team Members...
-            </p>
-          </div>
-        )}
+        {Loading && <Loader/>}
       </div>
     </div>
   );
