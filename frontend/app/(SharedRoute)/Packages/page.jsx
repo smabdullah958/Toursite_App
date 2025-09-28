@@ -1,5 +1,248 @@
+// "use client";
+// import Image from "next/image";
+// import React, { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { motion } from "framer-motion";
+// import Link from "next/link";
+// import GetFirst12PackagesThuck from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/GetPackages/GetFirst12PackagesThunck";
+// import DeletePackage from "@/Components/Buttons/Package/DeletePackage";
+// import UpdatePackages from "@/Components/Buttons/Package/UpdatePackagesButton";
+// import UpdatePackageForm from "@/Components/Form/PackageAndBookNowForm/UpdatePackageForm"
+// import SearchBar from "@/app/(SharedRoute)/Packages/SearchBar";
+
+
+
+// const PackagesPage = () => {
+// //hre the we get the formid from UpdatePackageSlice and also it is used to show a form
+//   const { FormID } = useSelector(state => state.UpdatePackageSlice);
+
+
+//   const dispatch = useDispatch();
+//   const { result, Loading, hasMore } = useSelector(
+//     (state) => state.GetFirst12PackagesSlice
+//   );
+
+//   // Get login state
+//   const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
+
+//   const [currentPage, setCurrentPage] = useState(1);
+
+//   //it will shwo the result of a sraching
+//     let {SearchResult,loading,isSearched}=useSelector(state=>state.PackageSearchBarSlice)
+//   //is search is traack teh serch is done or not
+//     let displayResult = isSearched ? SearchResult : result;
+  
+
+//   // Load first page on mount
+//   useEffect(() => {
+//     if (result.length === 0) {
+//       dispatch(GetFirst12PackagesThuck({ limit: 12, page: 1 }));
+//     }
+//   }, [dispatch, result.length,,IsLogIn,Role]);
+
+//   // Load more packages
+//   const handleSeeMore = () => {
+//     if (!Loading && hasMore) {
+//       const nextPage = currentPage + 1;
+//       setCurrentPage(nextPage);
+//       dispatch(GetFirst12PackagesThuck({ limit: 12, page: nextPage }));
+//     }
+//   };
+
+//     // Filter results according to role & slots
+//   // Admin → show all
+//   // Other users → show only slots > 0
+//   const filteredResult = displayResult.filter((tour) => {
+//     if (Role === "Admin") return true;
+//     return tour.Slots > 0;
+//   });
+
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
+//       {/* Header Section */}
+//       <div className="max-w-screen mx-auto px-6 py-8">
+       
+//             <h1 className=" text-2xl sm:text-5xl text-center font-extrabold text-gray-900 mb-4">
+//             Explore Our <span className="bg-gradient-to-r from-amber-800 via-yellow-700 to-amber-600 bg-clip-text text-transparent">Premium Packages</span>
+//           </h1>
+//           <p className="text-amber-700 text-sm sm:text-lg max-w-2xl mx-auto mb-8">
+//             Discover extraordinary places and create unforgettable memories with our carefully curated travel experiences.
+//           </p>
+
+//           <SearchBar />
+        
+//       </div>
+
+//       {/* Main Content */}
+//       <div className="max-w-screen mx-auto px-6 ">
+//         {/* Header Card */}
+//         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+//           <h2 className="text-2xl font-bold text-gray-800">
+//             Popular Packages
+//             <span className="text-lg text-gray-500 font-normal ml-2">
+//               ({filteredResult.length} loaded)
+//             </span>
+//           </h2>
+//         </div>
+
+//         {/* No Results */}
+//         { isSearched && filteredResult.length === 0 && !loading && !Loading && (
+//           <div className="text-center py-16">
+//             <div className="text-6xl text-gray-300 mb-4">📦</div>
+//             <h3 className="text-2xl font-bold text-gray-600 mb-2">
+//               No packages found
+//             </h3>
+//             <p className="text-gray-500">
+//               We couldn't find any packages at the moment
+//             </p>
+//           </div>
+//         )}
+
+//         {/* Packages Grid */}
+//         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+//           {filteredResult?.map((pkg, index) => (
+//             <motion.div
+//               key={pkg._id || index}
+//               initial={{ opacity: 0, y: 30 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.4, delay: index * 0.05 }}
+//               className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
+//             >
+//               {/* ✅ Image Section */}
+//               <div className="relative w-full aspect-[4/3] overflow-hidden flex">
+//                 {pkg.Image?.length > 1 ? (
+//                   <>
+//                     {/* Left Image */}
+//                     <div className="relative w-1/2 h-full">
+//                       <Image
+//                       loading="lazy"
+//                         src={pkg.Image[0] || "/default.jpg"}
+//                         alt={pkg.Title}
+//                         fill
+//                         className="object-cover"
+//                       />
+//                     </div>
+
+//                     {/* Right Image */}
+//                     <div className="relative w-1/2 h-full">
+//                       <Image
+//                       loading="lazy"
+//                         src={pkg.Image[1] || "/default.jpg"}
+//                         alt={pkg.Title}
+//                         fill
+//                         className="object-cover"
+//                       />
+//                     </div>
+//                   </>
+//                 ) : (
+//                   // ✅ If only one image
+//                   <div className="relative w-full h-full">
+//                     <Image
+//                     loading="lazy"
+//                       src={pkg.Image?.[0] || "/default.jpg"}
+//                       alt={pkg.Title}
+//                       fill
+//                       className="object-cover"
+//                     />
+//                   </div>
+//                 )}
+
+//                 {/* Overlay Gradient */}
+//                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+//                 {/* Price Badge */}
+//                 <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+//                   <span className="text-lg font-bold text-blue-600">
+//                     Rs{pkg.BasePrice || "N/A"}
+//                   </span>
+//                 </div>
+
+//                 {/* Quick View on Hover */}
+//                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+//                   <Link
+//                     href={`/Packages/${pkg._id}`}
+//                     className="bg-white text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
+//                   >
+//                     View Details
+//                   </Link>
+//                 </div>
+//               </div>
+
+//               {/* Card Content */}
+//               <div className="p-6">
+//                 <div className="flex items-start justify-between mb-3">
+//                   <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2 truncate">
+//                     {pkg.Title || "Amazing Package"}
+//                   </h3>
+//                 </div>
+
+//                 {/* Mobile View Button */}
+//                 <Link
+//                   href={`/Packages/${pkg._id}`}
+//                   className="md:hidden block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+//                 >
+//                   View Details
+//                 </Link>
+
+//                 {/* Admin Buttons */}
+//                 {IsLogIn && Role === "Admin" && (
+//                   <div className="flex gap-3 justify-between mt-3">
+//                     <DeletePackage id={pkg._id} />
+//                     <UpdatePackages id={pkg._id}/>
+//                   </div>
+//                 )}
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+
+//              {/* //show update form if  */}
+//                 {FormID && <UpdatePackageForm id={FormID} />}
+
+
+//         {/* Loading State */}
+//         {(Loading || loading) && (
+//           <div className="flex justify-center items-center py-16">
+//             <div className="text-center">
+//               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+//               <p className="text-xl text-gray-600 animate-pulse">
+//                 {result.length === 0
+//                   ? "Loading packages..."
+//                   : "Loading more packages..."}
+//               </p>
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Load More Button */}
+//         {  hasMore && !Loading && result.length > 0 && (
+//           <div className="flex justify-center mt-12">
+//             <button
+//               type="button"
+//               onClick={handleSeeMore}
+//               disabled={Loading}
+//               className="group relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+//             >
+//               See More Packages
+//             </button>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default PackagesPage;
+
+
+
+
+
+
+
+
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -9,36 +252,29 @@ import DeletePackage from "@/Components/Buttons/Package/DeletePackage";
 import UpdatePackages from "@/Components/Buttons/Package/UpdatePackagesButton";
 import UpdatePackageForm from "@/Components/Form/PackageAndBookNowForm/UpdatePackageForm"
 import SearchBar from "@/app/(SharedRoute)/Packages/SearchBar";
+import Image from "next/image";
 
 const PackagesPage = () => {
-//hre the we get the formid from UpdatePackageSlice and also it is used to show a form
   const { FormID } = useSelector(state => state.UpdatePackageSlice);
-
 
   const dispatch = useDispatch();
   const { result, Loading, hasMore } = useSelector(
     (state) => state.GetFirst12PackagesSlice
   );
 
-  // Get login state
   const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  //it will shwo the result of a sraching
-    let {SearchResult,loading,isSearched}=useSelector(state=>state.PackageSearchBarSlice)
-  //is search is traack teh serch is done or not
-    let displayResult = isSearched ? SearchResult : result;
-  
+  let {SearchResult, loading, isSearched} = useSelector(state => state.PackageSearchBarSlice);
+  let displayResult = isSearched ? SearchResult : result;
 
-  // Load first page on mount
   useEffect(() => {
     if (result.length === 0) {
       dispatch(GetFirst12PackagesThuck({ limit: 12, page: 1 }));
     }
-  }, [dispatch, result.length]);
+  }, [dispatch, result.length, IsLogIn, Role]);
 
-  // Load more packages
   const handleSeeMore = () => {
     if (!Loading && hasMore) {
       const nextPage = currentPage + 1;
@@ -47,50 +283,45 @@ const PackagesPage = () => {
     }
   };
 
-    // Filter results according to role & slots
-  // Admin → show all
-  // Other users → show only slots > 0
   const filteredResult = displayResult.filter((tour) => {
     if (Role === "Admin") return true;
     return tour.Slots > 0;
   });
 
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
       {/* Header Section */}
-      <div className="max-w-screen mx-auto px-6 py-8">
-       
+      <div className="max-w-screen-xl mx-auto px-6 py-12">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl sm:text-5xl font-extrabold text-gray-900 mb-4">
+            Explore Our <span className="bg-gradient-to-r from-amber-800 via-yellow-700 to-amber-600 bg-clip-text text-transparent">Premium Packages</span>
+          </h1>
+          <p className="text-amber-700 text-sm sm:text-lg max-w-2xl mx-auto mb-8">
+            Discover extraordinary places and create unforgettable memories with our carefully curated travel experiences.
+          </p>
+        </div>
         
-        <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-5 sm:mb-10">
-          Explore Our Amazing Packages
-        </h1>
+        <div className="max-w-2xl mx-auto"> 
           <SearchBar />
-        
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-screen mx-auto px-6 ">
-        {/* Header Card */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <h2 className="text-2xl font-bold text-gray-800">
+      <div className="max-w-screen mx-auto px-6 pb-16">
+        {/* Results Header */}
+        <div className="bg-gradient-to-r from-amber-100 to-yellow-100 rounded-2xl shadow-lg p-6 mb-8 border border-amber-200">
+          <h2 className="text-2xl font-bold text-amber-900">
             Popular Packages
-            <span className="text-lg text-gray-500 font-normal ml-2">
-              ({filteredResult.length} loaded)
-            </span>
+            <span className="text-lg text-amber-600 font-normal ml-2">({filteredResult.length} found)</span>
           </h2>
         </div>
 
-        {/* No Results */}
-        { isSearched && filteredResult.length === 0 && !loading && !Loading && (
+        {/* No Results State */}
+        {isSearched && filteredResult.length === 0 && !loading && !Loading && (
           <div className="text-center py-16">
-            <div className="text-6xl text-gray-300 mb-4">📦</div>
-            <h3 className="text-2xl font-bold text-gray-600 mb-2">
-              No packages found
-            </h3>
-            <p className="text-gray-500">
-              We couldn't find any packages at the moment
-            </p>
+            <div className="text-6xl text-amber-300 mb-6">📦</div>
+            <h3 className="text-3xl font-bold text-amber-800 mb-2">No packages found</h3>
+            <p className="text-amber-600">We couldn't find any packages matching your search</p>
           </div>
         )}
 
@@ -102,15 +333,16 @@ const PackagesPage = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
+              className="group bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-3 border border-amber-200"
             >
-              {/* ✅ Image Section */}
+              {/* Image Section */}
               <div className="relative w-full aspect-[4/3] overflow-hidden flex">
                 {pkg.Image?.length > 1 ? (
                   <>
                     {/* Left Image */}
                     <div className="relative w-1/2 h-full">
                       <Image
+                        loading="lazy"
                         src={pkg.Image[0] || "/default.jpg"}
                         alt={pkg.Title}
                         fill
@@ -121,6 +353,7 @@ const PackagesPage = () => {
                     {/* Right Image */}
                     <div className="relative w-1/2 h-full">
                       <Image
+                        loading="lazy"
                         src={pkg.Image[1] || "/default.jpg"}
                         alt={pkg.Title}
                         fill
@@ -129,9 +362,9 @@ const PackagesPage = () => {
                     </div>
                   </>
                 ) : (
-                  // ✅ If only one image
                   <div className="relative w-full h-full">
                     <Image
+                      loading="lazy"
                       src={pkg.Image?.[0] || "/default.jpg"}
                       alt={pkg.Title}
                       fill
@@ -141,20 +374,18 @@ const PackagesPage = () => {
                 )}
 
                 {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
+                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
                 {/* Price Badge */}
-                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
-                  <span className="text-lg font-bold text-blue-600">
-                    Rs{pkg.BasePrice || "N/A"}
-                  </span>
+                <div className="absolute bottom-4 left-4 bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-4 py-2 rounded-full shadow-lg">
+                  <span className="text-lg font-bold">Rs {pkg.BasePrice || "N/A"}</span>
                 </div>
 
                 {/* Quick View on Hover */}
-                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-amber-900/70 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                   <Link
                     href={`/Packages/${pkg._id}`}
-                    className="bg-white text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300"
+                    className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 shadow-lg hover:shadow-xl"
                   >
                     View Details
                   </Link>
@@ -163,23 +394,23 @@ const PackagesPage = () => {
 
               {/* Card Content */}
               <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2 truncate">
+                <div className="flex items-start justify-between mb-4">
+                  <h3 className="text-xl font-bold text-amber-900 group-hover:text-amber-700 transition-colors line-clamp-2 h-12 overflow-y-auto sm:h-20 ">
                     {pkg.Title || "Amazing Package"}
                   </h3>
                 </div>
 
-                {/* Mobile View Button */}
+                {/* Mobile View Details Button */}
                 <Link
                   href={`/Packages/${pkg._id}`}
-                  className="md:hidden block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                  className="md:hidden block w-full bg-gradient-to-r from-amber-700 to-yellow-700 hover:from-amber-600 hover:to-yellow-600 text-white text-center py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
                 >
                   View Details
                 </Link>
 
-                {/* Admin Buttons */}
+                {/* Admin Controls */}
                 {IsLogIn && Role === "Admin" && (
-                  <div className="flex gap-3 justify-between mt-3">
+                  <div className="flex gap-3 justify-between mt-4 pt-4 border-t border-amber-200">
                     <DeletePackage id={pkg._id} />
                     <UpdatePackages id={pkg._id}/>
                   </div>
@@ -189,34 +420,47 @@ const PackagesPage = () => {
           ))}
         </div>
 
-             {/* //show update form if  */}
-                {FormID && <UpdatePackageForm id={FormID} />}
-
+        {/* Update Form Modal */}
+        {FormID && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
+            <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl shadow-2xl w-full max-w-2xl p-6 relative border border-amber-200 max-h-[90vh] overflow-y-auto">
+              <UpdatePackageForm id={FormID} />
+            </div>
+          </div>
+        )}
 
         {/* Loading State */}
         {(Loading || loading) && (
           <div className="flex justify-center items-center py-16">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-xl text-gray-600 animate-pulse">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-amber-600 mx-auto mb-4"></div>
+              <p className="text-xl text-amber-700 animate-pulse">
                 {result.length === 0
                   ? "Loading packages..."
                   : "Loading more packages..."}
-              </p>
-            </div>
+              </p> 
+            </div> 
           </div>
         )}
 
         {/* Load More Button */}
-        {  hasMore && !Loading && result.length > 0 && (
+        {hasMore && !Loading && !loading && (
           <div className="flex justify-center mt-12">
             <button
               type="button"
               onClick={handleSeeMore}
               disabled={Loading}
-              className="group relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              className="group relative bg-gradient-to-r from-amber-700 to-yellow-700 hover:from-amber-600 hover:to-yellow-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
-              See More Packages
+              <span className="flex items-center gap-3">
+                <svg className="w-5 h-5 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+                Show More Packages
+                <svg className="w-5 h-5 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </span>
             </button>
           </div>
         )}

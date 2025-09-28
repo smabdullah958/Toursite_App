@@ -1,13 +1,15 @@
 
+
 'use client'
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import LogIn from './Buttons/LogIn';
 import LogOut from './Buttons/LogOut';
 import Link from 'next/link';
+
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const Images = [
     {
       img: "/t1.jpeg",
@@ -15,7 +17,7 @@ const HeroSection = () => {
       subtitle: "Explore the world's most breathtaking destinations"
     },
     {
-      img: "/t2.webp", 
+      img: "/t2.webp",
       title: "Adventure Awaits",
       subtitle: "Create memories that will last a lifetime"
     },
@@ -49,11 +51,11 @@ const HeroSection = () => {
 
   return (
     <div className="relative h-[90vh] w-full overflow-hidden">
-      {/* Login/Logout buttons - positioned at top right */}
+      {/* Login/Logout buttons */}
       <div className="absolute top-4 right-4 z-40 md:hidden">
-           <div className="md:hidden flex justify-end">
-              <LogOut/><LogIn/>
-                  </div>
+        <div className="md:hidden flex justify-end">
+          <LogOut/><LogIn/>
+        </div>
       </div>
 
       {/* Background Images */}
@@ -68,26 +70,29 @@ const HeroSection = () => {
             src={item.img}
             alt={item.title}
             fill
-            className="w-full h-full object-cover"   
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                    loading="lazy"
-                />
-          <div className="absolute inset-0 bg-black/40"></div>
+            className="w-full h-full object-cover"
+            sizes="100vw"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
       ))}
 
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="text-center text-white px-6 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
             {Images[currentSlide].title}
           </h1>
-          
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+
+          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             {Images[currentSlide].subtitle}
           </p>
 
-          <Link href="/Destination" className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <Link
+            href="/Destination"
+            className="inline-block bg-[#B8860B] hover:bg-[#CD853F] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg"
+          >
             Explore Now
           </Link>
         </div>
@@ -101,8 +106,8 @@ const HeroSection = () => {
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentSlide
-                ? 'bg-white scale-125'
-                : 'bg-white/50 hover:bg-white/75'
+                ? 'bg-[#B8860B]  scale-125'
+                : 'bg-white/50 hover:bg-[#f1cdb1]'
             }`}
           />
         ))}

@@ -14,13 +14,20 @@ const MobileHeader = () => {
   }
 
   return (
-    <header className="md:hidden bg-[#92c7f2] shadow-lg ">
+    <header className="md:hidden bg-gradient-to-br from-[#deca99] via-[#CD853F] to-[#A0522D] shadow-lg ">
       {/* Top bar with logo + burger */}
       <div className=" px-6 flex items-center justify-between h-16">
         {/* Logo */}
-        <p className="text-xl  font-bold text-white tracking-wide hover:scale-105 transition-transform">
-          🌍 TouristApp
-        </p>
+        
+            <div className="relative w-16 h-20">
+          <Image
+            src="/log.png"
+            alt="logo"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
 
         {/* Burger button */}
         {showMenu?
@@ -34,13 +41,14 @@ const MobileHeader = () => {
           onClick={() => setShowMenu(true)}
           className="focus:outline-none"
         >
-          <Image src="/burger.webp" alt="menu" width={30} height={30} />
+          <Image src="/burger.webp" alt="menu" width={30} height={30} loading="lazy" />
         </button>}
       </div>
 
       {/* Slide-down menu */}
       {showMenu &&(
-        <div className="absolute top-16 left-0 w-full bg-[#92c7f2] shadow-md z-50 animate-slideDown">
+        <div className="absolute top-16 left-0 w-full bg-gradient-to-br from-[#deca99] via-[#CD853F] 
+        to-[#A0522D] shadow-md z-50 animate-slideDown">
           <nav className="flex flex-col gap-4 p-6 text-lg font-medium">
             <Link
               href="/"

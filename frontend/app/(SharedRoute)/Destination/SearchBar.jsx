@@ -74,7 +74,7 @@ useEffect(()=>{
         {/* Button */}
         <button
           onClick={HandleButton}
-          className=" sm:w-40 bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-3 text-sm transition">
+          className=" sm:w-40 bg-gradient-to-r from-amber-700 to-yellow-700  hover:from-amber-600 hover:to-yellow-600 text-white rounded-lg p-3 text-sm transition">
           🚀 Go
         </button>
       </div>

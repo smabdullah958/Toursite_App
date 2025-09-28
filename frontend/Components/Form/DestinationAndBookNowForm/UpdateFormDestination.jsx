@@ -13,7 +13,7 @@ import schema from "@/Components/yupValidation/DestinationValidation";
 //it is used for refetch 
 import GetFirstTwentyImage from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetFirstTwentyImageThunck";
 //it is used for reset the state of getfirsttwentyimage
-import { resetProducts } from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetFirstTwentyImage";
+import { resetDestination } from "@/Libraries/ReduxToolkit/Slices/Destination/get/GetFirstTwentyImage";
 import Loader from "@/Components/Loader";
 //get by id for a prefill form thunck 
 import FindByIdThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetDestinationByID"
@@ -144,14 +144,14 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
   useEffect(() => {
     if (success) {
       dispatch(ResetUpdateState()); //this will reset the updatestate
-      dispatch(resetProducts()); // this will reset all the tour it means now it will fetch again from a 0
+      dispatch(resetDestination()); // this will reset all the tour it means now it will fetch again from a 0
       dispatch(GetFirstTwentyImage({ page: 1, limit: 20 })); //again refetch
       dispatch(HideUpdateForm());
     }
   }, [success]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
+    <div className="fixed inset-0 flex items-center justify-center  backdrop-blur-sm z-50">
       {/* Modal Container */}
       <div className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
 
@@ -165,7 +165,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
         </button>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-center rounded-t-2xl relative">
+        <div className="bg-gradient-to-r from-amber-600 to-yellow-600 p-6 text-center rounded-t-2xl relative">
           <h2 className="text-2xl font-bold text-white">🏝️ Update Destination</h2>
           <p className="text-indigo-100 text-sm">Transform your travel experience with stunning destinations</p>
         </div>
@@ -235,7 +235,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
   <button
     type="button"
     onClick={() => append({ time: "" })}
-    className="mt-2 px-4 py-2 bg-green-400 text-white rounded-lg text-sm hover:bg-green-500 duration-300 transition"
+    className="mt-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-lg text-sm duration-300 transition hover:from-amber-600 hover:to-yellow-600"
   >
     ➕ Add Time
   </button>
@@ -272,7 +272,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
               type="file"
               accept="image/jpg, image/png, image/jpeg"
               {...register("Image")}
-              className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-indigo-600 file:text-white hover:file:bg-indigo-700"
+              className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-amber-500 file:text-white hover:file:bg-yellow-700 duration-500 transition-all"
             />
             <p className="text-red-500 text-xs mt-1">{errors.Image?.message}</p>
             <p className="text-gray-500 text-xs mt-1">Leave empty to keep current image</p>
@@ -295,14 +295,14 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
           <div className="flex gap-4">
             <button
               onClick={() => dispatch(HideUpdateForm())}
-              className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 text-sm"
+              className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold bg-gradient-to-r from-amber-100 to-yellow-100 hover:from-amber-200 hover:to-yellow-200 duration-500 transition-all text-sm"
             >
               ❌ Cancel
             </button>
             <button
               onClick={handleSubmit(HandleButton)}
               disabled={Loading}
-              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 ${Loading ? "opacity-70 cursor-not-allowed" : "hover:scale-105"}`}
+              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 ${Loading ? "opacity-70 cursor-not-allowed" : "hover:scale-105"}`}
             >
               {Loading ? <Loader /> : "🚀 Update"}
             </button>

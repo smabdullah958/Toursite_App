@@ -25,7 +25,7 @@ const deletebutton = () => {
 
     return (
      <div>
-       <button onClick={deletebutton} disabled={Loading}    className={`px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md  focus:outline-none focus:ring-2 focus:ring-red-400 hover:scale-105 active:scale-95 ${Loading?"bg-red-400 ":"hover:bg-red-700 hover:shadow-lg transition-all duration-300 ease-in-out"}`}>{Loading?<Loader/>:"Delete"}</button>
+       <button onClick={deletebutton} disabled={Loading}    className={`px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md bg-gradient-to-r from-amber-600 to-yellow-600  focus:outline-none focus:ring-2 focus:ring-red-400 hover:scale-105 active:scale-95 ${Loading?"bg-amber-100":"hover:from-amber-500 hover:to-yellow-500 hover:scale-105 hover:shadow-xl duration-500 transition"}`}>{Loading?<Loader/>:"Delete"}</button>
      </div>
    )
  }

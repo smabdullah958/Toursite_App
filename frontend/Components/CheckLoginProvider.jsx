@@ -27,7 +27,7 @@ const CheckLoginProvider = ({ children }) => {
     }
   }, [IsLogIn, Role, Loading, pathname, router]);
 
-  
+  if(Loading)return <Loader/>
 
   return <>{children}</>;
 };

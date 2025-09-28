@@ -83,8 +83,8 @@ const StripeCheckoutForm = ({ clientSecret, onSuccess,bookingId }) => {
       <button
         onClick={HandleButton}
         disabled={loading || !stripe}
-        className={`px-6 py-2 rounded-lg text-white font-semibold 
-        ${loading ? "bg-indigo-300 opacity-50" : "bg-indigo-500 hover:bg-indigo-600"}`}
+        className={`px-6 py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-amber-500 to-yellow-500 duration-500 transition-all
+        ${loading ?  "opacity-70 cursor-not-allowed" : "hover:scale-105"}`}
       >
         {loading ? <Loader /> : "Pay Now"}
       </button>

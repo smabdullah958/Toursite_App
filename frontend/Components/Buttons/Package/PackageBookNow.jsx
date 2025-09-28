@@ -14,7 +14,12 @@ const PackageBookNow = ({id,time,basePrice}) => {
 
   return (
     <div>
-      <button disabled={!IsLogIn} onClick={()=>{dispatch(DisplayBookNowForm(id))}} className={`w-full bg-gradient-to-r from-blue-600 to-blue-700  text-white font-semibold py-4 px-6 rounded-xl   shadow-lg hover:shadow-xl ${IsLogIn?"opacity-100 hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105":"opacity-15"}`}>
+      <button disabled={!IsLogIn} onClick={()=>{dispatch(DisplayBookNowForm(id))}} 
+      className={`w-full group relative bg-gradient-to-r from-amber-600 to-yellow-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 transform ${
+          IsLogIn 
+            ? "hover:from-amber-500 hover:to-yellow-500 hover:scale-105 hover:shadow-xl opacity-100"
+            : "opacity-50 cursor-not-allowed"
+        } overflow-hidden`}>
                     Book Now
                   </button>
                   {ShowForm && PackageID===id && <PackageForm TravelTime={time} basePrice={basePrice} PackageID={id}/>}

@@ -12,7 +12,7 @@ const PackageBookingMarkAsPaidButton = ({id}) => {
   return (
 <div>
        <button            onClick={()=>dispatch(PackageMarkAsPaid({id}) )} 
-             className="px-4 py-2 rounded-lg mt-3 bg-green-500 text-white font-bold shadow-md hover:bg-green-600 transition-all duration-200"    >      ✔ Mark as Paid</button>
+             className="px-4 py-2 rounded-lg mt-3 bg-yellow-500 text-white font-bold shadow-md hover:bg-yellow-600 transition-all duration-200"    >      ✔ Mark as Paid</button>
 
     </div>
   )

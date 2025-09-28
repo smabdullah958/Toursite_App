@@ -90,7 +90,7 @@ let dispatch=useDispatch()
         </button>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-center rounded-t-2xl relative">
+        <div className="bg-gradient-to-r from-amber-600 to-yellow-600 p-6 text-center rounded-t-2xl relative">
           <h2 className="text-2xl font-bold text-white">🏝️ Book Your Destination</h2>
         </div>
 </div>
@@ -255,7 +255,7 @@ let dispatch=useDispatch()
           <div className="flex gap-4">
             <button
                     onClick={CloseForm}
-              className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 text-sm"
+              className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold bg-amber-100 hover:bg-amber-200 transition duration-500 text-sm"
             >
               ❌ Cancel
             </button>
@@ -263,7 +263,7 @@ let dispatch=useDispatch()
             <button
               onClick={handleSubmit(HandleButton)}
                disabled={loading}
-              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold text-sm shadow-md ${loading?"opacity-50":"hover:shadow-lg transition-all duration-500 hover:scale-105 opacity-100"} `}>
+              className={`flex-1 py-3 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md ${loading?"opacity-50":"hover:shadow-lg transition-all duration-500 hover:scale-105 opacity-100"} `}>
               {loading?<Loader/>:"BookNow"}
             </button>
 

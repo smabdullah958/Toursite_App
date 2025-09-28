@@ -15,7 +15,7 @@ let GetFirstTwentyImageSlice=createSlice({
     name:'getdestination',
     initialState,
     reducers:{
-    resetProducts: (state) => {
+    resetDestination: (state) => {
     state.success = false;
     state.Loading = false;
     state.error = false;
@@ -71,6 +71,6 @@ let GetFirstTwentyImageSlice=createSlice({
     }
 })
 
-export const {resetProducts} = GetFirstTwentyImageSlice.actions;
+export const {resetDestination} = GetFirstTwentyImageSlice.actions;
 
 export default GetFirstTwentyImageSlice.reducer

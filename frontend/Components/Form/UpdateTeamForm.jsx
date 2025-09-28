@@ -107,7 +107,7 @@ const UpdateTeamForm = ({ member }) => {
           </button>
 
           {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-center rounded-t-2xl relative">
+          <div className="bg-gradient-to-r from-amber-600 to-yellow-600 p-6 text-center rounded-t-2xl relative">
             <h2 className="text-2xl font-bold text-white">🏝️ Update Team</h2>
           </div>
         </div>
@@ -176,8 +176,7 @@ const UpdateTeamForm = ({ member }) => {
               type="file"
               accept="image/jpg, image/png, image/jpeg"
               {...register("Img")}
-              className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-indigo-600 file:text-white hover:file:bg-indigo-700"
-            />
+     className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-amber-500 file:text-white hover:file:bg-yellow-700 duration-500 transition-all"         />
             <p className="text-red-500 text-xs mt-1">
               {errors.Img?.message}
             </p>
@@ -251,16 +250,14 @@ const UpdateTeamForm = ({ member }) => {
           <div className="flex gap-4">
             <button
               onClick={() => dispatch(HideUpdateForm())}
-              className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 text-sm"
-            >
+    className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold bg-gradient-to-r from-amber-100 to-yellow-100 hover:from-amber-200 hover:to-yellow-200 duration-500 transition-all text-sm"
+                >
               ❌ Cancel
             </button>
             <button
               onClick={handleSubmit(HandleButton)}
-              disabled={Loading}
-              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 ${
-                Loading ? "opacity-70 cursor-not-allowed" : "hover:scale-105"
-              }`}
+              disabled={Loading}  
+              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 ${Loading ? "opacity-70 cursor-not-allowed" : "hover:scale-105"}`}
             >
               {Loading ? <Loader /> : "🚀 Update"}
             </button>

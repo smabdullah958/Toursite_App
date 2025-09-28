@@ -159,7 +159,7 @@ const UpdatePackageForm = ({ id }) => {
           </button>
 
           {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-center rounded-t-2xl relative">
+          <div className="bg-gradient-to-r from-amber-600 to-yellow-600 p-6 text-center rounded-t-2xl relative">
             <h2 className="text-2xl font-bold text-white">🏝️ Update Packages</h2>
             <p className="text-indigo-100 text-sm">Transform your travel experience with stunning destinations</p>
           </div>
@@ -230,7 +230,7 @@ const UpdatePackageForm = ({ id }) => {
   <button
     type="button"
     onClick={() => append({ time: "" })}
-    className="mt-2 px-4 py-2 bg-green-400 text-white rounded-lg text-sm hover:bg-green-500 duration-300 transition"
+  className="mt-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-lg text-sm duration-300 transition hover:from-amber-600 hover:to-yellow-600"
   >
     ➕ Add Time
   </button>
@@ -258,8 +258,7 @@ const UpdatePackageForm = ({ id }) => {
               type="file"
               accept="image/png ,image/jpeg "
               {...register("Image1")}
-              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
-            />
+              className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-amber-500 file:text-white hover:file:bg-yellow-700 duration-500 transition-all"            />
             <p className="text-red-500 text-sm mt-1">{errors.Image1?.message}</p>
           </div>
 
@@ -272,7 +271,7 @@ const UpdatePackageForm = ({ id }) => {
               type="file"
               accept="image/png ,image/jpeg "
               {...register("Image2")}
-              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
+              className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-amber-500 file:text-white hover:file:bg-yellow-700 duration-500 transition-all"
             />
             <p className="text-red-500 text-sm mt-1">{errors.Image2?.message}</p>
           </div>
@@ -284,8 +283,7 @@ const UpdatePackageForm = ({ id }) => {
                 Image Upload (3 is optional)
               </label>
               <input type="file" accept="image/png ,image/jpeg" {...register("Image3")}
-                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
-              />
+           className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-amber-500 file:text-white hover:file:bg-yellow-700 duration-500 transition-all"    />
               <p className="text-red-500 text-sm mt-1">{errors.Image3?.message}</p>
             </div>
           )}
@@ -295,8 +293,7 @@ const UpdatePackageForm = ({ id }) => {
                 Image Upload (4 is optional)
               </label>
               <input type="file" accept="image/png ,image/jpeg" {...register("Image4")}
-                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
-              />
+             className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-amber-500 file:text-white hover:file:bg-yellow-700 duration-500 transition-all" />
               <p className="text-red-500 text-sm mt-1">{errors.Image4?.message}</p>
             </div>
           )}
@@ -306,15 +303,14 @@ const UpdatePackageForm = ({ id }) => {
                 Image Upload (5 is optional)
               </label>
               <input type="file" accept=" image/png ,image/jpeg" {...register("Image5")}
-                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
-              />
+          className="w-full text-sm px-3 py-2 border rounded-lg file:mr-3 file:px-4 file:py-2 file:rounded-md file:border-0 file:bg-amber-500 file:text-white hover:file:bg-yellow-700 duration-500 transition-all"    />
               <p className="text-red-500 text-sm mt-1">{errors.Image5?.message}</p>
             </div>
           )}
 
           {/* add button */}
           {AddImages < 3 && (
-            <button disabled={loading} onClick={() => SetAddImages(AddImages + 1)} className={`px-4 py-2  text-white rounded-lg shadow duration-300   ${loading ? "bg-blue-200 opacity-60" : "hover:bg-blue-300 transition bg-blue-400 opacity-100"}`}> ➕ Add More Images</button>
+            <button disabled={loading} onClick={() => SetAddImages(AddImages + 1)} className={`px-4 py-2  text-white rounded-lg shadow duration-300   ${loading ? "bg-blue-200 opacity-60" : "bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-lg text-sm duration-300 transition hover:from-amber-600 hover:to-yellow-600"}`}> ➕ Add More Images</button>
           )}
 
           {/* Description */}
@@ -333,14 +329,15 @@ const UpdatePackageForm = ({ id }) => {
           <div className="flex gap-4">
             <button
               onClick={() => dispatch(HidePackageForm())}
-              className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 text-sm"
-            >
+        className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold bg-gradient-to-r from-amber-100 to-yellow-100 hover:from-amber-200 hover:to-yellow-200 duration-500 transition-all text-sm"
+                >
               ❌ Cancel
             </button>
             <button
               onClick={handleSubmit(HandleButton)}
               disabled={loading}
-              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold text-sm shadow-md  ${loading ? "opacity-50 cursor-not-allowed" : "hover:shadow-lg transition-all duration-200 hover:scale-105 opacity-100"}`}>
+               className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 ${loading ? "opacity-70 cursor-not-allowed" : "hover:scale-105"}`}
+         >
               {loading ? <Loader /> : "🚀 Update"}
             </button>
           </div>

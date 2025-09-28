@@ -2,8 +2,6 @@
 import LogOutThunck from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogOutThunck'
 import React, { useState,useEffect } from 'react' 
 import { useDispatch,useSelector } from 'react-redux'
-//it is show the login button after the user is logout 
-import { DisplayLogIn } from "@/Libraries/ReduxToolkit/Slices/Auth/CheckLogInSlice";
 
 import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck'
 // set role is nul and 
@@ -22,9 +20,9 @@ dispatch(LogOutThunck())
   useEffect(()=>{
    if(success){
   dispatch(resetLogOut())
-  dispatch(CheckLogIn()) 
+  dispatch(CheckLogIn())
   route.push("/")
-  }
+}
  },[success,dispatch,route])
 
  const [mounted, setMounted] = useState(false);
@@ -35,7 +33,7 @@ dispatch(LogOutThunck())
     <div>
 {IsLogIn &&
       <button onClick={HandleButton} disabled={Loading}        
-      className={`px-6 py-2 rounded-xl  bg-gradient-to-r from-[#3fb7eb] to-[#23a4dc] text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 ${IsLogIn?"opacity-100 hover:from-[#0693cf] hover:to-[#0f94cd]":"opacity-0"} ${Loading?"opacity-40 cursor-not-allowed bg-gray-200":""}`}>Log Out</button>
+      className={`px-6 py-2 rounded-xl  bg-[#B8860B] hover:bg-[#CD853F] text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 ${IsLogIn?"opacity-100 hover:bg-[#D4A373]":"opacity-0"} ${Loading?"opacity-40 cursor-not-allowed bg-gray-200":""}`}>Log Out</button>
 }
     </div>
   )

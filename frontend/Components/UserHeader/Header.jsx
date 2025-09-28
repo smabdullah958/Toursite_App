@@ -2,15 +2,23 @@ import React from "react";
 import Link from "next/link";
 import LogIn from "../Buttons/LogIn";
 import LogOut from "../Buttons/LogOut";
+import Image from "next/image";
 const Header = () => {
   return (
     <header className=" sticky top-0 z-50">
-      <div className=" hidden md:flex justify-between items-center md:h-16 bg-[#92c7f2] shadow-lg  mx-auto px-3 lg:px-6  h-16 2xl:h-24 ">
+      <div className=" hidden md:flex justify-between items-center md:h-16 bg-gradient-to-br from-[#deca99] via-[#CD853F] to-[#A0522D] shadow-lg  mx-auto px-3 lg:px-6  h-16 2xl:h-24 ">
         
         {/* Logo / Brand */}
-        <p  className="text-2xl 2xl:text-6xl font-bold text-white tracking-wide hover:scale-105 transition-transform">
-          🌍 TouristApp
-        </p>
+        
+          <div className="relative w-32 h-20">
+          <Image
+            src="/log.png"
+            alt="logo"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
 
         {/* Navigation Links */}
         <nav className="flex gap-6 text-lg 2xl:text-4xl font-medium">
