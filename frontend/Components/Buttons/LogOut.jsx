@@ -3,7 +3,6 @@ import LogOutThunck from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogOutThunck
 import React, { useState,useEffect } from 'react' 
 import { useDispatch,useSelector } from 'react-redux'
 
-import CheckLogIn from '@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck'
 // set role is nul and 
  import { resetLogOut } from '@/Libraries/ReduxToolkit/Slices/Auth/LogOutSlice'
 import { useRouter } from 'next/navigation'
@@ -11,7 +10,7 @@ const LogOut = () => {
 let dispatch=useDispatch()
 let route=useRouter()
 //IsLogIn is a state in a CheckLogInSlice whichs is used to check the user is login or not if a checklogin is true than it will show logout button while hide the login button and if a checklogin is false than it will shwo the login button while hide the logout button bro 
- let {IsLogIn,Role}=useSelector((state)=>state.CheckLogInSlice)
+ let {IsLogIn}=useSelector((state)=>state.CheckLogInSlice)
  let {Loading,success}=useSelector((state)=>state.LogOutSlice)
 let HandleButton=()=>{
 dispatch(LogOutThunck())   
@@ -20,8 +19,6 @@ dispatch(LogOutThunck())
   useEffect(()=>{
    if(success){
   dispatch(resetLogOut())
-  dispatch(CheckLogIn())
-  route.push("/")
 }
  },[success,dispatch,route])
 
