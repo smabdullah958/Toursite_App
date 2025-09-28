@@ -216,8 +216,8 @@ export default function ResetPasswordPage() {
             disabled={Loading}
             className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 ${
               Loading
-                ? "bg-amber-200 text-amber-600 cursor-not-allowed"
-                : "bg-amber-600 hover:bg-amber-700 text-white shadow-md hover:shadow-lg"
+                ? "bg-amber-200 text-amber-600 cursor-not-allowed opacity-30"
+                : "bg-amber-600 hover:bg-amber-700 text-white shadow-md hover:shadow-lg opacity-100"
             }`}
           >
             {Loading ?<Loader/> : "✅ Reset Password"}

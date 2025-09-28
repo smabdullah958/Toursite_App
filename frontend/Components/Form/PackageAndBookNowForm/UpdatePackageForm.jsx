@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 //usefieldarray is used for a dynamic input field like user can add and remove fields
 import { useForm,useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "@/Components/yupValidation/UpdatePackageYupValidation"; //it contain the validation schema
+import { schema } from "@/Components/yupValidation/Packages/UpdatePackageYupValidation"; //it contain the validation schema
 import { useDispatch, useSelector } from 'react-redux';
 
 import UpdatePackageThunck from '@/Libraries/ReduxToolkit/AsyncThunck/Packages/UpdatePackageThunck';

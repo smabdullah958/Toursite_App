@@ -230,10 +230,9 @@ let dispatch=useDispatch()
               <label className="block text-gray-800 font-semibold mb-2">Base Price</label>
               <input
                 type="number"
-
                 value={basePrice}
                   readOnly
-                placeholder="age less than 12"
+                placeholder="base price"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
             </div>
@@ -284,7 +283,7 @@ let dispatch=useDispatch()
       </button>
 
       {/* Title */}
-      <h3 className="text-xl font-bold mb-4 text-center text-indigo-600">
+      <h3 className="text-xl font-bold mb-4 text-center text-amber-600">
         💳 Complete Your Payment
       </h3>
 
@@ -296,8 +295,8 @@ let dispatch=useDispatch()
         <p><strong>📅 Date:</strong> {watch("Date")}</p>
         <p><strong>👨 Adults:</strong> {watch("NumberOfAdultChild")}</p>
         <p><strong>👶 Kids:</strong> {watch("NumberOfNoneAdultChild")}</p>
-        <p className="font-bold text-indigo-600 mt-2">
-          💰 Total: {watch("TotalPrice")} PKR
+        <p className="font-bold text-yellow-600 mt-2">
+          💰 Total: {watch("TotalPrice")} AED
         </p>
       </div>
 

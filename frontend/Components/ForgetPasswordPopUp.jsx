@@ -207,8 +207,8 @@ export default function ForgetPasswordPopUp() {
                   disabled={Loading}
                   className={`flex-1 px-6 py-2 rounded-xl text-white font-semibold shadow-md transition-all duration-300 ${
                     Loading
-                      ? "bg-amber-400 cursor-not-allowed"
-                      : "bg-amber-600 hover:bg-amber-700 hover:scale-105"
+                      ? "bg-amber-400 cursor-not-allowed opacity-30"
+                      : "bg-amber-600 hover:bg-amber-700 hover:scale-105 opacity-100"
                   }`}
                 >
                   {Loading ? <Loader /> : "Send Link"}

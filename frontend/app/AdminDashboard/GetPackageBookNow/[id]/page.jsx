@@ -122,6 +122,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import GetPackageBookingByIDThunck from "@/Libraries/ReduxToolkit/AsyncThunck/PackagaBookNow/GetPackageByID"
+import Loader from "@/app/loading"
 
 const page = () => {
   const { id } = useParams(); //id is come forma backend and it is include a dynamic id
@@ -135,27 +136,7 @@ const page = () => {
   }, [id, dispatch])
 
   // Loading State
-  if (Loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100 flex items-center justify-center relative overflow-hidden">
-        {/* Desert Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-full h-full" 
-               style={{
-                 backgroundImage: `radial-gradient(circle at 25% 25%, #8B4513 2px, transparent 2px),
-                                  radial-gradient(circle at 75% 75%, #D2691E 1px, transparent 1px)`,
-                 backgroundSize: '120px 120px, 80px 80px'
-               }}>
-          </div>
-        </div>
-        
-        <div className="text-center relative z-10">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-amber-600 border-b-4 mx-auto mb-6"></div>
-          <p className="text-xl md:text-2xl text-amber-700 animate-pulse">Loading User Detail...</p>
-        </div>
-      </div>
-    )
-  }
+  if (Loading) <Loader/>
   
   // Error State
   if (error && error.length > 0) {
@@ -254,7 +235,7 @@ const page = () => {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-4">
-              <div className="bg-amber-200/80 text-amber-900 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold border border-amber-300">Total Price: Rs {UserDetail.TotalPrice || 0}</div>
+              <div className="bg-amber-200/80 text-amber-900 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold border border-amber-300">Total Price:  {UserDetail.TotalPrice || 0} AED</div>
               <div className="bg-yellow-200/80 text-amber-900 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold border border-amber-300">Payment Method: {UserDetail.PaymentMethod || "N/A"}</div>
               <div className="bg-amber-200/80 text-amber-900 2xl:p-7 2xl:text-xl px-4 py-2 rounded-full font-semibold border border-amber-300">Payment Status: {UserDetail.PaymentStatus || "N/A"}</div>
             </div>

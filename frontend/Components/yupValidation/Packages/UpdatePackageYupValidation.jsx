@@ -19,7 +19,6 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
  ).min(1, "At least one time is required"),
  
         Image1: yup.mixed()
-        // .required("Image is required")
                    .test(
                     'fileSize',
                     'File must be less than 300kb',

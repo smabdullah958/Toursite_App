@@ -69,7 +69,7 @@ let PaymentSuccess = async (req, res) => {
         </tr>
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.TotalPrice} RS</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.TotalPrice} AED</td>
         </tr>
         <tr>
           <td style="padding: 8px;"><b>Status:</b></td>

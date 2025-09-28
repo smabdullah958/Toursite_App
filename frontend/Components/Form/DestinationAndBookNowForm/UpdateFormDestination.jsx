@@ -8,7 +8,7 @@ import { HideUpdateForm, ResetUpdateState } from "@/Libraries/ReduxToolkit/Slice
 import UpdateThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/UpdateThunck";
 
 //import validation
-import schema from "@/Components/yupValidation/DestinationValidation";
+import schema from "@/Components/yupValidation/Destination/UpdateDestinationValidation";
 
 //it is used for refetch 
 import GetFirstTwentyImage from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/Get/GetFirstTwentyImageThunck";

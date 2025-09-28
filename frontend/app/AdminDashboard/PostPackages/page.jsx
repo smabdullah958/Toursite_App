@@ -548,7 +548,7 @@ import React, { useState,useEffect } from "react";
 import { useForm,useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 //it contain the validation schema
-import { schema } from "@/Components/yupValidation/PostPackageYupValidation";
+import { schema } from "@/Components/yupValidation/Packages/PostPackageYupValidation";
 import { useDispatch, useSelector } from "react-redux";
 import PostPackageThunck  from "@/Libraries/ReduxToolkit/AsyncThunck/Packages/PostPackageThunck"
 import Loader from "@/Components/Loader";

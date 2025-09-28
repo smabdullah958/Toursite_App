@@ -418,7 +418,7 @@ import { useForm,useFieldArray  } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 //import validation
-import schema from "@/Components/yupValidation/DestinationValidation";
+import schema from "@/Components/yupValidation/Destination/DestinationValidation";
 
 import { useSelector,useDispatch } from "react-redux";
 import PostImageThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Destination/PostImageThunck";

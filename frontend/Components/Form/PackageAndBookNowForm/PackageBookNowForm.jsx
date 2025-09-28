@@ -552,7 +552,7 @@ let dispatch=useDispatch()
 
                 value={basePrice}
                   readOnly
-                placeholder="age less than 12"
+                placeholder="base price"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
             </div>
@@ -582,7 +582,7 @@ let dispatch=useDispatch()
             <button
               onClick={handleSubmit(HandleButton)}
                disabled={loading}
-              className={`flex-1 py-3 rounded-lg bg-amber-600 hover:bg-amber-700 text-white to-pink-600 text-white font-semibold text-sm shadow-md ${loading?"opacity-50":"hover:shadow-lg transition-all duration-500 hover:scale-105 opacity-100"} `}>
+              className={`flex-1 py-3 rounded-lg bg-amber-600 hover:bg-amber-700 text-white to-pink-600  font-semibold text-sm shadow-md ${loading?"opacity-40":"hover:shadow-lg transition-all duration-500 hover:scale-105 opacity-100 "} `}>
               {loading?<Loader/>:"BookNow"}
             </button>
 
@@ -603,7 +603,7 @@ let dispatch=useDispatch()
       </button>
 
       {/* Title */}
-      <h3 className="text-xl font-bold mb-4 text-center text-indigo-600">
+      <h3 className="text-xl font-bold mb-4 text-center text-amber-600">
         💳 Complete Your Payment
       </h3>
 
@@ -615,8 +615,8 @@ let dispatch=useDispatch()
         <p><strong>📅 Date:</strong> {watch("Date")}</p>
         <p><strong>👨 Adults:</strong> {watch("NumberOfAdultChild")}</p>
         <p><strong>👶 Kids:</strong> {watch("NumberOfNoneAdultChild")}</p>
-        <p className="font-bold text-indigo-600 mt-2">
-          💰 Total: {watch("TotalPrice")} PKR
+        <p className="font-bold text-yellow-600 mt-2">
+          💰 Total: {watch("TotalPrice")} AED
         </p>
       </div>
 
@@ -634,9 +634,6 @@ let dispatch=useDispatch()
     </div>
   </div>
 )}
-
-
-            
           </div>
         </div>
       </div>

@@ -66,7 +66,7 @@ useEffect(()=>{
         {/* Button */}
         <button
           onClick={HandleButton}
-        className={`sm:w-40 rounded-lg p-3 text-sm transition bg-amber-400 hover:bg-amber-600 duration-300 transition text-white"}`}>
+        className={`sm:w-40 rounded-lg p-3 text-sm  bg-amber-400 hover:bg-amber-600 duration-300 transition text-white"}`}>
           🚀 Go
         </button>
       </div>

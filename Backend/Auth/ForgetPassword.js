@@ -68,7 +68,7 @@ let ForgetPassword=async(req,res)=>{
   `;
 
 
-    await sendEmail(Email,"payement is successful",EmailHTML);
+    await sendEmail(Email,"Reset Password Link",EmailHTML);
        
     return res.json({ message: " reset link sent",
      });

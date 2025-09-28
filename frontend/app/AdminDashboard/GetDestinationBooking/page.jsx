@@ -303,7 +303,7 @@ if(displayResult.length===0){
                   Destination: {booking.DestinationID?.Title || "Unknown"}
                 </h4>
                 <p className="text-amber-700 mb-4">
-                  Total Price: <span className="font-bold text-amber-800">Rs {booking.TotalPrice}</span>
+                  Total Price: <span className="font-bold text-amber-800">{booking.TotalPrice} AED </span>
                 </p>
 
                 {/* Payment Method */}

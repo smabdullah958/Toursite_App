@@ -85,7 +85,7 @@
                 let paymentIntent =await stripe.paymentIntents.create({
                     amount:TotalPrice*100, 
                     //here in a amount we must be convert the total price into a currency smallest unit like pasia
-                    currency:"usd",
+                    currency:"aed",
                 automatic_payment_methods: { enabled: true }, // ✅ allow card & link
 
                     metadata:{
@@ -140,7 +140,7 @@
         </tr>
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${TotalPrice} RS</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${TotalPrice} AED</td>
         </tr>
         <tr>
           <td style="padding: 8px;"><b>Status:</b></td>
