@@ -10,14 +10,16 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
 TravelTimes:yup.array().of(yup.object({ 
   time:yup.string().required("Time is required")
 })
-).min(1, "At least one time is required"),
+).min(1),
 
-  BasePrice: yup
-    .number()
-    .typeError("Price must be a number")
-    .positive("Price must be positive")
-    .required("Price is required"),
-  Image: yup.mixed().required("Image is required")
+  BasePrice: yup.array().length({min:1})
+          .of(
+            yup.number()
+                .typeError(" price must be a valid number")
+                .positive(" price must be positive")
+                .required("Price value is required")),
+
+    Image: yup.mixed().required("Image is required")
    .test(
                  'fileSize',
                  'File must be less than 300kb',
@@ -35,6 +37,10 @@ TravelTimes:yup.array().of(yup.object({
                 value=>value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)
               ),
   Description: yup.string().required("Description is required"),
+  Category: yup.array().required("Category is required").length({min:1}),
+  //here it is used foa  duration ofa  destination bro 
+  Duration: yup.string().required("Travel Duration is required"),
+
 });
 
 

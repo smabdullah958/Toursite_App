@@ -12,11 +12,14 @@ TravelTimes:yup.array().of(yup.object({
 })
 ).min(1, "At least one time is required"),
 
-  BasePrice: yup
-    .number()
-    .typeError("Price must be a number")
-    .positive("Price must be positive")
-    .required("Price is required"),
+BasePrice: yup.array().length({min:1})
+          .of(
+            yup.number()
+                .typeError("Each price must be a valid number")
+                .positive("Each price must be positive")
+                .required("Price value is required"))
+            .required("Price is required"),
+
     // ✅ Image optional on update
   Image: yup
     .mixed()
@@ -30,6 +33,10 @@ TravelTimes:yup.array().of(yup.object({
       return SUPPORTED_FORMATS.includes(value[0].type);
     }),
     Description: yup.string().required("Description is required"),
+      Category: yup.array().required("Category is required").length({min:1}),
+      //here it is used foa  duration ofa  destination bro 
+      Duration: yup.string().required("Travel Duration is required"),
+    
 });
 
 

@@ -6,12 +6,16 @@ const MAX_FILE_SIZE = 300 * 1024 ; // 300kb
 export const schema = yup.object({
   Title: yup.string().required("Title is required"),
 Slots:yup.number().typeError("slots must be number").positive("slots must be positive number").required("slots are required"),
-  BasePrice: yup
-    .number()
-    .typeError("Price must be a number")
-    .positive("Price must be positive")
-    .required("Price is required"),
-  Description: yup.string().required("Description is required"),
+
+BasePrice: yup.array().length({min:1})
+          .of(
+            yup.number()
+                .typeError("Each price must be a valid number")
+                .positive("Each price must be positive")
+                .required("Price value is required"))
+            .required("Price is required"),
+  
+Description: yup.string().required("Description is required"),
   
  TravelTimes:yup.array().of(yup.object({ 
    time:yup.string().required("Time is required")
@@ -135,7 +139,10 @@ Slots:yup.number().typeError("slots must be number").positive("slots must be pos
 
                   }
                 ),
-
+                  Description: yup.string().required("Description is required"),
+                      Category: yup.array().required("Category is required").length({min:1}),
+                      //here it is used foa  duration ofa  destination bro 
+                      Duration: yup.string().required("Travel Duration is required"),
    
             });
 
