@@ -22,6 +22,7 @@ export let LogInSlice=createSlice({
             state.ShowLogIn=false
             state.errorMessage=""
             state.success=false
+            state.Role=""
         },
             resetLoginState: (state) => {
       state.Loading = false;

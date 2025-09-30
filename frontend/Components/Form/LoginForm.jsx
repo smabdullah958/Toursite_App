@@ -118,19 +118,18 @@
 
 
 "use client"
-
+import { useRouter } from "next/navigation";
 import Loader from "@/Components/Loader";
 import { HideLogIn, resetLoginState } from "@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import LogInThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogInThunck";
-
 import ForgetPasswordPopUp from "@/Components/ForgetPasswordPopUp";
 const LoginForm = () => {
-
+let route=useRouter()
   //LogInSlice is come from a store bro 
-  let {Loading,errorMessage,success}=useSelector((state)=>state.LogInSlice)
+  let {Loading,errorMessage,success,Role}=useSelector((state)=>state.LogInSlice)
   let dispatch=useDispatch()
   let [Form, SetForm] = useState({
     Email: "",
@@ -156,10 +155,17 @@ const LoginForm = () => {
 
   useEffect(()=>{
     if(success){
-   dispatch(resetLoginState()) // finally reset login slice
-       dispatch(HideLogIn()) //close fomr 
-         }
-  },[success,dispatch])
+   if(Role){
+    dispatch(HideLogIn()) //close fomr 
+   }
+
+       if(Role==="Admin"){
+        route.push("/AdminDashboard")
+       }
+        dispatch(resetLoginState()) // finally reset login slice
+   
+      }
+  },[success,dispatch,Role])
   
 
   return (

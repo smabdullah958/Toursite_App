@@ -2,7 +2,7 @@
 const { createAsyncThunk } = require("@reduxjs/toolkit");
 import axios from "axios";
 import CheckLogIn from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck"
-
+import { resetLoginState } from "@/Libraries/ReduxToolkit/Slices/Auth/LogInSlice";
 let URL=process.env.NEXT_PUBLIC_BackendURL
  let LogOutThunck=createAsyncThunk(
     "thunck",
@@ -11,8 +11,10 @@ let URL=process.env.NEXT_PUBLIC_BackendURL
         let response=await axios.post(`${URL}/AuthController/LogOutAuth`,{},{withCredentials: true });
         console.log("logout successfully")
      
-        dispatch(CheckLogIn())
-     
+        await dispatch(CheckLogIn()).unwrap()
+    
+        dispatch(resetLoginState()); 
+
         return response.data
     }
     catch(error){

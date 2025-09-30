@@ -178,7 +178,7 @@
 //     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-yellow-100 to-amber-100 relative overflow-hidden">
 //       {/* Desert Background Pattern */}
 //       <div className="absolute inset-0 opacity-5">
-//         <div className="absolute top-0 left-0 w-full h-full" 
+//         <div className="absolute top-0 left-0 w-full h-full"
 //              style={{
 //                backgroundImage: `radial-gradient(circle at 25% 25%, #8B4513 2px, transparent 2px),
 //                                 radial-gradient(circle at 75% 75%, #D2691E 1px, transparent 1px)`,
@@ -224,17 +224,17 @@
 //             >
 //               {/* Glow Effect */}
 //               <div className="absolute inset-0 bg-gradient-to-r from-amber-300/30 via-yellow-300/20 to-amber-400/25 rounded-xl blur opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
-              
+
 //               {/* Main Card */}
-//               <div className="relative bg-gradient-to-br from-yellow-50/90 to-amber-50/80 backdrop-blur-sm 
+//               <div className="relative bg-gradient-to-br from-yellow-50/90 to-amber-50/80 backdrop-blur-sm
 //                              border-2 border-amber-200/50 rounded-xl p-6 h-full shadow-lg
-//                              hover:from-amber-50/95 hover:to-yellow-50/90 hover:border-amber-300/70 
+//                              hover:from-amber-50/95 hover:to-yellow-50/90 hover:border-amber-300/70
 //                              hover:shadow-2xl hover:shadow-amber-200/30
 //                              transform hover:-translate-y-2 transition-all duration-300">
-                
+
 //                 {/* Desert Sand Border */}
 //                 <div className="absolute inset-0 rounded-xl border border-gradient-to-r from-amber-300/20 via-yellow-300/30 to-amber-400/20"></div>
-                
+
 //                 {/* Icon */}
 //                 <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300 drop-shadow-sm">
 //                   <span role="img" aria-label={link.label}>{link.icon}</span>
@@ -301,10 +301,10 @@
 import Link from "next/link";
 import React from "react";
 import LogOut from "@/Components/Buttons/LogOut";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  const { IsLogIn } = useSelector((state) => state.CheckLogInSlice);
+  // const { IsLogIn } = useSelector((state) => state.CheckLogInSlice);
 
   const links = [
     {
@@ -343,7 +343,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-yellow-100 to-amber-100 relative overflow-hidden">
       {/* Desert Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-full h-full" 
+        <div className="absolute top-0 left-0 w-full h-full"
              style={{
                backgroundImage: `radial-gradient(circle at 25% 25%, #8B4513 2px, transparent 2px),
                                 radial-gradient(circle at 75% 75%, #D2691E 1px, transparent 1px)`,
@@ -389,21 +389,21 @@ const HomePage = () => {
             >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-amber-300/30 via-yellow-300/20 to-amber-400/25 rounded-xl blur opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
-              
+
               {/* Main Card - Enhanced height for large screens */}
-              <div className="relative bg-gradient-to-br from-yellow-50/90 to-amber-50/80 backdrop-blur-sm 
-                             border-2 border-amber-200/50 rounded-xl 
+              <div className="relative bg-gradient-to-br from-yellow-50/90 to-amber-50/80 backdrop-blur-sm
+                             border-2 border-amber-200/50 rounded-xl
                              p-6 lg:p-8 xl:p-10 2xl:p-12
                              h-48 md:h-56 lg:h-64 xl:h-80 2xl:h-96
                              shadow-lg
-                             hover:from-amber-50/95 hover:to-yellow-50/90 hover:border-amber-300/70 
+                             hover:from-amber-50/95 hover:to-yellow-50/90 hover:border-amber-300/70
                              hover:shadow-2xl hover:shadow-amber-200/30
                              transform hover:-translate-y-2 transition-all duration-300
                              flex flex-col justify-between">
-                
+
                 {/* Desert Sand Border */}
                 <div className="absolute inset-0 rounded-xl border border-gradient-to-r from-amber-300/20 via-yellow-300/30 to-amber-400/20"></div>
-                
+
                 <div className="flex-1 flex flex-col">
                   {/* Icon */}
                   <div className="text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl mb-4 lg:mb-6 xl:mb-8 transform group-hover:scale-110 transition-transform duration-300 drop-shadow-sm">

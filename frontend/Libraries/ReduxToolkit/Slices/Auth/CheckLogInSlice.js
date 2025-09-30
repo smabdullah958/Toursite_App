@@ -25,6 +25,13 @@ let CheckLoginSlice=createSlice({
       state.Role = ""; // Reset to prevent stale Role
       state.success = false;
     },
+    resetCheckLogin: (state) => {
+   state.IsLogIn = false;
+    state.Role = "";
+   state.success = false;
+   state.Loading = false;
+ },
+
 
       },
     extraReducers: (builder) => {
@@ -47,7 +54,7 @@ let CheckLoginSlice=createSlice({
 })
 
 
-export let {DisplayLogOut,DisplayLogIn}=CheckLoginSlice.actions;
+export let {DisplayLogOut,DisplayLogIn,resetCheckLogin}=CheckLoginSlice.actions;
 
 
 export default CheckLoginSlice.reducer
