@@ -16,11 +16,26 @@ async(Data)=>{
     try{
             let formData=new FormData()
             formData.append("Title",Data.Title);
-            formData.append("BasePrice",Data.BasePrice);
             formData.append("Description",Data.Description);
-            formData.append("Slots",Data.Slots);
             formData.append("Image",Data.Image[0]);
-                        
+
+              //  must manually iterate and append nested properties for FormData
+            (Data.BookingOption || []).forEach((option, index) => {
+                const prefix = `BookingOption[${index}]`;
+                
+                formData.append(`${prefix}[Category]`, option.Category);
+                formData.append(`${prefix}[BasePrice]`, option.BasePrice);
+                formData.append(`${prefix}[PricingModel]`, option.PricingModel);
+                formData.append(`${prefix}[Duration]`, option.Duration);
+                formData.append(`${prefix}[Slots]`, option.Slots);
+                
+                // CarCapacity is nullable, only append if it has a value
+                if (option.CarCapacity !== null && option.CarCapacity !== undefined) {
+                    formData.append(`${prefix}[CarCapacity]`, option.CarCapacity);
+                }
+            });
+
+            
 //this is specially used to add a am and a pm bro
     (Data.TravelTimes || []).forEach((t, index) => {
   const raw = typeof t === "string" ? t : (t.time ?? "");
