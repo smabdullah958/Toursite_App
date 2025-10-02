@@ -8,7 +8,7 @@ let CheckLogIn=(req,res)=>{
         if(!token){
             return res.status(400).json({message:"user is a not Login",CheckLogin:false})
         }
-        console.log(process.env.SecretKey)
+            console.log(process.env.SecretKey)
         let decode=jwt.verify(token,process.env.SecretKey)
         console.log("decode successfully",decode)
         

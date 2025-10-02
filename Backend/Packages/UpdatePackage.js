@@ -19,7 +19,10 @@ const UpdatePackage = async (req, res) => {
     if (req.body.Slots) updates.Slots = req.body.Slots;
     if (req.body.BasePrice) updates.BasePrice = req.body.BasePrice;
     if (req.body.Description) updates.Description = req.body.Description; 
-    if(req.body.TravelTimes)    updates.TravelTimes=req.body.TravelTimes
+    if(req.body.TravelTimes)    updates.TravelTimes=req.body.TravelTimes;
+    if(req.body.Category)    updates.Category=req.body.Category;
+    if(req.body.Duration)    updates.Duration=req.body.Duration;
+    
 
 
     const existingPackage = await Database.findById(id);

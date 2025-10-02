@@ -9,11 +9,15 @@ let Sch=new mongoose.Schema({
         required:true
     },
     BasePrice:{
-        type:Number,
+        type:[Number],
         required:true
     },
     Slots:{
         type:Number,
+        required:true
+    },
+        Category:{
+        type:[String],
         required:true
     },
     Description:{
@@ -33,7 +37,13 @@ let Sch=new mongoose.Schema({
     TravelTimes:{
         type: [{ time: { type: String, required: true } }],
         required:true
+    },
+        //this is used fora  how much duartion of a trip like 3 hour 8 hour etc
+    Duration:{
+        type:String,
+        required:true
     }
+
 }
     ,{timestamps:true}
 )
