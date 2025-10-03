@@ -338,7 +338,8 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Best Value</h3>
                   </div>
                   <p className="text-white/90 mb-2">Starting from</p>
-                  <p className="text-3xl font-bold">Rs {DisplayResult.BasePrice}</p>
+                  <p className="text-3xl font-bold">AED {" "}
+                  {DisplayResult.BookingOption?.[0]?.BasePrice}</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-amber-700 to-orange-700 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -352,7 +353,7 @@ const FindById = () => {
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
                   <p className="text-3xl font-bold"> 
-                   {updateSlots?.Slots ?? DisplayResult.Slots ?? "Limited"}
+                   {updateSlots?.BookingOption?.Slots ?? DisplayResult.BookingOption?.[0]?.Slots ?? "Limited"}
 </p>
                 </div>
               </div>
@@ -368,7 +369,8 @@ const FindById = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-4 bg-amber-50 rounded-lg border border-amber-200">
                     <span className="text-amber-700">Price per person</span>
-                    <span className="text-2xl font-bold text-amber-600">Rs {DisplayResult.BasePrice}</span>
+                    <span className="text-2xl font-bold text-amber-600">
+                    AED {DisplayResult.BookingOption?.[0]?.BasePrice}</span>
                   </div>
                   
                    <DestinationBookNow 
@@ -384,7 +386,8 @@ const FindById = () => {
                     </svg>
                     <span className="font-semibold">Limited Availability</span>
                   </div>
-                  <p className="text-sm text-yellow-600">Only {updateSlots?.Slots ?? DisplayResult.Slots ?? "Limited"} spots left! Book soon to secure your place.</p>
+                  <p className="text-sm text-yellow-600">Only {" "} 
+                  {updateSlots?.BookingOption?.Slots ?? DisplayResult?.BookingOption?.[0]?.Slots ?? "Limited"} spots left! Book soon to secure your place.</p>
                 </div>
               </div>
             </div>

@@ -10,7 +10,7 @@ let GetTwentyImage=async(req,res)=>{
         
         let skip=(page-1)*limit
         let result=await Database.find()
-        .select("Title Image BasePrice Slots _id")
+        .select("Title Image BookingOption.BasePrice BookingOption.Slots _id")
         .sort({createdAt:-1})
         .skip(skip).limit(limit);
         console.log(result)

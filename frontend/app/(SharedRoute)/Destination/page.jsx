@@ -233,8 +233,9 @@ const DestinationPage = () => {
 
   const filteredResult = displayResult.filter((tour) => {
     if (Role === "Admin") return true;
-    return tour.Slots > 0;
-  });
+    return tour.BookingOption?.some(option=>option.Slots > 0
+    );
+    });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
@@ -273,10 +274,10 @@ const DestinationPage = () => {
           </div>
         )}
 
-        {/* Destinations Grid */}
+        {/* Destinations Grid */} 
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {filteredResult.map((tour, i) => (
-            (Role === "Admin" || tour.Slots > 0) && (
+
               <div
                 key={`${tour._id}-${i}`}
                 className="group bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-3 border border-amber-200"
@@ -296,7 +297,7 @@ const DestinationPage = () => {
                   
                   {/* Price Badge */}
                   <div className="absolute bottom-4 left-4 bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-4 py-2 rounded-full shadow-lg">
-                    <span className="text-lg font-bold">Rs {tour.BasePrice || "N/A"}</span>
+                    <span className="text-lg font-bold">Rs {tour.BookingOption?.[0]?.BasePrice || "N/A"}</span>
                   </div>
 
                   {/* Quick View on Hover */}
@@ -336,7 +337,7 @@ const DestinationPage = () => {
                 </div>
               </div>
             )
-          ))}
+          )}
         </div>
 
         {/* Update Form Modal */}
@@ -359,7 +360,7 @@ const DestinationPage = () => {
         )}
 
         {/* Load More Button */}
-        {hasMore && !Loading && !loading && (
+        {hasMore && filteredResult.length >= 20 && !Loading && !loading &&  (
           <div className="flex justify-center mt-12">
             <button
               type="button"

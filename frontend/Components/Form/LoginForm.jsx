@@ -126,6 +126,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import LogInThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogInThunck";
 import ForgetPasswordPopUp from "@/Components/ForgetPasswordPopUp";
+// import CheckLogIn from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck"
 const LoginForm = () => {
 let route=useRouter()
   //LogInSlice is come from a store bro 
@@ -162,8 +163,11 @@ let route=useRouter()
        if(Role==="Admin"){
         route.push("/AdminDashboard")
        }
+       else{
+        route.push("/")
+       }
         dispatch(resetLoginState()) // finally reset login slice
-   
+        // dispatch(CheckLogIn())
       }
   },[success,dispatch,Role])
   

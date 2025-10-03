@@ -33,7 +33,7 @@ const PostDestination = () => {
           BasePrice:null,
           //for a per person or  private booking
           PricingModel:null,
-          // here capcity is acapcity of a car like a 5 seater 10 seater etc 
+          // here capcity is a capcity of a car like a 5 seater 10 seater etc 
             CarCapcity:null,
             Slots:null,
             Duration:null
@@ -78,12 +78,12 @@ const PostDestination = () => {
    useEffect(()=>{
      if(success){
        setTimeout(() => { 
-         router.push("/")
+         router.push("/AdminDashboard")
           dispatch(resetDestinationState())   
        }, 1000);
 
      }
-   },[success])
+   },[success,router])
 
 
   return (
@@ -254,8 +254,8 @@ const PostDestination = () => {
              </div>
                                 
                                 {/* Slots  & Car Capacity (Conditional) */}
-               <div className="flex gap-4">
-               <div className={`w-1/2 ${PricingModel==="FixedUnit" ? '' : 'w-full'}`}>
+               <div className="grid grid-cols-1 sm:flex gap-4">
+               <div className={`w-full sm:w-1/2 ${PricingModel==="FixedUnit" ? '' : 'w-full'}`}>
               <label className="block text-amber-900 font-semibold mb-2">
            {PricingModel==="FixedUnit" ? 'Total Number of Cars' : 'Total Slots Available'}
                   </label>
@@ -269,7 +269,7 @@ const PostDestination = () => {
                                     
                       {/* 💡 Conditional Field: Only show CarCapacity for FixedUnit (Private) */}
                    {PricingModel==="FixedUnit" && (
-                   <div className="w-1/2">
+                   <div className="w-full sm:w-1/2">
                    <label className="block text-amber-900 font-semibold mb-2">
                      Car Capacity (Seats per Car)
                         </label>
