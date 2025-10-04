@@ -30,10 +30,9 @@ WhatsAppNumber: yup
     .default(0)
     .required("field is required"),
 
-    Days:yup.number()
-    .typeError("Days must be a number")
-    .min("1","minimum days is one")
-    .required("Number of Days is required"),
+    Duration:yup.string().required("Duration is required"),
+
+    Category:yup.string().required("Category is required"),
 
     Date:yup.string()
   .required("Date is required"),

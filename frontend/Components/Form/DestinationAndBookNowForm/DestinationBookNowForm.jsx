@@ -14,12 +14,12 @@ import Loader from "@/Components/Loader"
 // form is present in a form folder
 import StripeCheckoutForm from "./DestinationStripeCheckoutForm"
 
-let DestinationForm=({TravelTime,basePrice,DestinationID})=>{
+ //here inside a booking option it has a baseprice, category,duration and many more fields
+let DestinationForm=({TravelTime,DestinationID,BookingOption})=>{
 
   let [clientSecret,setClientSecret]=useState(null);
-
-    let [bookingId, setBookingId] = useState(null) // ✅ store bookingId for later
-
+  let [bookingId, setBookingId] = useState(null)
+  let [selectedOption, setSelectedOption] = useState(null);
 
 let dispatch=useDispatch()
    
@@ -28,60 +28,119 @@ let dispatch=useDispatch()
         handleSubmit,
         setValue,
         watch,
-            formState: { errors }
+        formState: { errors }
     }=useForm({
         resolver:yupResolver(schema),
         defaultValues:{
-            BasePrice:basePrice,  //prefill from a props
+            BasePrice:null,
           TotalPrice:null,
           NumberOfAdultChild:1,
           NumberOfNoneAdultChild:0,
-          Days:1
+          Duration:"",
+          Category:"",
+          BookingOptionId:""  // NEW: Store the actual booking option ID
         }
     })
-//calculate total price
-    useEffect(()=>{
-        let CalculateTotalPrice=()=>{
-            let days=watch("Days")||1;
-            let adultchild=watch("NumberOfAdultChild")||0
-            let totalPrice=basePrice*days*adultchild
 
-            setValue("TotalPrice",totalPrice)    
+  const category = watch("Category");
+  const bookingOptionId = watch("BookingOptionId");
+  const adultChild = watch("NumberOfAdultChild");
+  const noneAdult = watch("NumberOfNoneAdultChild");
+
+  // Update selected option based on BookingOptionId
+  useEffect(() => {
+    // 1. Immediately reset selectedOption and price/counts if bookingOptionId is not selected
+    if (!bookingOptionId) {
+        setSelectedOption(null);
+        setValue("BasePrice", null);
+        setValue("TotalPrice", null);
+        setValue("Duration", "");
+        // Also reset the fields that depend on PricingModel
+        setValue("NumberOfAdultChild", 1); 
+        setValue("NumberOfNoneAdultChild", 0); 
+        return; // Stop execution until bookingOptionId is selected
+    }
+
+    // 2. Only proceed if bookingOptionId is selected
+    if (BookingOption && bookingOptionId) {
+        const option = BookingOption.find(opt => opt._id === bookingOptionId);
+        
+        if (option) {
+            setSelectedOption(option);
+            setValue("BasePrice", option.BasePrice);
+            setValue("Duration", option.Duration);
+            setValue("Category", option.Category);
+            
+            // Explicitly set default counts based on the new PricingModel
+            if (option.PricingModel === "PerPerson") {
+                // Keep the current values or set a valid default (e.g., min: 1 adult)
+                // Use current watched values instead of calling watch() inside useEffect
+                setValue("NumberOfAdultChild", adultChild < 1 ? 1 : adultChild);
+                setValue("NumberOfNoneAdultChild", noneAdult < 0 ? 0 : noneAdult);
+            } else {
+                // If it's fixed price like private booking, ensure the person counters are reset/set to non-influential values
+                // This ensures if the user switches back, the counters don't hold bad values
+                setValue("NumberOfAdultChild", 1); 
+                setValue("NumberOfNoneAdultChild", 0); 
+            }
+        } else {
+            // If option is not found
+            setSelectedOption(null);
+            setValue("BasePrice", null);
         }
-        CalculateTotalPrice()
-    },[watch("Days"),watch("NumberOfAdultChild"),basePrice,setValue])
+    }
+}, [bookingOptionId, BookingOption, setValue, adultChild, noneAdult]);
+
+  // Calculate total price
+  useEffect(() => {
+    if (selectedOption) {    
+        let totalPrice;
+        if (selectedOption.PricingModel === "PerPerson") {
+            totalPrice = (selectedOption.BasePrice * adultChild) + (selectedOption.BasePrice * noneAdult * 0.5);
+        } else {
+            totalPrice = selectedOption.BasePrice;
+        }
+        
+        setValue("TotalPrice", totalPrice);
+    }
+}, [adultChild, noneAdult, selectedOption, setValue]);
 
     let HandleButton=async(Data)=>{
     let response= await dispatch(BookNowFormThunck({Data,DestinationID})).unwrap()      
       console.log(Data,DestinationID)
       
       if(Data.PaymentMethod==="Stripe" && response.clientSecret){
-            setClientSecret(response.clientSecret); // store in state
-            setBookingId(response.result._id) // ✅ save bookingId from backend
-
+            setClientSecret(response.clientSecret);
+            setBookingId(response.result._id)
           }
       else{
         dispatch(ResetStates())
       } 
-      
     }
 
-     //  DestinationBookNowSlice is come from a store 
     let {loading,errorMessage}=useSelector((state)=>state.DestinationBookNowSlice)
 
-    
     let CloseForm=()=>{
         dispatch(ResetStates())
          dispatch(HideBookNowForm())
     }
 
+    // Filter available options (exclude 0 slots)
+    const availableOptions = BookingOption?.filter(opt => 
+        opt.Slots === undefined || opt.Slots > 0
+    ) || [];
+
+    // Get unique categories
+    const uniqueCategories = [...new Set(availableOptions?.map(opt => opt.Category) || [])];
+    
+    // Get booking options for selected category (keep all options, don't filter duplicates)
+    const categoryOptions = availableOptions?.filter(opt => opt.Category === category) || [];
+
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
-      {/* Modal Container */}
       <div className="relative w-full max-w-3xl max-h-[95vh] lg:max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
 
     <div className="sticky top-0 z-20  text-center rounded-t-2xl">
-        {/* Close Button */}
         <button
           onClick={CloseForm}
           className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition-all duration-200 hover:scale-110"
@@ -89,17 +148,14 @@ let dispatch=useDispatch()
           ✕
         </button>
 
-        {/* Header */}
         <div className="bg-gradient-to-r from-amber-600 to-yellow-600 p-6 text-center rounded-t-2xl relative">
-          <h2 className="text-2xl font-bold text-white">🏝️ Book Your Destination</h2>
+          <h2 className="text-2xl font-bold text-white">Book Your Destination</h2>
         </div>
 </div>
-        {/* Form */}
         <div className="p-6 space-y-6">
-          <div className="grid  gap-6">
-            {/* Contact Number */}
+          <div className="grid gap-6">
             <div>
-              <label className="block text-gray-800 font-semibold mb-2">📍 Contact No</label>
+              <label className="block text-gray-800 font-semibold mb-2">Contact No</label>
               <input
               type="tel"
                 {...register("ContactNumber")}
@@ -109,7 +165,6 @@ let dispatch=useDispatch()
               <p className="text-red-500 text-xs mt-1">{errors.ContactNumber?.message}</p>
             </div>
 
-            {/* WhatsApp Number */}
             <div>
               <label className="block text-gray-800 font-semibold mb-2">WhatsAppNumber(Optional)</label>
               <input
@@ -121,7 +176,6 @@ let dispatch=useDispatch()
               <p className="text-red-500 text-xs mt-1">{errors.WhatsAppNumber?.message}</p>
             </div>
 
-             {/* PickUp Address */}
             <div>
               <label className="block text-gray-800 font-semibold mb-2">PickUp Address</label>
               <input
@@ -132,51 +186,88 @@ let dispatch=useDispatch()
               <p className="text-red-500 text-xs mt-1">{errors.PickUpAddress?.message}</p>
             </div>
 
+            {/* Category Selection */}
+            <div>
+                <label className="block text-gray-800 font-semibold mb-2">Category</label>
+           <select {...register("Category")}
+           onChange={(e) => {
+               setValue("Category", e.target.value);
+               setValue("BookingOptionId", ""); // Reset booking option when category changes
+           }}
+           className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm">
 
-           {/* Number of Days */}
-             <div>
-              <label className="block text-gray-800 font-semibold mb-2"> Number of Days</label>
-              <input
-                type="number"
-                {...register("Days")}
-                placeholder=" eg 3"
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
-              />
-              <p className="text-red-500 text-xs mt-1">{errors.Days?.message}</p>
+                <option value="">Select a Category</option>
+
+                {uniqueCategories.length > 0 ? (
+                    uniqueCategories.map((cat, index) => (
+                        <option key={index} value={cat}>{cat}</option>
+                    ))
+                ) : (
+                   <option value="" disabled>
+                    No Category available
+                  </option>
+                )}
+              </select>
+                   <p className="text-red-500 text-xs mt-1">{errors.Category?.message}</p>
             </div>
-          </div>
 
+            {/* Booking Option Selection (Duration + Pricing Model combined) */}
+            <div>
+                <label className="block text-gray-800 font-semibold mb-2">Duration & Type</label>
+           <select {...register("BookingOptionId")}
+           disabled={!category}
+           className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm disabled:bg-gray-100 disabled:cursor-not-allowed">
 
-           {/* Number of Adult Child */}
+                <option value="">Select Duration & Type</option>
+
+                {categoryOptions.length > 0 ? (
+                    categoryOptions.map((opt) => (
+                        <option key={opt._id} value={opt._id}>
+                            {opt.Duration} - {opt.PricingModel === "PerPerson" ? "Per Person" : "Private Booking"} ({opt.BasePrice} AED)
+                        </option>
+                    ))
+                ) : (
+                   <option value="" disabled>
+                    {category ? "No options available" : "Please select a category first"}
+                  </option>
+                )}
+              </select>
+                   <p className="text-red-500 text-xs mt-1">{errors.BookingOptionId?.message}</p>
+            </div>
+
+            {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
+
+           {/* Adult field - only for PerPerson */}
+            {selectedOption?.PricingModel === "PerPerson" && (
              <div>
-            {errorMessage ? <p className="text-red-500">{errorMessage}</p> : null}
-
               <label className="block text-gray-800 font-semibold mb-2">Number of Adults/Parents</label>
               <input
                 type="number"
+                min="1"
                 {...register("NumberOfAdultChild")}
                 placeholder="number of adults/parents"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
               <p className="text-red-500 text-xs mt-1">{errors.NumberOfAdultChild?.message}</p>
             </div>
+            )}
 
-                       {/* Number of none Adult Child */}
+           {/* Children field - only for PerPerson */}
+            {selectedOption?.PricingModel === "PerPerson" && (          
              <div>
-              <label className="block text-gray-800 font-semibold mb-2">Number of none Adult Child</label>
+              <label className="block text-gray-800 font-semibold mb-2">Number of Children (under 12)</label>
               <input
                 type="number"
+                min="0"
                 {...register("NumberOfNoneAdultChild")}
                 placeholder="age less than 12"
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
-
-                 <p className="text-red-500 text-xs mt-1">{errors.NumberOfNoneAdultChild?.message}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.NumberOfNoneAdultChild?.message}</p>
             </div>
+            )}
 
-
-                                   {/* Date */}
-             <div>
+            <div>
               <label className="block text-gray-800 font-semibold mb-2">Select Booking Date</label>
               <input
                 type="date"
@@ -188,10 +279,8 @@ let dispatch=useDispatch()
                <p className="text-red-500 text-xs mt-1">{errors.Date?.message}</p>
             </div>
 
-
-                {/* select time */}
             <div>
-                <label className="block text-gray-800 font-semibold mb-2">🕒 Travel Time</label>
+                <label className="block text-gray-800 font-semibold mb-2">Travel Time</label>
            <select {...register("TravelTime")}
            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm">
 
@@ -199,7 +288,6 @@ let dispatch=useDispatch()
 
                 {TravelTime?.length?(
                     TravelTime.map((t,index)=>(
-                        //becuase Travel time is object
                         <option key={index} value={t.time}>{t.time}</option>
                     ))
                 )   :(
@@ -213,32 +301,29 @@ let dispatch=useDispatch()
             </div>
 
             <div>
-              <label>Payment Method</label>
+              <label className="block text-gray-800 font-semibold mb-2">Payment Method</label>
               <select {...register("PaymentMethod")} 
            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm">
 
-                <option value="">Select Payement Method</option>
+                <option value="">Select Payment Method</option>
                 <option value="Stripe" >Stripe</option>
                 <option value="Cash">Cash</option>
            </select>
             <p className="text-red-500 text-xs mt-1">{errors.PaymentMethod?.message}</p>
             </div>
 
-
-                      {/* Base Price */}
-             <div>
+            <div>
               <label className="block text-gray-800 font-semibold mb-2">Base Price</label>
               <input
                 type="number"
-                value={basePrice}
-                  readOnly
+                value={selectedOption?.BasePrice||""}
+                readOnly
                 placeholder="base price"
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
+                className="w-full px-4 py-3 border rounded-lg bg-gray-100 text-sm"
               />
             </div>
 
-             {/* Total Price */}
-             <div>
+            <div>
              <p className="text-red-500 text-xs mt-1">{errors.TotalPrice?.message}</p>
               <label className="block text-gray-800 font-semibold mb-2">Total Price</label>
               <input
@@ -246,17 +331,16 @@ let dispatch=useDispatch()
                 readOnly
                 {...register("TotalPrice")}
                 placeholder="total price"
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
+                className="w-full px-4 py-3 border rounded-lg bg-gray-100 text-sm"
               />
             </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-4">
             <button
                     onClick={CloseForm}
               className="flex-1 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold bg-amber-100 hover:bg-amber-200 transition duration-500 text-sm"
             >
-              ❌ Cancel
+              Cancel
             </button>
             
             <button
@@ -265,16 +349,14 @@ let dispatch=useDispatch()
               className={`flex-1 py-3 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md ${loading?"opacity-50":"hover:shadow-lg transition-all duration-500 hover:scale-105 opacity-100"} `}>
               {loading?<Loader/>:"BookNow"}
             </button>
+          </div>
+        </div>
+      </div>
 
-
-{/* //stripe form bro           */}
-   
-   {/* Stripe Payment Modal */}
 {clientSecret && (
   <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm">
     <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-2xl relative">
       
-      {/* Close Stripe Payment Modal */}
       <button
         onClick={() => setClientSecret(null)}
         className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition-all duration-200 hover:scale-110"
@@ -282,32 +364,35 @@ let dispatch=useDispatch()
         ✕
       </button>
 
-      {/* Title */}
       <h3 className="text-xl font-bold mb-4 text-center text-amber-600">
-        💳 Complete Your Payment
+        Complete Your Payment
       </h3>
 
-      {/* Booking Summary */}
       <div className="mb-4 border rounded-lg p-4 bg-gray-50 text-sm">
-        <p><strong>📍 Contact:</strong> {watch("ContactNumber")}</p>
-        <p><strong>🏠 Pickup:</strong> {watch("PickUpAddress")}</p>
-        <p><strong>🕒 Travel Time:</strong> {watch("TravelTime")}</p>
-        <p><strong>📅 Date:</strong> {watch("Date")}</p>
-        <p><strong>👨 Adults:</strong> {watch("NumberOfAdultChild")}</p>
-        <p><strong>👶 Kids:</strong> {watch("NumberOfNoneAdultChild")}</p>
+        <p><strong>Contact:</strong> {watch("ContactNumber")}</p>
+        <p><strong>Pickup:</strong> {watch("PickUpAddress")}</p>
+        <p><strong>Travel Time:</strong> {watch("TravelTime")}</p>
+        <p><strong>Date:</strong> {watch("Date")}</p>
+
+     {selectedOption?.PricingModel === "PerPerson" && (
+         <p><strong>Adults:</strong> {watch("NumberOfAdultChild")}</p>
+     )}
+
+       {selectedOption?.PricingModel === "PerPerson" && (
+        <p><strong>Kids:</strong> {watch("NumberOfNoneAdultChild")}</p>
+       )}
         <p className="font-bold text-yellow-600 mt-2">
-          💰 Total: {watch("TotalPrice")} AED
+          Total: {watch("TotalPrice")} AED
         </p>
       </div>
 
-      {/* Stripe Form */}
       <StripeCheckoutForm
         clientSecret={clientSecret}
-         bookingId={bookingId}   // ✅ pass bookingId here
+         bookingId={bookingId}
 
         onSuccess={(pi) => {
           console.log("payment success", pi)
-          setClientSecret(null) // close after success
+          setClientSecret(null)
           CloseForm()
         }}
       />
@@ -315,10 +400,6 @@ let dispatch=useDispatch()
   </div>
 )}
 
-
-            
-          </div>
-        </div>
       </div>
     </div>
     )

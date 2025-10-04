@@ -258,6 +258,13 @@ const FindById = () => {
 
   // Success State with Data
   if (success && DisplayResult) {
+
+        // --- NEW LOGIC: Find the best option to display (e.g., the first available) ---
+    const availableOptionToDisplay = DisplayResult.BookingOption?.find(
+        opt => opt.Slots === undefined || opt.Slots > 0
+    );
+
+
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
         {/* Hero Section */}
@@ -339,7 +346,7 @@ const FindById = () => {
                   </div>
                   <p className="text-white/90 mb-2">Starting from</p>
                   <p className="text-3xl font-bold">AED {" "}
-                  {DisplayResult.BookingOption?.[0]?.BasePrice}</p>
+                  {availableOptionToDisplay?.BasePrice}</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-amber-700 to-orange-700 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -353,7 +360,7 @@ const FindById = () => {
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
                   <p className="text-3xl font-bold"> 
-                   {updateSlots?.BookingOption?.Slots ?? DisplayResult.BookingOption?.[0]?.Slots ?? "Limited"}
+          {updateSlots?.BookingOption?.Slots ?? availableOptionToDisplay?.Slots ?? "Limited"}
 </p>
                 </div>
               </div>
@@ -370,13 +377,15 @@ const FindById = () => {
                   <div className="flex justify-between items-center p-4 bg-amber-50 rounded-lg border border-amber-200">
                     <span className="text-amber-700">Price per person</span>
                     <span className="text-2xl font-bold text-amber-600">
-                    AED {DisplayResult.BookingOption?.[0]?.BasePrice}</span>
-                  </div>
+                    AED {availableOptionToDisplay?.BasePrice}</span>
+                  </div> 
                   
                    <DestinationBookNow 
                    id={DisplayResult._id}
-                   basePrice={DisplayResult.BasePrice} 
-                   time={DisplayResult.TravelTimes} />
+                   time={DisplayResult.TravelTimes}
+                   //here inside a booking option it has a baseprice, category,duration and many more fields
+                    BookingOption={DisplayResult.BookingOption}
+                    />
                 </div>
                 
                 <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
@@ -387,7 +396,7 @@ const FindById = () => {
                     <span className="font-semibold">Limited Availability</span>
                   </div>
                   <p className="text-sm text-yellow-600">Only {" "} 
-                  {updateSlots?.BookingOption?.Slots ?? DisplayResult?.BookingOption?.[0]?.Slots ?? "Limited"} spots left! Book soon to secure your place.</p>
+             {updateSlots?.BookingOption?.Slots ?? availableOptionToDisplay?.Slots ?? "Limited"} spots left! Book soon to secure your place.</p>
                 </div>
               </div>
             </div>

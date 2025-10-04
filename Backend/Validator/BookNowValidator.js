@@ -18,12 +18,14 @@ let validation = [
     .isInt({ min: 0 }).withMessage("Must be a number"),
 
   body("NumberOfAdultChild")
-    .notEmpty().withMessage("Number of adult child is required")
+    .optional().withMessage("Number of adult child is required")
     .isInt({ min: 1 }).withMessage("Must be a valid number"),
 
-  body("Days")
-    .notEmpty().withMessage("Days are required")
-    .isInt({ min: 1 }).withMessage("Must be a valid number"),
+    body("Duration")
+    .notEmpty().withMessage("Duration are required"),
+
+    body("Category")
+    .notEmpty().withMessage("Category are required"),
 
   body("TravelTime")
     .notEmpty().withMessage("Travel time is required"),
