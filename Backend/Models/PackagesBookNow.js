@@ -16,18 +16,13 @@ let Sch=new mongoose.Schema({
         required:true
     },
     NumberOfAdultChild:{
-        type:Number,
-        required:true
+        type:Number
     },
     NumberOfNoneAdultChild:{
         type:Number
     },
     Date:{
         type:String,
-        required:true
-    },
-    Days:{
-        type:Number,
         required:true
     },
     TravelTime:{

@@ -52,7 +52,7 @@ require("dotenv").config()
         
             let totalslots=NumberOfAdultChild+NumberOfNoneAdultChild;
 
-                    // --- 3. Find the SPECIFIC Booking Option for Slot Check ---
+                    //  Find the SPECIFIC Booking Option for Slot Check ---
         const selectedBookingOption = destination.BookingOption.find(
             opt => opt.Category === Category && opt.Duration === Duration
         );
@@ -154,7 +154,8 @@ require("dotenv").config()
        ${NumberOfAdultChild || NumberOfNoneAdultChild ?
        `
        <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Slots:</b></td>
+        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots/Car booking:</b>
+        </td>
            <td style="padding: 8px; border-bottom: 1px solid #eee;">${NumberOfAdultChild +NumberOfNoneAdultChild}
            </td>  
             </tr>

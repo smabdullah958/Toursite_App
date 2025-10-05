@@ -96,7 +96,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
 
                   // --- 1. Pre-fill Booking Options like price , slotes car capcity and many more
  if (result.BookingOption && result.BookingOption.length > 0) {
-         // ✅ FIXED: Map and ensure CarCapacity spelling is correct
+         // Map 
         const mappedOptions = result.BookingOption.map(option => ({
           Category: option.Category || "",
           BasePrice: option.BasePrice || null,

@@ -28,7 +28,7 @@ let PaymentSuccess = async (req, res) => {
     //  decrease slots from Destination collection
     let updateSlots = await DestinationDatabase.findByIdAndUpdate(
       booking.DestinationID._id,
-      { $inc: { Slots: -(booking.NumberOfAdultChild+booking.NumberOfNoneAdultChild) } }, // sirf adults slots count kar rahe ho
+      { $inc: { Slots: -(booking.NumberOfAdultChild+booking.NumberOfNoneAdultChild) } },
       { new: true }
     );
 
@@ -60,7 +60,8 @@ let PaymentSuccess = async (req, res) => {
 ${booking.NumberOfAdultChild || booking.NumberOfNoneAdultChild ?
 `
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Slots:</b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Car booking:
+          </b></td>
           <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.NumberOfAdultChild + booking.NumberOfNoneAdultChild}</td>
         </tr>`:""}
         <tr>

@@ -43,20 +43,45 @@
     console.log("Package is found")
 
             let {ContactNumber,WhatsAppNumber,
+                Category,Duration,
                 PickUpAddress,NumberOfNoneAdultChild,
-                NumberOfAdultChild,Days,
+                NumberOfAdultChild,
                 TravelTime,TotalPrice,
                 Date:BookingDate,PaymentMethod}=req.body
 
             console.log('data is recieve from a body')
 
-            let booking = new Database({
+                        let totalslots=NumberOfAdultChild+NumberOfNoneAdultChild;
+
+                        //  Find the SPECIFIC Booking Option for Slot Check ---
+        const selectedBookingOption = package.BookingOption.find(
+            opt => opt.Category === Category && opt.Duration === Duration
+        );
+
+        if (!selectedBookingOption) {
+            return res.status(400).json({ message: "Invalid category or duration selected." });
+        }
+
+        // Slot Availability Check (BEFORE saving the booking) ---
+
+          // Handle cases where slots might not be defined (e.g., fixed price/private booking)
+        if (selectedBookingOption.Slots === undefined) {
+          console.log("Slots not defined for selected booking option. Assuming unlimited.");
+        } 
+
+            // Check if the current booking exceeds the remaining slots
+        else if (totalslots > selectedBookingOption.Slots) {
+            return res.status(400).json({ message: `Only ${selectedBookingOption.Slots} slots remaining for this option.` });
+        }
+
+           let booking = new Database({
                 ContactNumber,
                 WhatsAppNumber,
                 PickUpAddress,
                 NumberOfNoneAdultChild,
                 NumberOfAdultChild,
-                Days,
+                Duration,
+                Category,
                 TravelTime,
                 TotalPrice,
                 PackageID,
@@ -70,13 +95,6 @@
             let result=await booking.save()
             console.log(result,"successfull");
 
-                        let totalslots=NumberOfAdultChild;
-//if adult child is greater than the slots than show message
-            if(totalslots>package.Slots){
-              return res.status(400).json({message:"we have not enough slots available"})
-            }
-
-            console.log("successfull",result);
 
 
             //payement method through stripe
@@ -130,14 +148,17 @@
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Booking Date:</b></td>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"> ${BookingDate}</td>
         </tr>
-        <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Days:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${Days}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Slots:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${NumberOfAdultChild +NumberOfNoneAdultChild}</td>
-        </tr>
+
+        ${NumberOfAdultChild || NumberOfNoneAdultChild ?
+       `
+       <tr>
+        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots/Car ooking:</b></td>
+           <td style="padding: 8px; border-bottom: 1px solid #eee;">${NumberOfAdultChild +NumberOfNoneAdultChild}
+           </td>  
+            </tr>
+           `:""
+          }
+
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>
           <td style="padding: 8px; border-bottom: 1px solid #eee;">${TotalPrice} AED</td>
@@ -161,13 +182,31 @@
                 //send email
                 await SendEmail(Email,"payement is successful",EmailHTML);
 
-                
-                              //if adult child is smaller than a slots than subtract and send to  frontend  
-                         let  updateSlots=  await PackageDatabase.findByIdAndUpdate(PackageID,
-                              {$inc:{Slots:-totalslots}},
-                              {new:true}
-                            )
+           let updateSlots ;
+                if (selectedBookingOption.Slots !== undefined) {
+             
+                      // 1. Check if PricingModel is PerPerson or fixed
+    const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
+        ? totalslots // Decrement by total people
+        : 1; // Decrement by 1 (for a fixed-unit/private booking)
 
+
+                  updateSlots = await PackageDatabase.findOneAndUpdate(
+                { 
+                    _id: PackageID, 
+                    // Find the element in the array that matches the criteria
+                    "BookingOption.Category": Category,
+                    "BookingOption.Duration": Duration, 
+                    "BookingOption.PricingModel":selectedBookingOption.PricingModel
+                },
+                {
+                    // Use the positional operator ($) to decrement the Slots of the matching element
+                    $inc: { "BookingOption.$.Slots": -slotsToDecrement }
+                },
+                { new: true }
+            );
+        }
+                
             return res.status(200).json({message:"booking successfully",result,updateSlots})
 
         }

@@ -154,7 +154,7 @@ export const schema = yup.object({
                 ),
               Description: yup.string().required("Description is required"),
 
-               //  Match the field name and structure
+               //   the field name and structure
                   BookingOption: yup.array()
                       .of(BookingOptionSchema) // Use the object schema defined above
                       .min(1, "At least one Booking Category is required")

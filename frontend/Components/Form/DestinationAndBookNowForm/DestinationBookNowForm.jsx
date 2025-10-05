@@ -32,7 +32,7 @@ let dispatch=useDispatch()
     }=useForm({
         resolver:yupResolver(schema),
         defaultValues:{
-            BasePrice:null,
+          BasePrice:null,
           TotalPrice:null,
           NumberOfAdultChild:1,
           NumberOfNoneAdultChild:0,
@@ -105,7 +105,8 @@ let dispatch=useDispatch()
     }
 }, [adultChild, noneAdult, selectedOption, setValue]);
 
-    let HandleButton=async(Data)=>{
+
+let HandleButton=async(Data)=>{
     let response= await dispatch(BookNowFormThunck({Data,DestinationID})).unwrap()      
       console.log(Data,DestinationID)
       

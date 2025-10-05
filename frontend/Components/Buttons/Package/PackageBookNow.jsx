@@ -3,7 +3,7 @@ import React from 'react'
 import PackageForm from '@/Components/Form/PackageAndBookNowForm/PackageBookNowForm'
 import {DisplayBookNowForm} from "@/Libraries/ReduxToolkit/Slices/Packages/PackageBookNow"
 import { useDispatch, useSelector } from 'react-redux'
-const PackageBookNow = ({id,time,basePrice}) => {
+const PackageBookNow = ({id,time,BookingOption}) => {
   //DestinationBookNowSlice is come from a store
     let {ShowForm,PackageID}=useSelector((state)=>state.PackageBookNowSlice)
 
@@ -22,7 +22,8 @@ const PackageBookNow = ({id,time,basePrice}) => {
         } overflow-hidden`}>
                     Book Now
                   </button>
-                  {ShowForm && PackageID===id && <PackageForm TravelTime={time} basePrice={basePrice} PackageID={id}/>}
+                  {ShowForm && PackageID===id && <PackageForm TravelTime={time} 
+                  BookingOption={BookingOption} PackageID={id}/>}
     </div>
   )
 }

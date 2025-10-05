@@ -200,7 +200,7 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Available Slots</h3>
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
-                  <p className="text-3xl font-bold">{updateSlots?.Slots ?? availableOptionToDisplay.Slots ?? "Limited"}</p>
+                  <p className="text-3xl font-bold">{updateSlots?.BookingOption?.Slots ?? availableOptionToDisplay.Slots ?? "Limited"}</p>
                 </div>
               </div>
             </div>
@@ -218,10 +218,11 @@ const FindById = () => {
                   </div>
                   
                   <PackageBookNow 
-                   id={result._id}
-                   basePrice={result.BasePrice} 
-                   time={result.TravelTimes} />
-
+                   id={result._id} 
+                   time={result.TravelTimes} 
+          // here inside a booking option it has a baseprice, category,duration and many more ///fields    
+            BookingOption={result.BookingOption}
+            />
                 </div>
                 
                 <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">

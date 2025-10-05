@@ -9,7 +9,7 @@ import SearchBar from "@/app/AdminDashboard/GetDestinationBooking/SearchBar";
 import GetFistTwentyBookingThunck from "@/Libraries/ReduxToolkit/AsyncThunck/DestinationBookNow/GetFirstTwentyBooking";
 import Link from "next/link";
 
-import DestinationBookingMarkAsPaidButton from "@/Components/Buttons/BookingNow/DestinationBookingMarkAsPaidButton"
+import DestinationBookingMarkAsPaidButton from "@/Components/Buttons/MarkAsPaid/DestinationBookingMarkAsPaidButton"
 import Loader from "@/app/loading"
 
 const GetFirstTwentyBooking = () => {

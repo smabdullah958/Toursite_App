@@ -197,7 +197,7 @@ import Loader from "@/app/loading"
 import GetFistTwentyPackagsBooking from "@/Libraries/ReduxToolkit/AsyncThunck/PackagaBookNow/GetFirstTwentyPackagesBooking";
 import Link from "next/link";
 
-import PackageBookingMarkAsPaidButton from "@/Components/Buttons/BookingNow/PackageMarkAsPaid";
+import PackageBookingMarkAsPaidButton from "@/Components/Buttons/MarkAsPaid/PackageMarkAsPaid";
 
 const GetFirstTwentyPackageBookingNow = () => {
 

@@ -32,19 +32,31 @@ const UpdatePackageForm = ({ id }) => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors }, setValue,
   } = useForm({
     resolver: yupResolver(schema) ,
          context: { existingImages } , defaultValues: {    //here in a yup we pass context and context is used to pass addintional information like i want that if a no image is selected or prefilled than at least 2 image must be filled but if a one imaage is selected or prefilled than another is images required but if both are already selected or prefilled than their is no need ofa  required
       Title: "",
-      Slots: "",
-      BasePrice: "",
       Description: "",
-         TravelTimes: [{ time: "" }] ,// default 1 field
-    existingImages
-    }
-  });
-// fields: gives  the list of all time objects in your form.
+     TravelTimes: [{ time: "" }] ,// default 1 field
+     existingImages,
+   
+    //for dynamic category slots price and many more
+      BookingOption:[{
+          Category:null,
+          BasePrice:null,
+          //for a per person or  private booking
+          PricingModel:null,
+          // here capcity is a capcity of a car like a 5 seater 10 seater etc 
+            CarCapacity:null,
+            Slots:null,
+            Duration:null
+      }]
+  }
+   });
+
+   // fields: gives  the list of all time objects in your form.
 
 // append: adds  new time object (like { time: "" }).
 
@@ -54,9 +66,19 @@ const UpdatePackageForm = ({ id }) => {
   control,  // comes from useForm(), it controls the whole form state 
     name: "TravelTimes", 
      //tells react-hook-form that this field array is bound to your form’s TravelTimes field.
+});
 
-    });
-
+//for a dynamic fields bro
+       let {
+         fields:bookingFields,
+         append:appendBooking,
+         remove:removeBooking
+       }=useFieldArray({
+       control,
+         name: "BookingOption", // Must match the name in your Mongoose schema/yup
+   
+       })
+    
   // Fetch destination data by ID when component mounts
   useEffect(() => {
     dispatch(GetByIDThunck(id));
@@ -67,11 +89,33 @@ const UpdatePackageForm = ({ id }) => {
   useEffect(() => {
     if (result) {
       setValue("Title", result.Title || "");
-      setValue("Slots", result.Slots || "");
-      setValue("BasePrice", result.BasePrice || "");
       setValue("Description", result.Description || "");
       setExistingImages(Array.isArray(result.Image) ? [...result.Image] : []); //  Image is array
     SetAddImages(result.Image?.length > 2 ? result.Image.length - 2 : 0);
+
+      // --- 1. Pre-fill Booking Options like price , slotes car capcity and many more
+ if (result.BookingOption && result.BookingOption.length > 0) {
+         // ✅  Map and 
+                 const mappedOptions = result.BookingOption.map(option => ({
+          Category: option.Category || "",
+          BasePrice: option.BasePrice || null,
+          PricingModel: option.PricingModel || "",
+          CarCapacity: option.CarCapacity || option.CarCapcity || null, // Handle both spellings
+          Slots: option.Slots || null,
+          Duration: option.Duration || null
+        }));
+        setValue("BookingOption", mappedOptions);
+      } else {
+        setValue("BookingOption", [{
+          Category: "",
+          BasePrice: null,
+          PricingModel: "",
+          CarCapacity: null,
+          Slots: null,
+          Duration: null
+        }]);
+      }
+
 
 // ✅ Pre-fill travel times in 24h format
     if (result.TravelTimes?.length > 0) {
@@ -100,8 +144,6 @@ const UpdatePackageForm = ({ id }) => {
     const formData = new FormData();
     const newImages = []; // Declare newImages array
     formData.append("Title", data.Title);
-    formData.append("Slots", data.Slots);
-    formData.append("BasePrice", data.BasePrice);
     formData.append("Description", data.Description);
 
           // ✅ TravelTimes (with AM/PM)
@@ -113,6 +155,17 @@ const UpdatePackageForm = ({ id }) => {
       formData.append(`TravelTimes[${index}][time]`, timeWithAmPm);
     }
   });
+
+   // append BookingOption array for submission ---
+    (data.BookingOption || []).forEach((option, index) => {
+        // Append all nested fields with array notation for the backend
+        formData.append(`BookingOption[${index}][Category]`, option.Category);
+        formData.append(`BookingOption[${index}][BasePrice]`, option.BasePrice);
+        formData.append(`BookingOption[${index}][PricingModel]`, option.PricingModel);
+        formData.append(`BookingOption[${index}][CarCapacity]`, option.CarCapacity? Number(option.CarCapacity) : 0);
+        formData.append(`BookingOption[${index}][Slots]`, option.Slots);
+        formData.append(`BookingOption[${index}][Duration]`, option.Duration);
+    });
 
 
     // Append all new uploaded images dynamically
@@ -178,32 +231,7 @@ const UpdatePackageForm = ({ id }) => {
               />
               <p className="text-red-500 text-xs mt-1">{errors.Title?.message}</p>
             </div>
-
-            {/* Base Price */}
-            <div>
-              <label className="block text-gray-800 font-semibold mb-2">💰 Base Price (Rs)</label>
-              <input
-                type="number"
-                {...register("BasePrice")}
-                placeholder="e.g. 2500"
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
-              />
-              <p className="text-red-500 text-xs mt-1">{errors.BasePrice?.message}</p>
-            </div>
-
-            {/* Slots */}
-            <div>
-              <label className="block text-gray-800 font-semibold mb-2">🎫 Available Slots</label>
-              <input
-                type="number"
-                {...register("Slots")}
-                placeholder="e.g. 50"
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
-              />
-              <p className="text-red-500 text-xs mt-1">{errors.Slots?.message}</p>
-            </div>
           </div>
-
           {/* Travel Times */}
 <div>
   <label className="block text-gray-800 font-semibold mb-2">🕒 Travel Times</label>
@@ -312,6 +340,129 @@ const UpdatePackageForm = ({ id }) => {
           {AddImages < 3 && (
             <button disabled={loading} onClick={() => SetAddImages(AddImages + 1)} className={`px-4 py-2  text-white rounded-lg shadow duration-300   ${loading ? "bg-blue-200 opacity-60" : "bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-lg text-sm duration-300 transition hover:from-amber-600 hover:to-yellow-600"}`}> ➕ Add More Images</button>
           )}
+
+                     {/* ✨ DYNAMIC BOOKING OPTIONS SECTION ✨ */}
+          {/* ======================================= */}
+           <h3 className=" text-xl font-bold text-amber-800 border-b pb-2 mb-4">
+            Booking Categories & Pricing
+             </h3>
+
+              {bookingFields.map((field, index) => {
+                    // 💡 Must watch the field inside the map for reactivity
+              const PricingModel = watch(`BookingOption.${index}.PricingModel`);
+                  return (
+                <div
+                  key={field.id}
+                className="p-4 border-2 border-amber-300 rounded-lg bg-yellow-100/30 space-y-4 relative"                >
+                  {/* Remove Button */}
+                 {bookingFields.length > 1 && (
+                   <button
+                     type="button"
+                      onClick={() => removeBooking(index)}
+                     className="absolute top-2 right-2 bg-red-500 text-white w-7 h-7 flex items-center justify-center rounded-full hover:bg-red-600 transition duration-200 shadow-md text-sm"         >
+                         &times;
+                        </button>
+                         )}
+                       <h4 className="text-lg font-semibold text-amber-800 border-b border-amber-200 pb-2">
+                      Category #{index + 1}
+                      </h4>
+
+                        {/* Category Name & Pricing Model */}
+                        <div className="grid grid-cols-1 sm:flex gap-4">
+                         <div className="w-full sm:w-1/2">
+                         <label className="block text-amber-900 font-semibold mb-2">Category Name</label>
+                          <input
+                         {...register(`BookingOption.${index}.Category`)}
+                         placeholder="e.g. Standard, Private Car"
+                        className="w-full px-4 py-3 border-2 border-amber-200 rounded-lg shadow-sm bg-yellow-50/50 focus:ring-2 focus:ring-amber-400"            />
+                       <p className="text-red-600 text-sm mt-1">{errors.BookingOption?.[index]?.Category?.message}</p>
+                        </div>
+                        <div className="w-full sm:w-1/2">
+                      <label className="block text-amber-900 font-semibold mb-2">Pricing Model
+                      </label>
+                      <select 
+                     {...register(`BookingOption.${index}.PricingModel`)}
+                    className="w-full px-4 py-3 border-2 border-amber-200 rounded-lg shadow-sm bg-yellow-50/50 focus:ring-2 focus:ring-amber-400">
+                    <option value="">Select Pricing Model</option>
+                   <option value="PerPerson">Per Person</option>
+                   <option value="FixedUnit">Fixed Unit (Private)</option>
+                    </select>
+                   <p className="text-red-600 text-sm mt-1">{errors.BookingOption?.[index]?.PricingModel?.message}</p>
+                       </div>
+                      </div>
+                          
+                      {/* Base Price & Duration */}
+                     <div className="grid grid-cols-1 sm:flex gap-4">
+                    <div className="w-full sm:w-1/2">
+                   <label className="block text-amber-900 font-semibold mb-2">
+                  {PricingModel==="FixedUnit" ? 'Total Price Per Car (AED)' : 'Price Per Person (AED)'}                  </label>
+                 <input
+                 type="number"
+              {...register(`BookingOption.${index}.BasePrice`)}
+              placeholder={PricingModel==="FixedUnit"? "e.g. 500 (Total Car Price)" : "e.g. 250 (Per Person)"}
+            className="w-full px-4 py-3 border-2 border-amber-200 rounded-lg shadow-sm bg-yellow-50/50 focus:ring-2 focus:ring-amber-400"        />
+             <p className="text-red-600 text-sm mt-1">{errors.BookingOption?.[index]?.BasePrice?.message}</p>
+              </div>
+
+                             {/* Duration */}
+             <div className="w-full sm:w-1/2">
+             <label className="block text-amber-900 font-semibold mb-2">Duration</label>
+               <input
+               {...register(`BookingOption.${index}.Duration`)}
+                  placeholder="e.g. 4 Hours"
+             className="w-full px-4 py-3 border-2 border-amber-200 rounded-lg shadow-sm bg-yellow-50/50 focus:ring-2 focus:ring-amber-400"                      />
+             <p className="text-red-600 text-sm mt-1">{errors.BookingOption?.[index]?.Duration?.message}</p>
+             </div>
+             </div>
+                                
+                                {/* Slots  & Car Capacity (Conditional) */}
+               <div className="grid grid-cols-1 sm:flex gap-4">
+               <div className={`w-full sm:w-1/2 ${PricingModel==="FixedUnit" ? '' : 'w-full'}`}>
+              <label className="block text-amber-900 font-semibold mb-2">
+           {PricingModel==="FixedUnit" ? 'Total Number of Cars' : 'Total Slots Available'}
+                  </label>
+                 <input
+                   type="number"
+                    {...register(`BookingOption.${index}.Slots`)}
+               placeholder={PricingModel==="FixedUnit" ? "e.g. 5 available cars" : "e.g. 50 available slots"}
+              className="w-full px-4 py-3 border-2 border-amber-200 rounded-lg shadow-sm bg-yellow-50/50 focus:ring-2 focus:ring-amber-400"         />
+             <p className="text-red-600 text-sm mt-1">{errors.BookingOption?.[index]?.Slots?.message}</p>
+                </div>
+                                    
+                      {/* 💡 Conditional Field: Only show CarCapacity for FixedUnit (Private) */}
+                   {PricingModel==="FixedUnit" && (
+                   <div className="w-full sm:w-1/2">
+                   <label className="block text-amber-900 font-semibold mb-2">
+                     Car Capacity (Seats per Car)
+                        </label>
+                      <input
+                         type="number"
+                         {...register(`BookingOption.${index}.CarCapacity`)}
+                         placeholder="e.g. 10 seats"
+                        className="w-full px-4 py-3 border-2 border-amber-200 rounded-lg shadow-sm bg-yellow-50/50 focus:ring-2 focus:ring-amber-400"         />
+                       <p className="text-red-600 text-sm mt-1">{errors.BookingOption?.[index]?.CarCapacity?.message}</p>
+                        </div>
+                        )}
+                        </div>
+                        </div>
+                    )}
+                    )}
+                    
+                    {/* Add Booking Option Button */}
+                    <button
+                        type="button"
+                        onClick={() => appendBooking({
+                            Category: "",
+                            BasePrice: null,
+                            PricingModel: null,
+                            CarCapacity: null,
+                            Slots: null,
+                            Duration: null
+                        })}
+                        className="mt-4 w-full py-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-lg hover:from-amber-600 hover:to-yellow-600 duration-300 transition shadow-lg font-medium">
+                        ➕ Add New Category
+                    </button>
+
 
           {/* Description */}
           <div>
