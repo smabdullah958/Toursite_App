@@ -8,7 +8,7 @@ let GetBooking=async(req,res)=>{
 
         let GetBooking=await DataBase.find()
         .populate("UserID","Name Email")
-        .populate("DestinationID","Title")
+        .populate("DestinationID","Title BookingOption")
         .select("TotalPrice PaymentMethod PaymentStatus Date NumberOfAdultChild NumberOfNoneAdultChild")
         .sort({createdAt:-1}).skip(skip).limit(limit)
         

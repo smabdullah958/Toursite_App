@@ -6,7 +6,7 @@ let GetByID=async(req,res)=>{
 
         let UserDetail=await DataBase.findOne({_id:id})
         .populate("UserID","Name Email")
-        .populate("DestinationID","Title")
+        .populate("DestinationID","Title BookingOption")
         .select(" ContactNumber WhatsAppNumber PickUpAddress Days TravelTime TotalPrice PaymentMethod PaymentStatus Date NumberOfAdultChild NumberOfNoneAdultChild")
         
     console.log(UserDetail,"end")

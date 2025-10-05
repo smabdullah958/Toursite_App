@@ -7,17 +7,14 @@ let PostPackage=async(req,res)=>{
     if(!error.isEmpty()){
         return res.status(401).json({message:"validation error bro",error:error.array()})
     }
-    let {BasePrice,Title,Description,Slots,TravelTimes,Duration,Category}=req.body
+    let {Title,Description,TravelTimes,BookingOption}=req.body
 
     let result=new database({
-        BasePrice,
         Title,
         Description,
-        Slots,
         TravelTimes,
         Image:req.files ? req.files.map(file=>file.path):null,
-        Duration,
-        Category
+       BookingOption
     })
     if(result.Image.length<2){
         return res.status(401).json({message:"minimum 2 images are required"})

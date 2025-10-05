@@ -6,7 +6,7 @@ let GetFirst12Packages=async(req,res)=>{
         let page=parseInt(req.query.page)||1
         let skip=(page-1)*limit
         let result=await DataBase.find()
-        .select("Title Image BasePrice Slots _id")
+        .select("Title Image BookingOption.BasePrice BookingOption.Slots _id")
         .sort({createdAt:-1})
         .skip(skip).limit(limit)
         console.log(result,result.length)

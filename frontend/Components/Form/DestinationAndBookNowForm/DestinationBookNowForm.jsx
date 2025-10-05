@@ -38,7 +38,7 @@ let dispatch=useDispatch()
           NumberOfNoneAdultChild:0,
           Duration:"",
           Category:"",
-          BookingOptionId:""  // NEW: Store the actual booking option ID
+          BookingOptionId:""  // Store the actual booking option ID
         }
     })
 
@@ -49,7 +49,7 @@ let dispatch=useDispatch()
 
   // Update selected option based on BookingOptionId
   useEffect(() => {
-    // 1. Immediately reset selectedOption and price/counts if bookingOptionId is not selected
+    //  Immediately reset selectedOption and price/counts if bookingOptionId is not selected
     if (!bookingOptionId) {
         setSelectedOption(null);
         setValue("BasePrice", null);
@@ -61,7 +61,7 @@ let dispatch=useDispatch()
         return; // Stop execution until bookingOptionId is selected
     }
 
-    // 2. Only proceed if bookingOptionId is selected
+    //  Only proceed if bookingOptionId is selected
     if (BookingOption && bookingOptionId) {
         const option = BookingOption.find(opt => opt._id === bookingOptionId);
         
@@ -71,14 +71,14 @@ let dispatch=useDispatch()
             setValue("Duration", option.Duration);
             setValue("Category", option.Category);
             
-            // Explicitly set default counts based on the new PricingModel
+            // set default counts based on the new PricingModel
             if (option.PricingModel === "PerPerson") {
                 // Keep the current values or set a valid default (e.g., min: 1 adult)
                 // Use current watched values instead of calling watch() inside useEffect
                 setValue("NumberOfAdultChild", adultChild < 1 ? 1 : adultChild);
                 setValue("NumberOfNoneAdultChild", noneAdult < 0 ? 0 : noneAdult);
             } else {
-                // If it's fixed price like private booking, ensure the person counters are reset/set to non-influential values
+                // If  fixed price like private booking, ensure the person counters are reset/set to non-influential values
                 // This ensures if the user switches back, the counters don't hold bad values
                 setValue("NumberOfAdultChild", 1); 
                 setValue("NumberOfNoneAdultChild", 0); 
@@ -199,8 +199,8 @@ let dispatch=useDispatch()
                 <option value="">Select a Category</option>
 
                 {uniqueCategories.length > 0 ? (
-                    uniqueCategories.map((cat, index) => (
-                        <option key={index} value={cat}>{cat}</option>
+                    uniqueCategories.map((category, index) => (
+                        <option key={index} value={category}>{category}</option>
                     ))
                 ) : (
                    <option value="" disabled>

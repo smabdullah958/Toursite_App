@@ -59,6 +59,8 @@ const FindById = () => {
   // Success State with Data
   if (success && result) {
     const images = result.Image || [];
+    const availableOptionToDisplay = result.BookingOption?.find(
+        opt => opt.Slots === undefined || opt.Slots > 0)
     
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
@@ -185,7 +187,7 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Best Value</h3>
                   </div>
                   <p className="text-white/90 mb-2">Starting from</p>
-                  <p className="text-3xl font-bold">Rs {result.BasePrice}</p>
+                  <p className="text-3xl font-bold">AED {availableOptionToDisplay?.BasePrice}</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-amber-700 to-orange-700 rounded-3xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -198,7 +200,7 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Available Slots</h3>
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
-                  <p className="text-3xl font-bold">{updateSlots?.Slots ?? result.Slots ?? "Limited"}</p>
+                  <p className="text-3xl font-bold">{updateSlots?.Slots ?? availableOptionToDisplay.Slots ?? "Limited"}</p>
                 </div>
               </div>
             </div>
@@ -212,7 +214,7 @@ const FindById = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-4 bg-amber-50 rounded-lg border border-amber-200">
                     <span className="text-amber-700">Price per person</span>
-                    <span className="text-2xl font-bold text-amber-600">Rs {result.BasePrice}</span>
+                    <span className="text-2xl font-bold text-amber-600">AED {availableOptionToDisplay.BasePrice}</span>
                   </div>
                   
                   <PackageBookNow 
@@ -230,7 +232,7 @@ const FindById = () => {
                     <span className="font-semibold">Limited Availability</span>
                   </div>
                   <p className="text-sm text-yellow-600">Only 
-                  {" "} {updateSlots?.Slots ?? result.Slots ?? "Limited"} {" "} spots left! Book soon to secure your place.</p>
+                  {" "} {updateSlots?.Slots ?? availableOptionToDisplay.Slots ?? "Limited"} {" "} spots left! Book soon to secure your place.</p>
                 </div>
               </div>
             </div>
