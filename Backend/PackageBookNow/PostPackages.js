@@ -87,7 +87,9 @@
                 PackageID,
                 UserID,
                 Date:BookingDate,
-                PaymentMethod
+                PaymentMethod,
+                Category,
+                Duration
             })
 
             console.log("domcunet is created")
@@ -149,15 +151,32 @@
           <td style="padding: 8px; border-bottom: 1px solid #eee;"> ${BookingDate}</td>
         </tr>
 
+                <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Duration</b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.Duration}</td>
+        </tr>
+
+
         ${NumberOfAdultChild || NumberOfNoneAdultChild ?
        `
        <tr>
         <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots/Car ooking:</b></td>
-           <td style="padding: 8px; border-bottom: 1px solid #eee;">${NumberOfAdultChild +NumberOfNoneAdultChild}
+           <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalslots}
            </td>  
             </tr>
            `:""
           }
+
+           ${selectedBookingOption.PricingModel==="FixedUnit" ?
+`
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Car Capcity:
+          </b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">
+          ${selectedBookingOption.CarCapacity}
+          </td>
+        </tr>`:""}
+
 
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>

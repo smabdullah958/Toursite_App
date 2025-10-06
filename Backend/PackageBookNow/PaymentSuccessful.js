@@ -8,33 +8,63 @@ let PackageDatabase =require("../Models/PackagesDatabase")
 
 let PaymentSuccess = async (req, res) => {
   try {
-    let { bookingId } = req.body;
-    let user = req.user; // from middleware
+     let { bookingId } = req.body;
+     let user = req.user; // from middleware
 
-    let booking = await Database.findById(bookingId).populate("PackageID");
-    if (!booking) {
-      return res.status(404).json({ message: "Booking not found" });
+     let booking = await Database.findById(bookingId).populate("PackageID");
+     if (!booking) {
+       return res.status(404).json({ message: "Booking not found" });
+     }
+//check the toal price 
+     if(booking.TotalPrice > 999999.99){
+ return res.status(400).json({message:"You cannot do a transaction more than 999,999."})
+ } 
+
+
+    // 1. Find the package and the specific booking option
+    let destination = booking.PackageID; // Already populated, so use it directly
+    if (!destination) {
+      return res.status(404).json({ message: "Destination details missing." });
     }
 
-    if(booking.TotalPrice>999999.99){
-      return res.status(400).json({message:"you can not do transction more than a 999,999"})
-    } 
-
-    //if adult child is greater than a slots than show error
-    if(booking.NumberOfAdultChild>booking.PackageID?.Slots){
-      return res.status(400).json({message:"we have not enough slots available "})
-    }
-
-
-    booking.PaymentStatus = "Paid";
-    await booking.save();
-
-    //  decrease slots from Destination collection
-    let updateSlots = await PackageDatabase.findByIdAndUpdate(
-      booking.PackageID._id,
-      { $inc: { Slots: -(booking.NumberOfAdultChild) } }, // sirf adults slots count kar rahe ho
-      { new: true }
+    // Find the correct BookingOption using Category/Duration saved on the booking
+    const selectedBookingOption = destination.BookingOption.find(
+      opt => opt.Category === booking.Category && opt.Duration === booking.Duration 
+      
     );
+
+    if (!selectedBookingOption) {
+      return res.status(402).json({ message: "Matching booking option not found on destination." });
+    }
+
+
+
+    // Calculate total slots being booked
+    let totalSeatsBooked = booking.NumberOfAdultChild + booking.NumberOfNoneAdultChild ;
+
+//check slots if a user slots is greater thana  available slots
+    if(totalSeatsBooked > booking.PackageID?.Slots){
+                return res.status(400).json({message:`we have only ${booking.PackageID.Slots} slots available `}) 
+ }
+
+    // 1. Update Booking Status
+ booking.PaymentStatus = "Paid";
+ await booking.save();
+
+//     // 2. Decrease slots by TOTAL seats (Adults + Non-Adults)
+   let updateSlots = await PackageDatabase.findOneAndUpdate(
+        {
+            _id: booking.PackageID._id,
+            "BookingOption.Category": booking.Category,
+            "BookingOption.Duration": booking.Duration,
+            "BookingOption.PricingModel": selectedBookingOption.PricingModel
+        },
+        { 
+            // Decrement the Slots field of the matched array element ($)
+            $inc: { "BookingOption.$.Slots": -totalSeatsBooked } 
+        }, 
+        { new: true }
+    );
 
 
     //Send Email
@@ -60,17 +90,35 @@ let PaymentSuccess = async (req, res) => {
           <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.Date}</td>
         </tr>
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Days:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.Days}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Duration</b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.Duration}</td>
         </tr>
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Slots:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.NumberOfAdultChild + booking.NumberOfNoneAdultChild}</td>
-        </tr>
+       
+        ${booking.NumberOfAdultChild || booking.NumberOfNoneAdultChild ?
+`
         <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Car booking:
+          </b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalSeatsBooked}</td>
+        </tr>`:""}
+
+        ${selectedBookingOption.PricingModel==="FixedUnit" ?
+`
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Car Capcity:
+          </b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">
+          ${selectedBookingOption.CarCapacity}
+          </td>
+        </tr>`:""}
+
+                <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>
           <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.TotalPrice} AED</td>
         </tr>
+
+
         <tr>
           <td style="padding: 8px;"><b>Status:</b></td>
           <td style="padding: 8px; color: green; font-weight: bold;">Paid ✅</td>

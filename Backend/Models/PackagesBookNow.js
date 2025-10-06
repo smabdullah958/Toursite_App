@@ -35,7 +35,14 @@ let Sch=new mongoose.Schema({
         ref:"PostPackage",
         required:true
     },
-    
+    Category: {
+        type: String,
+        required: true // Must be required to identify the booked option
+    },
+    Duration: {
+        type: String,
+        required: true // Must be required to identify the booked option
+    },  
     TotalPrice:{
         type:Number,
         required:true

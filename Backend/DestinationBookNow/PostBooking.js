@@ -87,7 +87,8 @@ require("dotenv").config()
                 DestinationID,
                 UserID,
                 Date:BookingDate,
-                PaymentMethod
+                PaymentMethod,
+                Duration,Category,
             })
 
             console.log("domcunet is created")
@@ -150,17 +151,34 @@ require("dotenv").config()
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Booking Date:</b></td>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"> ${BookingDate}</td>
         </tr>
+
+                <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Duration</b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${Duration}</td>
+        </tr>
+
         
        ${NumberOfAdultChild || NumberOfNoneAdultChild ?
        `
        <tr>
         <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots/Car booking:</b>
         </td>
-           <td style="padding: 8px; border-bottom: 1px solid #eee;">${NumberOfAdultChild +NumberOfNoneAdultChild}
+           <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalslots}
            </td>  
             </tr>
            `:""
           }
+
+            ${selectedBookingOption.PricingModel==="FixedUnit" ?
+`
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Car Capcity:
+          </b></td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">
+          ${selectedBookingOption.CarCapacity}
+          </td>
+        </tr>`:""}
+
        
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>
