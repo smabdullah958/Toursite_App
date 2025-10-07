@@ -215,12 +215,17 @@ require("dotenv").config()
 
                   updateSlots = await DestinationDatabase.findOneAndUpdate(
                 { 
-                    _id: DestinationID, 
-                    // Find the element in the array that matches the criteria
-                    "BookingOption.Category": Category,
-                    "BookingOption.Duration": Duration, 
-                    "BookingOption.PricingModel":selectedBookingOption.PricingModel
-                },
+        _id: DestinationID, 
+      //decease slots only those which satisfy all the condition
+        BookingOption: {
+            $elemMatch: {
+                Category: Category,
+                Duration: Duration,
+                PricingModel: selectedBookingOption.PricingModel,
+                CarCapacity:selectedBookingOption.CarCapacity
+            }
+        }
+    },
                 {
                     // Use the positional operator ($) to decrement the Slots of the matching element
                     $inc: { "BookingOption.$.Slots": -slotsToDecrement }
@@ -229,7 +234,7 @@ require("dotenv").config()
             );
         }
 
-
+        
             return res.status(200).json({message:"booking successfully",result,updateSlots})
 
         }

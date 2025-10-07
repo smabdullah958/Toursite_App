@@ -61,10 +61,15 @@ let PaymentSuccess = async (req, res) => {
     let updateSlots = await DestinationDatabase.findOneAndUpdate(
       {
         _id: booking.DestinationID._id,
-        // Match the element in the array
-        "BookingOption.Category": booking.Category,
-        "BookingOption.Duration": booking.Duration,
-        "BookingOption.PricingModel": selectedBookingOption.PricingModel
+              //decease slots only those which satisfy all the condition
+        BookingOption: {
+            $elemMatch: {
+        Category: booking.Category,
+        Duration: booking.Duration,
+        PricingModel: selectedBookingOption.PricingModel,
+        CarCapacity:selectedBookingOption.CarCapacity
+            }
+          }
       },
       {
         // Decrement the Slots field of the matched array element ($)

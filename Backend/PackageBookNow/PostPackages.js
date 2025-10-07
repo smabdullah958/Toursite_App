@@ -88,8 +88,6 @@
                 UserID,
                 Date:BookingDate,
                 PaymentMethod,
-                Category,
-                Duration
             })
 
             console.log("domcunet is created")
@@ -167,7 +165,7 @@
            `:""
           }
 
-           ${selectedBookingOption.PricingModel==="FixedUnit" ?
+             ${selectedBookingOption.PricingModel==="FixedUnit" ?
 `
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Car Capcity:
@@ -214,10 +212,15 @@
                 { 
                     _id: PackageID, 
                     // Find the element in the array that matches the criteria
-                    "BookingOption.Category": Category,
-                    "BookingOption.Duration": Duration, 
-                    "BookingOption.PricingModel":selectedBookingOption.PricingModel
-                },
+                 BookingOption: {
+            $elemMatch: {
+                Category: Category,
+                Duration: Duration,
+                PricingModel: selectedBookingOption.PricingModel,
+                CarCapacity:selectedBookingOption.CarCapacity
+            }
+        }
+    },
                 {
                     // Use the positional operator ($) to decrement the Slots of the matching element
                     $inc: { "BookingOption.$.Slots": -slotsToDecrement }
@@ -225,7 +228,6 @@
                 { new: true }
             );
         }
-                
             return res.status(200).json({message:"booking successfully",result,updateSlots})
 
         }

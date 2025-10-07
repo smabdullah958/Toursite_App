@@ -212,7 +212,7 @@ let HandleButton=async(Data)=>{
                    <p className="text-red-500 text-xs mt-1">{errors.Category?.message}</p>
             </div>
 
-            {/* Booking Option Selection (Duration + Pricing Model combined) */}
+              {/* Booking Option Selection (Duration + Pricing Model and car capacity combined) */}
             <div>
                 <label className="block text-gray-800 font-semibold mb-2">Duration & Type</label>
            <select {...register("BookingOptionId")}
@@ -224,7 +224,11 @@ let HandleButton=async(Data)=>{
                 {categoryOptions.length > 0 ? (
                     categoryOptions.map((opt) => (
                         <option key={opt._id} value={opt._id}>
-                            {opt.Duration} - {opt.PricingModel === "PerPerson" ? "Per Person" : "Private Booking"} ({opt.BasePrice} AED)
+                            {opt.Duration} - {opt.PricingModel === "PerPerson" ? "Per Person" : 
+                            <>
+                            Private Booking - {opt.CarCapacity} Car Capacity
+                            </>
+                            }
                         </option>
                     ))
                 ) : (
@@ -235,6 +239,7 @@ let HandleButton=async(Data)=>{
               </select>
                    <p className="text-red-500 text-xs mt-1">{errors.BookingOptionId?.message}</p>
             </div>
+
 
             {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
 

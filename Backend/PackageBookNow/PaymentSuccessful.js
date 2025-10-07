@@ -51,17 +51,27 @@ let PaymentSuccess = async (req, res) => {
  booking.PaymentStatus = "Paid";
  await booking.save();
 
+ //  Determine slots to decrease (logic is based on pricing model)
+    const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson"
+      ? totalSeatsBooked : 1;
+
+
 //     // 2. Decrease slots by TOTAL seats (Adults + Non-Adults)
    let updateSlots = await PackageDatabase.findOneAndUpdate(
         {
             _id: booking.PackageID._id,
-            "BookingOption.Category": booking.Category,
-            "BookingOption.Duration": booking.Duration,
-            "BookingOption.PricingModel": selectedBookingOption.PricingModel
+           BookingOption: {
+            $elemMatch: {
+        Category: booking.Category,
+        Duration: booking.Duration,
+        PricingModel: selectedBookingOption.PricingModel,
+        CarCapacity:selectedBookingOption.CarCapacity
+            }
+          }
         },
         { 
             // Decrement the Slots field of the matched array element ($)
-            $inc: { "BookingOption.$.Slots": -totalSeatsBooked } 
+            $inc: { "BookingOption.$.Slots": -slotsToDecrement } 
         }, 
         { new: true }
     );
