@@ -203,8 +203,8 @@ if(displayResult.length===0){
                 </div>
               </div>
             </div>
-            );
-          })}
+            )}
+          )}
         </div>
 
         {/* Loading State */}

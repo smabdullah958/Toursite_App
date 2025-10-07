@@ -26,6 +26,7 @@ let validation = [
 
     body("Category")
     .notEmpty().withMessage("Category are required"),
+body("CarCapacity").nullable(),
 
   body("TravelTime")
     .notEmpty().withMessage("Travel time is required"),

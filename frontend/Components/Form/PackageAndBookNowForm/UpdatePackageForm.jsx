@@ -199,7 +199,7 @@ const UpdatePackageForm = ({ id }) => {
   })
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
+    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50">
       {/* Modal Container */}
       <div className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
         <div className="sticky top-0 z-20  text-center rounded-t-2xl">

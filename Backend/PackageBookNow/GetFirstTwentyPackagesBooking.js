@@ -8,8 +8,8 @@ let GetPackageBooking=async(req,res)=>{
 
         let Booking=await DataBase.find()
         .populate("UserID","Name Email")
-        .populate("PackageID","Title")
-        .select("TotalPrice PaymentMethod PaymentStatus Date NumberOfAdultChild NumberOfNoneAdultChild")
+        .populate("PackageID","Title BookingOption")
+        .select("TotalPrice PaymentMethod PaymentStatus Date NumberOfAdultChild NumberOfNoneAdultChild Category CarCapacity")
         .sort({createdAt:-1}).skip(skip).limit(limit)
         
     console.log(Booking,Booking.length)

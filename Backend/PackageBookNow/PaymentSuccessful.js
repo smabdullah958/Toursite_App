@@ -64,8 +64,8 @@ let PaymentSuccess = async (req, res) => {
             $elemMatch: {
         Category: booking.Category,
         Duration: booking.Duration,
-        PricingModel: selectedBookingOption.PricingModel,
-        CarCapacity:selectedBookingOption.CarCapacity
+        CarCapacity:booking.CarCapacity,
+        PricingModel: selectedBookingOption.PricingModel
             }
           }
         },
@@ -105,7 +105,7 @@ let PaymentSuccess = async (req, res) => {
         </tr>
         <tr>
        
-        ${booking.NumberOfAdultChild || booking.NumberOfNoneAdultChild ?
+        ${selectedBookingOption.PricingModel==="PerPerson" ?
 `
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Car booking:

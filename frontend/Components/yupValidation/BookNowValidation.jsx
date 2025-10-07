@@ -34,6 +34,10 @@ WhatsAppNumber: yup
 
     Category:yup.string().required("Category is required"),
 
+      PricingModel: yup.string().oneOf(["PerPerson", "FixedUnit"]).notRequired(),
+
+
+   
     Date:yup.string()
   .required("Date is required"),
   

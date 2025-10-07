@@ -17,8 +17,9 @@ import StripeCheckoutForm from "./PackageStripeCheckoutForm"
 
 let PackageForm=({TravelTime,BookingOption,PackageID})=>{
 
+  let [ShowCarCapacityError,SetShowCarCapacityError]=useState(null)
+  
   let [clientSecret,setClientSecret]=useState(null);
-
     let [bookingId, setBookingId] = useState(null) // ✅ store bookingId for later
   let [selectedOption, setSelectedOption] = useState(null);
 
@@ -40,7 +41,8 @@ let dispatch=useDispatch()
           NumberOfNoneAdultChild:0,
           Duration:"",
           Category:"",
-          BookingOptionId:""  // Store the actual booking option ID
+          BookingOptionId:"",  // Store the actual booking option ID
+          CarCapacity:""
         }
     })
 
@@ -107,6 +109,16 @@ let dispatch=useDispatch()
     }
     }, [adultChild, noneAdult, selectedOption, setValue]);
 
+//watch the car capacity and selected option if pricing model is fixed unit and car capacity is not selected show error
+
+    useEffect(() => {
+      if (selectedOption?.PricingModel === "FixedUnit" && !watch("CarCapacity")) {
+        SetShowCarCapacityError("Please select Car Capacity for Private Booking");
+      } else {
+        SetShowCarCapacityError(null);
+      }
+    }, [selectedOption, watch("CarCapacity")]);
+    
 
     let HandleButton=async(Data)=>{
     let response= await dispatch(PackageBookNowFormThunck({Data,PackageID})).unwrap()      
@@ -142,6 +154,20 @@ let dispatch=useDispatch()
     
     // Get booking options for selected category (keep all options, don't filter duplicates)
     const categoryOptions = availableOptions?.filter(opt => opt.Category === category) || [];
+
+
+
+        // Remove duplicates with same Duration + PricingModel
+const uniqueCategoryOptions = [];
+const seenCombinations = new Set();
+
+for (const opt of categoryOptions) {
+  const key = `${opt.Duration}-${opt.PricingModel}`;
+  if (!seenCombinations.has(key)) {
+    seenCombinations.add(key);
+    uniqueCategoryOptions.push(opt);
+  }
+}
 
 
     return (
@@ -227,7 +253,7 @@ let dispatch=useDispatch()
                    <p className="text-red-500 text-xs mt-1">{errors.Category?.message}</p>
             </div>
 
-          {/* Booking Option Selection (Duration + Pricing Model and car capacity combined) */}
+                     {/* Booking Option Selection (Duration + Pricing Model andcombined) */}
             <div>
                 <label className="block text-gray-800 font-semibold mb-2">Duration & Type</label>
            <select {...register("BookingOptionId")}
@@ -236,25 +262,53 @@ let dispatch=useDispatch()
 
                 <option value="">Select Duration & Type</option>
 
-                {categoryOptions.length > 0 ? (
-                    categoryOptions.map((opt) => (
-                        <option key={opt._id} value={opt._id}>
-                            {opt.Duration} - {opt.PricingModel === "PerPerson" ? "Per Person" : 
-                            <>
-                            Private Booking - {opt.CarCapacity} Car Capacity
-                            </>
-                            }
-                        </option>
-                    ))
-                ) : (
+                {uniqueCategoryOptions.length > 0 ? (
+  uniqueCategoryOptions.map((opt) => (
+    <option key={opt._id} value={opt._id}>
+      {opt.Duration} - {opt.PricingModel === "PerPerson" ? "Per Person" : "Private Booking"}
+    </option>
+  ))
+) : (
                    <option value="" disabled>
                     {category ? "No options available" : "Please select a category first"}
                   </option>
                 )}
               </select>
-                   <p className="text-red-500 text-xs mt-1">{errors.BookingOptionId?.message}</p>
+                   <p className="text-red-500 text-xs mt-1">{errors.Duration?.message}</p>
             </div>
 
+                  {/*select car capacity */}
+            {selectedOption?.PricingModel === "FixedUnit" && (
+            <div>
+                <label className="block text-gray-800 font-semibold mb-2">Car Capacity</label>
+           <select {...register("CarCapacity")}
+           disabled={!category}
+           className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm disabled:bg-gray-100 disabled:cursor-not-allowed">
+
+                <option value="">Select Car Capacity</option>
+
+   {/* ✅ Filter only capacities matching same Duration + PricingModel */}
+      {categoryOptions.length > 0 ? (
+        [...new Set(
+          categoryOptions
+            .filter(opt =>
+              opt.Duration === selectedOption.Duration &&
+              opt.PricingModel === selectedOption.PricingModel
+            )
+            .map(opt => opt.CarCapacity)
+        )].map((capacity, index) => (
+          <option key={index} value={capacity}>
+            {capacity}
+          </option>
+        ))
+      ) : (                   <option value="" disabled>
+                    {category ? "No options available" : "Please select a category first"}
+                  </option>
+                )}
+              </select>
+                   <p className="text-red-500 text-xs mt-1">{ShowCarCapacityError}</p>
+            </div>
+            )}
 
             {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
 

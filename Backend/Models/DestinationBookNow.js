@@ -43,6 +43,9 @@ let Sch=new mongoose.Schema({
         type: String,
         required: true // Must be required to identify the booked option
     },
+    CarCapacity:{
+        type:Number
+    },
 
     TotalPrice:{
         type:Number,

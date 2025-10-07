@@ -43,7 +43,8 @@ require("dotenv").config()
 
             let {ContactNumber,WhatsAppNumber,
                 PickUpAddress,NumberOfNoneAdultChild,
-                NumberOfAdultChild,Duration,Category,
+                NumberOfAdultChild,CarCapacity,
+                Duration,Category,
                 TravelTime,TotalPrice,
                 Date:BookingDate,PaymentMethod}=req.body
 
@@ -89,6 +90,7 @@ require("dotenv").config()
                 Date:BookingDate,
                 PaymentMethod,
                 Duration,Category,
+                CarCapacity
             })
 
             console.log("domcunet is created")
@@ -158,7 +160,7 @@ require("dotenv").config()
         </tr>
 
         
-       ${NumberOfAdultChild || NumberOfNoneAdultChild ?
+       ${selectedBookingOption.PricingModel==="PerPerson" ?
        `
        <tr>
         <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots/Car booking:</b>
@@ -175,7 +177,7 @@ require("dotenv").config()
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Car Capcity:
           </b></td>
           <td style="padding: 8px; border-bottom: 1px solid #eee;">
-          ${selectedBookingOption.CarCapacity}
+          ${CarCapacity}
           </td>
         </tr>`:""}
 
@@ -221,8 +223,8 @@ require("dotenv").config()
             $elemMatch: {
                 Category: Category,
                 Duration: Duration,
+                CarCapacity:CarCapacity,
                 PricingModel: selectedBookingOption.PricingModel,
-                CarCapacity:selectedBookingOption.CarCapacity
             }
         }
     },

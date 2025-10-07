@@ -143,9 +143,13 @@ const page = () => {
               <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
               Destination: {UserDetail.DestinationID?.Title || "Unknown"}</div>
 
-                             {/*  Show Category instead of Days */}
+                             {/*  Show Category */}
               <div className="bg-amber-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
                 Category: {selectedOption?.Category || "N/A"}
+              </div>
+
+               <div className="bg-amber-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
+                Duration: {selectedOption?.Duration || "N/A"}
               </div>
 
                               {selectedOption?.PricingModel === "PerPerson" ? (

@@ -45,15 +45,12 @@ let PaymentSuccess = async (req, res) => {
  }
 
 
-    // The slot check is generally redundant here, but if slots run out 
-    // due to a severe race condition, we must log it and proceed.
-    // **Do not return 400 here, as the user has paid.**
 
-    // 2. Mark booking as Paid
+    // update booking status as Paid
     booking.PaymentStatus = "Paid";
     await booking.save();
 
-    // 3. Determine slots to decrease (logic is based on pricing model)
+    //  Determine slots to decrease (logic is based on pricing model)
     const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson"
       ? totalSlots : 1;
 
@@ -66,8 +63,9 @@ let PaymentSuccess = async (req, res) => {
             $elemMatch: {
         Category: booking.Category,
         Duration: booking.Duration,
+        CarCapacity:booking.CarCapacity,
         PricingModel: selectedBookingOption.PricingModel,
-        CarCapacity:selectedBookingOption.CarCapacity
+      
             }
           }
       },
@@ -105,7 +103,7 @@ let PaymentSuccess = async (req, res) => {
           <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.Duration}</td>
         </tr>
   
-${booking.NumberOfAdultChild || booking.NumberOfNoneAdultChild ?
+${selectedBookingOption.PricingModel==="PerPerson" ?
 `
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Car booking:

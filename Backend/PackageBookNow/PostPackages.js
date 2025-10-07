@@ -44,6 +44,7 @@
 
             let {ContactNumber,WhatsAppNumber,
                 Category,Duration,
+                CarCapacity,
                 PickUpAddress,NumberOfNoneAdultChild,
                 NumberOfAdultChild,
                 TravelTime,TotalPrice,
@@ -82,6 +83,7 @@
                 NumberOfAdultChild,
                 Duration,
                 Category,
+                CarCapacity,
                 TravelTime,
                 TotalPrice,
                 PackageID,
@@ -155,7 +157,7 @@
         </tr>
 
 
-        ${NumberOfAdultChild || NumberOfNoneAdultChild ?
+        ${selectedBookingOption.PricingModel==="PerPerson" ?
        `
        <tr>
         <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots/Car ooking:</b></td>
@@ -216,8 +218,8 @@
             $elemMatch: {
                 Category: Category,
                 Duration: Duration,
+                CarCapacity:CarCapacity,
                 PricingModel: selectedBookingOption.PricingModel,
-                CarCapacity:selectedBookingOption.CarCapacity
             }
         }
     },
