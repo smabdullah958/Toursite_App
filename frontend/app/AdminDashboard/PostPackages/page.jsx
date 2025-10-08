@@ -79,7 +79,7 @@ const PostPackage = () => {
 
   useEffect(()=>{
     if(success){
-      router.push("/")
+      router.push("/AdminDashboard")
       dispatch(clearState())
     }
   })

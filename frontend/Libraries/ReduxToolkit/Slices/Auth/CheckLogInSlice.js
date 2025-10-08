@@ -6,7 +6,7 @@ import CheckLogIn  from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThu
 
 let initialState={
     IsLogIn:null,
-    Role:"",
+    Role:null,
     success:false,
     Loading:true
     }
@@ -39,7 +39,7 @@ let CheckLoginSlice=createSlice({
       .addCase(CheckLogIn.fulfilled, (state, action) => {
         // CheckLogin is come form a backend bro
         state.IsLogIn = action.payload.CheckLogin;  
-        state.Role=action.payload?.Role   //Role is come from a backend and file is a CheckLogin
+        state.Role=action.payload?.Role||null  //Role is come from a backend and file is a CheckLogin
        state.success=true
        state.Loading=false
       })

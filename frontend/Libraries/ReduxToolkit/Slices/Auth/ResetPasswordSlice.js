@@ -7,7 +7,8 @@ let initialState={
     Loading:false,
     success:false,
     error:"",
-    errorMessage:''
+    errorMessage:'',
+     Role:""
 }
 let ResetPasswordSlice=createSlice({
     name:"user",
@@ -15,10 +16,11 @@ let ResetPasswordSlice=createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
-        .addCase(ResetPasswordThunck.fulfilled,(state)=>{
+        .addCase(ResetPasswordThunck.fulfilled,(state,action)=>{
             state.success=true
             state.Loading=false
             state.error=""
+            state.Role=action.payload.Role
         })
         .addCase(ResetPasswordThunck.rejected,(state,action)=>{
              state.success=false
