@@ -30,7 +30,10 @@ let ResetPassword=async(req,res)=>{
 
 
         //ccreate token for a login or signup bro
-        let JWTToken=JWT.sign({id:user._id},
+        let JWTToken=JWT.sign({
+            id:user._id,
+            Role:user.Role
+        },
             process.env.SecretKey,
             {expiresIn:"1w"}
         )

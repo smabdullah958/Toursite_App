@@ -20,6 +20,14 @@ let DestinationBookingNow=require("./Controllers/DestinationBookNowController.js
 let PackageBookNow=require("./Controllers/PackageBookNowController.js")
 let TeamController=require("./Controllers/TeamController.js")
 
+let ResetDestinationDailySlots=require("./Destination/resetDailySlots.js")
+let ResetPackageDailySlots=require("./Packages/resetDailySlots.js")
+
+//reset daily slots for a destination bro
+ResetDestinationDailySlots()
+//reset daily slots for a package bro
+ResetPackageDailySlots()
+
 ConnectDB()
 App.use("/AuthController",AuthController)
 App.use("/Destination",DestinationController)

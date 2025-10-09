@@ -163,7 +163,7 @@ require("dotenv").config()
        ${selectedBookingOption.PricingModel==="PerPerson" ?
        `
        <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots/Car booking:</b>
+        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots:</b>
         </td>
            <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalslots}
            </td>  
@@ -203,7 +203,7 @@ require("dotenv").config()
         `;
 
 
-                await SendEmail(Email,"payement is successful",EmailHTML);
+                await SendEmail(Email,"Booking  successful",EmailHTML);
 
 
          let updateSlots ;
