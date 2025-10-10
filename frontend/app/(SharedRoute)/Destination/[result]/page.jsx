@@ -59,6 +59,12 @@ const FindById = () => {
         opt => opt.Slots === undefined || opt.Slots > 0
     );
 
+        // ✅ Handle updated or initial slot count
+    const availableSlots =
+      updateSlots?.BookingOption?.Slots ??
+      availableOptionToDisplay?.Slots ??
+      "0";
+
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
@@ -155,7 +161,7 @@ const FindById = () => {
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
                   <p className="text-3xl font-bold"> 
-          {updateSlots?.BookingOption?.Slots ?? availableOptionToDisplay?.Slots ?? "Limited"}
+          {availableSlots}
 </p>
                 </div>
               </div>
@@ -191,8 +197,8 @@ const FindById = () => {
                     <span className="font-semibold">Limited Availability</span>
                   </div>
                   <p className="text-sm text-yellow-600">Only {" "} 
-             {updateSlots?.BookingOption?.Slots ?? availableOptionToDisplay?.Slots ?? "Limited"} spots left! Book soon to secure your place.</p>
-                </div>
+             {availableSlots} spots left! Book soon to secure your place.</p>
+                  </div>
               </div>
             </div>
           </div>
