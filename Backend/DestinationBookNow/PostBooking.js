@@ -62,17 +62,65 @@ require("dotenv").config()
             return res.status(400).json({ message: "Invalid category or duration selected." });
         }
 
+
+                // GET TODAY'S DATE (in YYYY-MM-DD format)
+        const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
+        const BookingForToday = BookingDate === todayDate;
+
+
+                // SLOT AVAILABILITY CHECK
+        let availableSlots;
+
+        if (BookingForToday) {
+            // Check TODAY's slots (Slots field)
+            availableSlots = selectedBookingOption.Slots;
+        } else {
+            // Check FUTURE date slots (SlotByDate array)
+            const dateSlot = selectedBookingOption.SlotByDate?.find(
+                slot => slot.Date === BookingDate
+            );
+
+            if (dateSlot) {
+                availableSlots = dateSlot.RemainingSlots;
+            } else {
+                // If date not found, use OriginalSlots (first booking for this date)
+                availableSlots = selectedBookingOption.OriginalSlots;
+            }
+        }
+
+        // Determine slots to decrement based on pricing model
+        const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
+            ? totalslots 
+            : 1;
+
+        // Check if enough slots available 
+        //availbel slots is  numbe of a slot which are available for a booking
+        //slots to decrement is how many slots are required for a booking
+        //if available slots are less than the slots to decrement then it will show an error
+     
+        //if no slots are available
+        if(availableSlots===0){
+            return res.status(400).json({message:"No slots available for the selected date."})
+        }
+
+        if (availableSlots < slotsToDecrement) {
+            return res.status(400).json({ 
+                message: `Only ${availableSlots} slots remaining for ${BookingDate}.` 
+            });
+        }
+
+
         // Slot Availability Check (BEFORE saving the booking) ---
 
           // Handle cases where slots might not be defined (e.g., fixed price/private booking)
-        if (selectedBookingOption.Slots === undefined) {
-          console.log("Slots not defined for selected booking option. Assuming unlimited.");
-        } 
+        // if (selectedBookingOption.Slots === undefined) {
+        //   console.log("Slots not defined for selected booking option. Assuming unlimited.");
+        // } 
 
-            // Check if the current booking exceeds the remaining slots
-        else if (totalslots > selectedBookingOption.Slots) {
-            return res.status(400).json({ message: `Only ${selectedBookingOption.Slots} slots remaining for this option.` });
-        }
+        //     // Check if the current booking exceeds the remaining slots
+        // else if (totalslots > selectedBookingOption.Slots) {
+        //     return res.status(400).json({ message: `Only ${selectedBookingOption.Slots} slots remaining for this option.` });
+        // }
 
 
         
@@ -203,40 +251,121 @@ require("dotenv").config()
         `;
 
 
-                await SendEmail(Email,"Booking  successful",EmailHTML);
+               
 
 
-         let updateSlots ;
-                if (selectedBookingOption.Slots !== undefined) {
+         let updateSlots ;  
+    //             if (selectedBookingOption.Slots !== undefined) {
              
-                      // 1. Check if PricingModel is PerPerson or fixed
-    const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
-        ? totalslots // Decrement by total people
-        : 1; // Decrement by 1 (for a fixed-unit/private booking)
+    //                   // 1. Check if PricingModel is PerPerson or fixed
+    // const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
+    //     ? totalslots // Decrement by total people
+    //     : 1; // Decrement by 1 (for a fixed-unit/private booking)
 
 
-                  updateSlots = await DestinationDatabase.findOneAndUpdate(
-                { 
-        _id: DestinationID, 
-      //decease slots only those which satisfy all the condition
-        BookingOption: {
-            $elemMatch: {
-                Category: Category,
-                Duration: Duration,
-                CarCapacity:CarCapacity,
-                PricingModel: selectedBookingOption.PricingModel,
-            }
-        }
-    },
+    //               updateSlots = await DestinationDatabase.findOneAndUpdate(
+    //             { 
+    //     _id: DestinationID, 
+    //   //decease slots only those which satisfy all the condition
+    //     BookingOption: {
+    //         $elemMatch: {
+    //             Category: Category,
+    //             Duration: Duration,
+    //             CarCapacity:CarCapacity,
+    //             PricingModel: selectedBookingOption.PricingModel,
+    //         }
+    //     }
+    // },
+    //             {
+    //                 // Use the positional operator ($) to decrement the Slots of the matching element
+    //                 $inc: { "BookingOption.$.Slots": -slotsToDecrement }
+    //             },
+    //             { new: true }
+    //         );
+    //     }
+
+
+            if (BookingForToday) {
+            // Decrement TODAY's Slots field
+            updateSlots = await DestinationDatabase.findOneAndUpdate(
                 {
-                    // Use the positional operator ($) to decrement the Slots of the matching element
+                    _id: DestinationID,
+                    BookingOption: {
+                        $elemMatch: {
+                            Category: Category,
+                            Duration: Duration,
+                            PricingModel: selectedBookingOption.PricingModel,
+                            CarCapacity:CarCapacity
+                        }
+                    }
+                },
+                {
                     $inc: { "BookingOption.$.Slots": -slotsToDecrement }
                 },
                 { new: true }
             );
-        }
+        } else {
+            // Decrement FUTURE date slots in SlotByDate array
+            const dateSlotExists = selectedBookingOption.SlotByDate?.some(
+                slot => slot.Date === BookingDate
+            );
 
+            if (dateSlotExists) {
+                // Date exists, decrement RemainingSlots
+                updateSlots = await DestinationDatabase.findOneAndUpdate(
+                    {
+                        _id: DestinationID,
+                        BookingOption: {
+                            $elemMatch: {
+                                Category: Category,
+                                Duration: Duration,
+                                PricingModel: selectedBookingOption.PricingModel,
+                                CarCapacity:CarCapacity,
+                                "SlotByDate.Date": BookingDate
+                            }
+                        }
+                    },
+                    {
+                        $inc: { "BookingOption.$[opt].SlotByDate.$[dateSlot].RemainingSlots": -slotsToDecrement }
+                    },
+                    {
+                        arrayFilters: [
+                            { "opt.Category": Category, "opt.Duration": Duration },
+                            { "dateSlot.Date": BookingDate }
+                        ],
+                        new: true
+                    }
+                );
+            } else {
+                // Date doesn't exist, create new date entry
+                updateSlots = await DestinationDatabase.findOneAndUpdate(
+                    {
+                        _id: DestinationID,
+                        BookingOption: {
+                            $elemMatch: {
+                                Category: Category,
+                                Duration: Duration,
+                                PricingModel: selectedBookingOption.PricingModel,
+                                CarCapacity:CarCapacity,
+                            }
+                        }
+                    },
+                    {
+                        $push: {
+                            "BookingOption.$.SlotByDate": {
+                                Date: BookingDate,
+                                RemainingSlots: selectedBookingOption.OriginalSlots - slotsToDecrement
+                            }
+                        }
+                    },
+                    { new: true }
+                );
+            }
+        }
+        console.log("updated slots",updateSlots)
         
+        //send email after updating slots
+         await SendEmail(Email,"Booking  successful",EmailHTML);
             return res.status(200).json({message:"booking successfully",result,updateSlots})
 
         }

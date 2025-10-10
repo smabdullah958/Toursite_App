@@ -40,7 +40,7 @@ async function resetDailySlots() {
 
 // Schedule the job to run every day at 12:00 AM (midnight)
 ResetDestinationDailySlots = () => {
-cron.schedule('26 3 * * *', () => {
+cron.schedule('0 0 * * *', () => {
   console.log('Running daily slot reset job...');
   resetDailySlots();
 }, {

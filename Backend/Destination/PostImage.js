@@ -10,6 +10,13 @@ let PostDestination=async(req,res)=>{
 
    let {Title,Description,TravelTimes,BookingOption}=req.body
  
+           // ✅ INITIALIZE OriginalSlots for each BookingOption
+        const BookingOptions = BookingOption.map(option => ({
+            ...option,
+            OriginalSlots: option.Slots, // Set OriginalSlots = Slots
+            SlotByDate: option.SlotByDate || [] // Initialize empty array if not provided
+        }));
+
 
     let result=new Database({
         Title,
@@ -17,7 +24,7 @@ let PostDestination=async(req,res)=>{
         TravelTimes,
         Image:req.file ? req.file.path:null ,
         //here inside it has a detail of a destination like slots, price duration etc
-        BookingOption
+        BookingOption:BookingOptions
     })
     let display=await result.save()
     console.log("data is store ina database",display)
