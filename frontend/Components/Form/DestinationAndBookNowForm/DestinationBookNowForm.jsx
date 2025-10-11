@@ -1,5 +1,5 @@
 "use client"
-
+import { getDubaiDateString } from "@/Components/DubaiTimeZone"
 import { schema } from "@/Components/yupValidation/BookNowValidation"
 import { useForm} from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -22,7 +22,7 @@ let [ShowCarCapacityError,SetShowCarCapacityError]=useState(null)
   let [bookingId, setBookingId] = useState(null)
   let [selectedOption, setSelectedOption] = useState(null);
 
- 
+ let todayDate=getDubaiDateString()
 
 let dispatch=useDispatch()
    
@@ -342,7 +342,7 @@ for (const opt of categoryOptions) {
                 type="date"
                 {...register("Date")}
                 placeholder="Select Date"
-                min={new Date().toISOString().split("T")[0]}
+                min={todayDate}
                 className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 text-sm"
               />
                <p className="text-red-500 text-xs mt-1">{errors.Date?.message}</p>

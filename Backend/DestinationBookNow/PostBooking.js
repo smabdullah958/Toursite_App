@@ -5,6 +5,7 @@ require("dotenv").config()
 
     let Stripe=require("stripe");
     let stripe=new Stripe(process.env.Stirpe_Secret_key)
+    let GetDubaiDate=require("../DubaiTimeZone")
 
     let SendEmail=require("../GmailTranporter")
 
@@ -62,10 +63,10 @@ require("dotenv").config()
         }
 
 
-                // GET TODAY'S DATE (in YYYY-MM-DD format)
-        const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
+        let todayDate=GetDubaiDate();
         const BookingForToday = BookingDate === todayDate;
-
+        console.log(`📅 [Dubai Time] Booking Date: ${BookingDate}`);
+        console.log(`📅 [Dubai Time] Today's date: ${todayDate}`);;
 
                 // SLOT AVAILABILITY CHECK
         let availableSlots;
@@ -255,8 +256,8 @@ require("dotenv").config()
                 },
                 { new: true }
             );
-        } else {
             // Decrement FUTURE date slots in SlotByDate array
+        } else {
             const dateSlotExists = selectedBookingOption.SlotByDate?.some(
                 slot => slot.Date === BookingDate
             );

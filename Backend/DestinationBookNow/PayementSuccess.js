@@ -4,6 +4,7 @@
 let Database = require("../Models/DestinationBookNow");
 let SendEmail = require("../GmailTranporter");
 let DestinationDatabase =require("../Models/DestinationDataBase")
+   let GetDubaiDate=require("../DubaiTimeZone")
 
 let PaymentSuccess = async (req, res) => {
   try {
@@ -39,10 +40,12 @@ let PaymentSuccess = async (req, res) => {
 
     let totalSlots = booking.NumberOfAdultChild + booking.NumberOfNoneAdultChild;
     
-                // GET TODAY'S DATE (in YYYY-MM-DD format)
-        const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
-        const BookingForToday = booking.Date === todayDate;
-
+        
+                let todayDate=GetDubaiDate();
+                const BookingForToday = booking.Date === todayDate;
+                console.log(`📅 [Dubai Time] Booking Date: ${booking.Date}`);
+                console.log(`📅 [Dubai Time] Today's date: ${todayDate}`);
+        
 
                 // SLOT AVAILABILITY CHECK
         let availableSlots;

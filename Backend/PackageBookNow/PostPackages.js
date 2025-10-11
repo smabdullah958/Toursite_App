@@ -8,6 +8,9 @@
 
     let SendEmail=require("../GmailTranporter")
 
+   let GetDubaiDate=require("../DubaiTimeZone")
+    
+
     let PackageBookNow=async(req,res)=>{
         try{
     //for validation
@@ -64,9 +67,10 @@
         }
 
 
-                        // GET TODAY'S DATE (in YYYY-MM-DD format)
-        const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
-        const BookingForToday = BookingDate === todayDate;
+   let todayDate=GetDubaiDate();
+    const BookingForToday = BookingDate === todayDate;
+  console.log(`📅 [Dubai Time] Booking Date: ${BookingDate}`);
+  console.log(`📅 [Dubai Time] Today's date: ${todayDate}`);;
 
 
                 // SLOT AVAILABILITY CHECK
