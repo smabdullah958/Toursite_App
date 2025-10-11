@@ -39,42 +39,171 @@ let PaymentSuccess = async (req, res) => {
 
     let totalSlots = booking.NumberOfAdultChild + booking.NumberOfNoneAdultChild;
     
-    //check slots if a user slots is greater thana  available slots
-    if(totalSlots > booking.DestinationID?.Slots){
-                return res.status(400).json({message:`we have only ${booking.DestinationID.Slots} slots available `}) 
- }
+//     //check slots if a user slots is greater thana  available slots
+//     if(totalSlots > booking.DestinationID?.Slots){
+//                 return res.status(400).json({message:`we have only ${booking.DestinationID.Slots} slots available `}) 
+//  }
 
 
+                // GET TODAY'S DATE (in YYYY-MM-DD format)
+        const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
+        const BookingForToday = booking.Date === todayDate;
 
-    // update booking status as Paid
+
+                // SLOT AVAILABILITY CHECK
+        let availableSlots;
+
+        if (BookingForToday) {
+            // Check TODAY's slots (Slots field)
+            availableSlots = selectedBookingOption.Slots;
+        } else {
+            // Check FUTURE date slots (SlotByDate array)
+            const dateSlot = selectedBookingOption.SlotByDate?.find(
+                slot => slot.Date === booking.Date
+            );
+  // If no entry for that date yet, use OriginalSlots
+  availableSlots = dateSlot
+    ? dateSlot.RemainingSlots
+    : selectedBookingOption.OriginalSlots;
+}
+
+//  decrement based on pricing model
+        const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
+            ? totalSlots 
+            : 1;
+
+
+              if (availableSlots === 0) {
+      return res.status(400).json({
+        message: "No slots available for the selected date.",
+      });
+    }
+
+    if (availableSlots < slotsToDecrement) {
+      return res.status(400).json({
+        message: `Only ${availableSlots} slots remaining for ${booking.Date}.`,
+      });
+    }
+
+            
+    // ✅ Mark payment as Paid
     booking.PaymentStatus = "Paid";
     await booking.save();
 
+    let updateSlots;
+
+    if (BookingForToday) {
+      //  Decrement today's Slots field
+      updateSlots = await DestinationDatabase.findOneAndUpdate(
+        {
+          _id: booking.DestinationID._id,
+          BookingOption: {
+            $elemMatch: {
+              Category: booking.Category,
+              Duration: booking.Duration,
+              PricingModel: selectedBookingOption.PricingModel,
+              CarCapacity: booking.CarCapacity,
+            },
+          },
+        },
+        {
+          $inc: { "BookingOption.$.Slots": -slotsToDecrement },
+        },
+        { new: true }
+      );
+    } else {
+      //  Decrement in SlotByDate array for future date
+      const dateSlotExists = selectedBookingOption.SlotByDate?.some(
+        (slot) => slot.Date === booking.Date
+      );
+
+      if (dateSlotExists) {
+        // If date already exists than  decrement RemainingSlots
+        updateSlots = await DestinationDatabase.findOneAndUpdate(
+          {
+            _id: booking.DestinationID._id,
+            BookingOption: {
+              $elemMatch: {
+                Category: booking.Category,
+                Duration: booking.Duration,
+                PricingModel: selectedBookingOption.PricingModel,
+                CarCapacity: booking.CarCapacity,
+                "SlotByDate.Date": booking.Date,
+              },
+            },
+          },
+          {
+            $inc: {
+              "BookingOption.$[opt].SlotByDate.$[dateSlot].RemainingSlots":
+                -slotsToDecrement,
+            },
+          },
+          {
+            arrayFilters: [
+              {
+                "opt.Category": booking.Category,
+                "opt.Duration": booking.Duration,
+              },
+              { "dateSlot.Date": booking.Date },
+            ],
+            new: true,
+          }
+        );
+      } else {
+        // If date doesn't exist than create new entry in SlotByDate
+        updateSlots = await DestinationDatabase.findOneAndUpdate(
+          {
+            _id: booking.DestinationID._id,
+            BookingOption: {
+              $elemMatch: {
+                Category: booking.Category,
+                Duration: booking.Duration,
+                PricingModel: selectedBookingOption.PricingModel,
+                CarCapacity: booking.CarCapacity,
+              },
+            },
+          },
+          {
+            $push: {
+              "BookingOption.$.SlotByDate": {
+                Date: booking.Date,
+                RemainingSlots:
+                  selectedBookingOption.OriginalSlots - slotsToDecrement,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+    }
+
+
+
     //  Determine slots to decrease (logic is based on pricing model)
-    const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson"
-      ? totalSlots : 1;
+    // const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson"
+    //   ? totalSlots : 1;
 
     // 4. ✅ CORRECT SLOT UPDATE LOGIC using $inc and positional operator
-    let updateSlots = await DestinationDatabase.findOneAndUpdate(
-      {
-        _id: booking.DestinationID._id,
-              //decease slots only those which satisfy all the condition
-        BookingOption: {
-            $elemMatch: {
-        Category: booking.Category,
-        Duration: booking.Duration,
-        CarCapacity:booking.CarCapacity,
-        PricingModel: selectedBookingOption.PricingModel,
+    // let updateSlots = await DestinationDatabase.findOneAndUpdate(
+    //   {
+    //     _id: booking.DestinationID._id,
+    //           //decease slots only those which satisfy all the condition
+    //     BookingOption: {
+    //         $elemMatch: {
+    //     Category: booking.Category,
+    //     Duration: booking.Duration,
+    //     CarCapacity:booking.CarCapacity,
+    //     PricingModel: selectedBookingOption.PricingModel,
       
-            }
-          }
-      },
-      {
-        // Decrement the Slots field of the matched array element ($)
-        $inc: { "BookingOption.$.Slots": -slotsToDecrement }
-      },
-      { new: true }
-    );
+    //         }
+    //       }
+    //   },
+    //   {
+    //     // Decrement the Slots field of the matched array element ($)
+    //     $inc: { "BookingOption.$.Slots": -slotsToDecrement }
+    //   },
+    //   { new: true }
+    // );
 
     //Send Email
     let EmailHTML = `
@@ -146,7 +275,8 @@ ${selectedBookingOption.PricingModel==="PerPerson" ?
     await SendEmail(user.Email, "Payment Successful", EmailHTML);
 
     return res.status(200).json({ message: "Payment confirmed & email sent", booking,updateSlots });
-  } catch (error) {
+  }
+   catch (error) {
     console.error("Payment success error:", error);
     return res.status(500).json({ message: "Internal error", error });
   }

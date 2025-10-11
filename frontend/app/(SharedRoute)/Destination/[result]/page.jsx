@@ -55,15 +55,27 @@ const FindById = () => {
   if (success && DisplayResult) {
 
         //  Find the best option to display (e.g., the first available) ---
-    const availableOptionToDisplay = DisplayResult.BookingOption?.find(
-        opt => opt.Slots === undefined || opt.Slots > 0
-    );
+    // const availableOptionToDisplay = DisplayResult.BookingOption?.find(
+    //     opt => opt.Slots === undefined || opt.Slots > 0
+    // );
 
-        // ✅ Handle updated or initial slot count
-    const availableSlots =
-      updateSlots?.BookingOption?.Slots ??
-      availableOptionToDisplay?.Slots ??
-      "0";
+    //     // ✅ Handle updated or initial slot count
+    // const availableSlots =
+    //   updateSlots?.BookingOption?.Slots ??
+    //   availableOptionToDisplay?.Slots ??
+    //   "0";
+
+
+    // Pick the first BookingOption that actually has Slots field
+const availableOptionToDisplay = DisplayResult?.BookingOption?.find(
+  (opt) => typeof opt.Slots === "number"
+);
+
+// Get the number of available slots
+const availableSlots =
+  updateSlots?.BookingOption?.Slots ??
+  availableOptionToDisplay?.Slots ??
+  0;
 
 
     return (
