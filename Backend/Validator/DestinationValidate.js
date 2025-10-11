@@ -15,7 +15,6 @@ let validator=[
     
     body("Category").notEmpty().withMessage("Category is allowed"),
     body("Description").notEmpty().isLength({max:10000},"your content is very large").withMessage("description is required"),
-    // body("TravelTimes").isArray({min:1}).withMessage("Travel time is required")
 
     body("TravelTimes")
     .isArray({ min: 1 })

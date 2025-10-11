@@ -39,12 +39,6 @@ let PaymentSuccess = async (req, res) => {
 
     let totalSlots = booking.NumberOfAdultChild + booking.NumberOfNoneAdultChild;
     
-//     //check slots if a user slots is greater thana  available slots
-//     if(totalSlots > booking.DestinationID?.Slots){
-//                 return res.status(400).json({message:`we have only ${booking.DestinationID.Slots} slots available `}) 
-//  }
-
-
                 // GET TODAY'S DATE (in YYYY-MM-DD format)
         const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
         const BookingForToday = booking.Date === todayDate;
@@ -176,34 +170,6 @@ let PaymentSuccess = async (req, res) => {
         );
       }
     }
-
-
-
-    //  Determine slots to decrease (logic is based on pricing model)
-    // const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson"
-    //   ? totalSlots : 1;
-
-    // 4. ✅ CORRECT SLOT UPDATE LOGIC using $inc and positional operator
-    // let updateSlots = await DestinationDatabase.findOneAndUpdate(
-    //   {
-    //     _id: booking.DestinationID._id,
-    //           //decease slots only those which satisfy all the condition
-    //     BookingOption: {
-    //         $elemMatch: {
-    //     Category: booking.Category,
-    //     Duration: booking.Duration,
-    //     CarCapacity:booking.CarCapacity,
-    //     PricingModel: selectedBookingOption.PricingModel,
-      
-    //         }
-    //       }
-    //   },
-    //   {
-    //     // Decrement the Slots field of the matched array element ($)
-    //     $inc: { "BookingOption.$.Slots": -slotsToDecrement }
-    //   },
-    //   { new: true }
-    // );
 
     //Send Email
     let EmailHTML = `

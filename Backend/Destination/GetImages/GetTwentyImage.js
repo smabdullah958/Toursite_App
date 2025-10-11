@@ -14,8 +14,6 @@ let GetTwentyImage=async(req,res)=>{
         .sort({createdAt:-1})
         .skip(skip).limit(limit);
         console.log(result)
-        // console.log(page,limit)
-        // console.log(req.query.page,req.query.limit)
             return res.status(200).json({message:"image is show",result})   
     }
     catch(error){

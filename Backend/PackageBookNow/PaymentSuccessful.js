@@ -43,42 +43,6 @@ let PaymentSuccess = async (req, res) => {
     let totalSeatsBooked = booking.NumberOfAdultChild + booking.NumberOfNoneAdultChild ;
 
 
-
-//check slots if a user slots is greater thana  available slots
-//     if(totalSeatsBooked > booking.PackageID?.Slots){
-//                 return res.status(400).json({message:`we have only ${booking.PackageID.Slots} slots available `}) 
-//  }
-
-//     // 1. Update Booking Status
-//  booking.PaymentStatus = "Paid";
-//  await booking.save();
-
-//  //  Determine slots to decrease (logic is based on pricing model)
-//     const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson"
-//       ? totalSeatsBooked : 1;
-
-
-// //     // 2. Decrease slots by TOTAL seats (Adults + Non-Adults)
-//    let updateSlots = await PackageDatabase.findOneAndUpdate(
-//         {
-//             _id: booking.PackageID._id,
-//            BookingOption: {
-//             $elemMatch: {
-//         Category: booking.Category,
-//         Duration: booking.Duration,
-//         CarCapacity:booking.CarCapacity,
-//         PricingModel: selectedBookingOption.PricingModel
-//             }
-//           }
-//         },
-//         { 
-//             // Decrement the Slots field of the matched array element ($)
-//             $inc: { "BookingOption.$.Slots": -slotsToDecrement } 
-//         }, 
-//         { new: true }
-//     );
-
-
  // GET TODAY'S DATE (in YYYY-MM-DD format)
         const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
         const BookingForToday = booking.Date === todayDate;
@@ -242,7 +206,7 @@ let PaymentSuccess = async (req, res) => {
         ${selectedBookingOption.PricingModel==="PerPerson" ?
 `
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Car booking:
+          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats booking:
           </b></td>
           <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalSeatsBooked}</td>
         </tr>`:""}

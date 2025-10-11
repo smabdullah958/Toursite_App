@@ -28,7 +28,6 @@ res.cookie("token",token,{      httpOnly: true,
     sameSite: "Lax",       // ✅ "Lax" works well on local project
           maxAge: 7 * 24 * 60 * 60 * 1000
 })
-console.log(token)
 return res.status(200).json({message:"User is Login",Role:ExistUser.Role})
 }
     catch(error){

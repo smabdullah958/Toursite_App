@@ -27,7 +27,7 @@ let PostDestination=async(req,res)=>{
         BookingOption:BookingOptions
     })
     let display=await result.save()
-    console.log("data is store ina database",display)
+    console.log("data is store ina database")
     return res.status(200).json({message:"Data is store ",display})
     }
     catch(error){

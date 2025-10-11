@@ -1,4 +1,3 @@
-
 require("dotenv").config()
     let {validationResult} = require("express-validator")
     let Database=require("../Models/DestinationBookNow");
@@ -93,11 +92,6 @@ require("dotenv").config()
             ? totalslots 
             : 1;
 
-        // Check if enough slots available 
-        //availbel slots is  numbe of a slot which are available for a booking
-        //slots to decrement is how many slots are required for a booking
-        //if available slots are less than the slots to decrement then it will show an error
-     
         //if no slots are available
         if(availableSlots===0){
             return res.status(400).json({message:"No slots available for the selected date."})
@@ -108,20 +102,6 @@ require("dotenv").config()
                 message: `Only ${availableSlots} slots remaining for ${BookingDate}.` 
             });
         }
-
-
-        // Slot Availability Check (BEFORE saving the booking) ---
-
-          // Handle cases where slots might not be defined (e.g., fixed price/private booking)
-        // if (selectedBookingOption.Slots === undefined) {
-        //   console.log("Slots not defined for selected booking option. Assuming unlimited.");
-        // } 
-
-        //     // Check if the current booking exceeds the remaining slots
-        // else if (totalslots > selectedBookingOption.Slots) {
-        //     return res.status(400).json({ message: `Only ${selectedBookingOption.Slots} slots remaining for this option.` });
-        // }
-
 
         
                 let booking = new Database({
@@ -211,7 +191,7 @@ require("dotenv").config()
        ${selectedBookingOption.PricingModel==="PerPerson" ?
        `
        <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Slots:</b>
+        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats Booking:</b>
         </td>
            <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalslots}
            </td>  
@@ -255,35 +235,6 @@ require("dotenv").config()
 
 
          let updateSlots ;  
-    //             if (selectedBookingOption.Slots !== undefined) {
-             
-    //                   // 1. Check if PricingModel is PerPerson or fixed
-    // const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
-    //     ? totalslots // Decrement by total people
-    //     : 1; // Decrement by 1 (for a fixed-unit/private booking)
-
-
-    //               updateSlots = await DestinationDatabase.findOneAndUpdate(
-    //             { 
-    //     _id: DestinationID, 
-    //   //decease slots only those which satisfy all the condition
-    //     BookingOption: {
-    //         $elemMatch: {
-    //             Category: Category,
-    //             Duration: Duration,
-    //             CarCapacity:CarCapacity,
-    //             PricingModel: selectedBookingOption.PricingModel,
-    //         }
-    //     }
-    // },
-    //             {
-    //                 // Use the positional operator ($) to decrement the Slots of the matching element
-    //                 $inc: { "BookingOption.$.Slots": -slotsToDecrement }
-    //             },
-    //             { new: true }
-    //         );
-    //     }
-
 
             if (BookingForToday) {
             // Decrement TODAY's Slots field

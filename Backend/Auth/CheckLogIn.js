@@ -10,7 +10,7 @@ let CheckLogIn=(req,res)=>{
         }
             console.log(process.env.SecretKey)
         let decode=jwt.verify(token,process.env.SecretKey)
-        console.log("decode successfully",decode)
+        console.log("decode successfully")
         
         return res.status(200).json({message:' Login button hide',CheckLogin:true,Role:decode.Role})
     }

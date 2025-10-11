@@ -37,7 +37,6 @@ let ResetPassword=async(req,res)=>{
             process.env.SecretKey,
             {expiresIn:"1w"}
         )
-        console.log(JWTToken)
 
         //now send cookie to a frontend
         res.cookie("token",JWTToken,

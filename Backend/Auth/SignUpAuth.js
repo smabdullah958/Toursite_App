@@ -32,7 +32,7 @@ let MySecretKey=process.env.SecretKey
         Password:hashPassword,
         Role
     })
-    console.log("hashPassword",hashPassword)
+    console.log("hashPassword")
 
     
 //save ina databse bro 
@@ -43,7 +43,7 @@ let MySecretKey=process.env.SecretKey
         { Email,Role,_id,Name},
         MySecretKey,
         { expiresIn: '1w' });
-    console.log('Token', token, '\n')
+    console.log('Token')
 //send token to afrontend
     res.cookie("token",token,
     {
