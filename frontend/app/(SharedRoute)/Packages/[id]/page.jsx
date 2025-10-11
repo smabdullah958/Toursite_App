@@ -10,7 +10,7 @@ import PackageBookNow from "@/Components/Buttons/Package/PackageBookNow";
 const FindById = () => {
   const { id } = useParams();
   const dispatch = useDispatch()
-  const { loading, success, result} = useSelector((state) => state.GetByIdSlice)
+  const { loading, success, result,error} = useSelector((state) => state.GetByIdSlice)
   
     //PackageBookNow is come froma a store
     let {updateSlots}=useSelector((state)=>state.PackageBookNow)
@@ -56,12 +56,39 @@ const FindById = () => {
   }
 
 
+    // Error State
+  if (error && error.length > 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 flex items-center justify-center">
+        <div className="text-center bg-white rounded-xl shadow-lg p-8 max-w-md mx-4">
+          <div className="text-red-500 text-6xl mb-4">😞</div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Oops! Something went wrong</h2>
+          <p className="text-gray-600">Unable to load package details</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+
   // Success State with Data
   if (success && result) {
     const images = result.Image || [];
     const availableOptionToDisplay = result.BookingOption?.find(
         opt => opt.Slots === undefined || opt.Slots > 0)
     
+        // Get the number of available slots
+const availableSlots =
+  updateSlots?.BookingOption?.Slots ??
+  availableOptionToDisplay?.Slots ??
+  0;
+
+
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
         {/* Hero Section with Image Carousel */}
@@ -200,7 +227,7 @@ const FindById = () => {
                     <h3 className="text-lg font-semibold">Available Slots</h3>
                   </div>
                   <p className="text-white/90 mb-2">Spots remaining</p>
-                  <p className="text-3xl font-bold">{updateSlots?.BookingOption?.Slots ?? availableOptionToDisplay.Slots ?? "Limited"}</p>
+                  <p className="text-3xl font-bold">{availableSlots}</p>
                 </div>
               </div>
             </div>
@@ -233,7 +260,7 @@ const FindById = () => {
                     <span className="font-semibold">Limited Availability</span>
                   </div>
                   <p className="text-sm text-yellow-600">Only 
-                  {" "} {updateSlots?.Slots ?? availableOptionToDisplay.Slots ?? "Limited"} {" "} spots left! Book soon to secure your place.</p>
+                  {" "} {availableSlots} {" "} spots left! Book soon to secure your place.</p>
                 </div>
               </div>
             </div>

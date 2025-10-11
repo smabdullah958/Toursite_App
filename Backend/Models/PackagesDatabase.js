@@ -21,6 +21,22 @@ let BookingOptionSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+      //  store the permanent/original number of slots
+  OriginalSlots: {
+    type: Number,
+    required: true
+  },
+      //   DATE-WISE SLOT TRACKING for future dates
+    SlotByDate: [
+        {
+            Date: { 
+                type: String
+            }, // e.g., "2025-10-15"
+            RemainingSlots: { 
+                type: Number
+             }
+        }
+    ],
     Category:{
         type:String,
         required:true

@@ -10,7 +10,7 @@ let PostDestination=async(req,res)=>{
 
    let {Title,Description,TravelTimes,BookingOption}=req.body
  
-           // ✅ INITIALIZE OriginalSlots for each BookingOption
+           //  INITIALIZE OriginalSlots for each BookingOption
         const BookingOptions = BookingOption.map(option => ({
             ...option,
             OriginalSlots: option.Slots, // Set OriginalSlots = Slots

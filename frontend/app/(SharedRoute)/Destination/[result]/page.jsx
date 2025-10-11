@@ -126,7 +126,7 @@ const availableSlots =
         </div>
 
         {/* Content Section */}
-        <div className="max-w-full mx-auto px-4 py-12">
+        <div className="max-w-7xl mx-auto px-4 py-12 ">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="md:col-span-2 space-y-8">

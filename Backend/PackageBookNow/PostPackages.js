@@ -63,17 +63,60 @@
             return res.status(400).json({ message: "Invalid category or duration selected." });
         }
 
-        // Slot Availability Check (BEFORE saving the booking) ---
 
-          // Handle cases where slots might not be defined (e.g., fixed price/private booking)
-        if (selectedBookingOption.Slots === undefined) {
-          console.log("Slots not defined for selected booking option. Assuming unlimited.");
-        } 
+                        // GET TODAY'S DATE (in YYYY-MM-DD format)
+        const todayDate = new Date().toISOString().split('T')[0]; // e.g., "2025-10-10"
+        const BookingForToday = BookingDate === todayDate;
 
-            // Check if the current booking exceeds the remaining slots
-        else if (totalslots > selectedBookingOption.Slots) {
-            return res.status(400).json({ message: `Only ${selectedBookingOption.Slots} slots remaining for this option.` });
+
+                // SLOT AVAILABILITY CHECK
+        let availableSlots;
+
+        if (BookingForToday) {
+            // Check TODAY's slots (Slots field)
+            availableSlots = selectedBookingOption.Slots;
+        } else {
+            // Check FUTURE date slots (SlotByDate array)
+            const dateSlot = selectedBookingOption.SlotByDate?.find(
+                slot => slot.Date === BookingDate
+            );
+
+            if (dateSlot) {
+                availableSlots = dateSlot.RemainingSlots;
+            } else {
+                // If date not found, use OriginalSlots (first booking for this date)
+                availableSlots = selectedBookingOption.OriginalSlots;
+            }
         }
+
+        // Determine slots to decrement based on pricing model
+        const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
+            ? totalslots 
+            : 1;
+
+                    //if no slots are available
+        if(availableSlots===0){
+            return res.status(400).json({message:"No slots available for the selected date."})
+        }
+
+        if (availableSlots < slotsToDecrement) {
+            return res.status(400).json({ 
+                message: `Only ${availableSlots} slots remaining for ${BookingDate}.` 
+            });
+        }
+
+
+        // // Slot Availability Check (BEFORE saving the booking) ---
+
+        //   // Handle cases where slots might not be defined (e.g., fixed price/private booking)
+        // if (selectedBookingOption.Slots === undefined) {
+        //   console.log("Slots not defined for selected booking option. Assuming unlimited.");
+        // } 
+
+        //     // Check if the current booking exceeds the remaining slots
+        // else if (totalslots > selectedBookingOption.Slots) {
+        //     return res.status(400).json({ message: `Only ${selectedBookingOption.Slots} slots remaining for this option.` });
+        // }
 
            let booking = new Database({
                 ContactNumber,
@@ -124,6 +167,8 @@
                 })
             }
 
+         let Package=await PackageDatabase.findOne({_id:PackageID})
+            
 
             //if payement is cash
             
@@ -144,7 +189,7 @@
       <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Destination:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${package.Title}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${Package.Title}</td>
         </tr>
         <tr>
           <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Booking Date:</b></td>
@@ -198,38 +243,121 @@
      </div>
         `;
 
-                //send email
-                await SendEmail(Email,"payement is successful",EmailHTML);
 
            let updateSlots ;
-                if (selectedBookingOption.Slots !== undefined) {
+    //             if (selectedBookingOption.Slots !== undefined) {
              
-                      // 1. Check if PricingModel is PerPerson or fixed
-    const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
-        ? totalslots // Decrement by total people
-        : 1; // Decrement by 1 (for a fixed-unit/private booking)
+    //                   // 1. Check if PricingModel is PerPerson or fixed
+    // const slotsToDecrement = selectedBookingOption.PricingModel === "PerPerson" 
+    //     ? totalslots // Decrement by total people
+    //     : 1; // Decrement by 1 (for a fixed-unit/private booking)
 
 
-                  updateSlots = await PackageDatabase.findOneAndUpdate(
-                { 
-                    _id: PackageID, 
-                    // Find the element in the array that matches the criteria
-                 BookingOption: {
-            $elemMatch: {
-                Category: Category,
-                Duration: Duration,
-                CarCapacity:CarCapacity,
-                PricingModel: selectedBookingOption.PricingModel,
+    //               updateSlots = await PackageDatabase.findOneAndUpdate(
+    //             { 
+    //                 _id: PackageID, 
+    //                 // Find the element in the array that matches the criteria
+    //              BookingOption: {
+    //         $elemMatch: {
+    //             Category: Category,
+    //             Duration: Duration,
+    //             CarCapacity:CarCapacity,
+    //             PricingModel: selectedBookingOption.PricingModel,
+    //         }
+    //     }
+    // },
+    //             {
+    //                 // Use the positional operator ($) to decrement the Slots of the matching element
+    //                 $inc: { "BookingOption.$.Slots": -slotsToDecrement }
+    //             },
+    //             { new: true }
+    //         );
+    //     }
+    
+
+                if (BookingForToday) {
+                // Decrement TODAY's Slots field
+                updateSlots = await PackageDatabase.findOneAndUpdate(
+                    {
+                        _id: PackageID,
+                        BookingOption: {
+                            $elemMatch: {
+                                Category: Category,
+                                Duration: Duration,
+                                PricingModel: selectedBookingOption.PricingModel,
+                                CarCapacity:CarCapacity
+                            }
+                        }
+                    },
+                    {
+                        $inc: { "BookingOption.$.Slots": -slotsToDecrement }
+                    },
+                    { new: true }
+                );
+            } else {
+                // Decrement FUTURE date slots in SlotByDate array
+                const dateSlotExists = selectedBookingOption.SlotByDate?.some(
+                    slot => slot.Date === BookingDate
+                );
+    
+                if (dateSlotExists) {
+                    // Date exists, decrement RemainingSlots
+                    updateSlots = await PackageDatabase.findOneAndUpdate(
+                        {
+                            _id: PackageID,
+                            BookingOption: {
+                                $elemMatch: {
+                                    Category: Category,
+                                    Duration: Duration,
+                                    PricingModel: selectedBookingOption.PricingModel,
+                                    CarCapacity:CarCapacity,
+                                    "SlotByDate.Date": BookingDate
+                                }
+                            }
+                        },
+                        {
+                            $inc: { "BookingOption.$[opt].SlotByDate.$[dateSlot].RemainingSlots": -slotsToDecrement }
+                        },
+                        {
+                            arrayFilters: [
+                                { "opt.Category": Category, "opt.Duration": Duration },
+                                { "dateSlot.Date": BookingDate }
+                            ],
+                            new: true
+                        }
+                    );
+                } else {
+                    // Date doesn't exist, create new date entry
+                    updateSlots = await PackageDatabase.findOneAndUpdate(
+                        {
+                            _id: PackageID,
+                            BookingOption: {
+                                $elemMatch: {
+                                    Category: Category,
+                                    Duration: Duration,
+                                    PricingModel: selectedBookingOption.PricingModel,
+                                    CarCapacity:CarCapacity,
+                                }
+                            }
+                        },
+                        {
+                            $push: {
+                                "BookingOption.$.SlotByDate": {
+                                    Date: BookingDate,
+                                    RemainingSlots: selectedBookingOption.OriginalSlots - slotsToDecrement
+                                }
+                            }
+                        },
+                        { new: true }
+                    );
+                }
             }
-        }
-    },
-                {
-                    // Use the positional operator ($) to decrement the Slots of the matching element
-                    $inc: { "BookingOption.$.Slots": -slotsToDecrement }
-                },
-                { new: true }
-            );
-        }
+            console.log("updated slots",updateSlots)
+    
+    
+    //send email
+                await SendEmail(Email,"payement is successful",EmailHTML);
+
             return res.status(200).json({message:"booking successfully",result,updateSlots})
 
         }

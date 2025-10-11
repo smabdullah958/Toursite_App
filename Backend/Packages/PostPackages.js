@@ -9,12 +9,19 @@ let PostPackage=async(req,res)=>{
     }
     let {Title,Description,TravelTimes,BookingOption}=req.body
 
+    //  INITIALIZE OriginalSlots for each BookingOption
+        const BookingOptions = BookingOption.map(option => ({
+            ...option,
+            OriginalSlots: option.Slots, // Set OriginalSlots = Slots
+            SlotByDate: option.SlotByDate || [] // Initialize empty array if not provided
+        }));
+
     let result=new database({
         Title,
         Description,
         TravelTimes,
         Image:req.files ? req.files.map(file=>file.path):null,
-       BookingOption
+       BookingOption:BookingOptions
     })
     if(result.Image.length<2){
         return res.status(401).json({message:"minimum 2 images are required"})

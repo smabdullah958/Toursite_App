@@ -13,8 +13,7 @@ import SearchBar from "@/app/(SharedRoute)/Destination/SearchBar";
 const DestinationPage = () => {
 
   // State for selected dates per tour
-  const [selectedDates, setSelectedDates] = useState({});
-
+ 
   const { FormId } = useSelector(state => state.UpdateSlice);
   const { IsLogIn, Role } = useSelector((state) => state.CheckLogInSlice);
 
@@ -66,10 +65,6 @@ const DestinationPage = () => {
     // Otherwise return N/A
     return "N/A";
   };
-//this si used to disable dates in the date picker that are fully booked
-  const fullyBookedDates = BookingOption?.flatMap(opt =>
-  opt.SlotByDate?.filter(slot => slot.RemainingSlots === 0).map(slot => slot.Date)
-) || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
@@ -104,7 +99,7 @@ const DestinationPage = () => {
           <div className="text-center py-16">
             <div className="text-6xl text-amber-300 mb-6">🏝️</div>
             <h3 className="text-3xl font-bold text-amber-800 mb-2">No destinations found</h3>
-            <p className="text-amber-600">We couldn't find any destinations matching your search</p>
+            <p className="text-amber-600">We couldn't find any destinations </p>
           </div>
         )}
 

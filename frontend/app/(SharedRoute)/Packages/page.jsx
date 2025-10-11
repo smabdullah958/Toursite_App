@@ -96,11 +96,11 @@ return pkg.BookingOption?.some(option=>option.Slots > 0)
         </div>
 
         {/* No Results State */}
-        {isSearched && filteredResult.length === 0 && !loading && !Loading && (
+        {isSearched && filteredResult.length === 0||result.length===0 && !loading && !Loading && (
           <div className="text-center py-16">
             <div className="text-6xl text-amber-300 mb-6">📦</div>
             <h3 className="text-3xl font-bold text-amber-800 mb-2">No packages found</h3>
-            <p className="text-amber-600">We couldn't find any packages matching your search</p>
+            <p className="text-amber-600">We couldn't find any packages </p>
           </div>
         )}
 
