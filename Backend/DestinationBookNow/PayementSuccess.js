@@ -235,7 +235,7 @@ ${selectedBookingOption.PricingModel==="PerPerson" ?
 
     <!-- Footer -->
     <div style="background: #f8f9fc; text-align: center; padding: 15px; font-size: 13px; color: #666;">
-      © ${new Date().getFullYear()} Your Company Name. All rights reserved.
+      © ${new Date().getFullYear()} <strong> IBN SAHRA TRAVELS </strong> All rights reserved.
     </div>
      </div>
         `;
