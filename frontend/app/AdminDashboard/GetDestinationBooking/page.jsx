@@ -71,8 +71,10 @@ if(displayResult.length===0){
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100 relative overflow-hidden">
-      {/* Desert Background Pattern */}
+    // <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100 relative overflow-x-hidden overflow-y-auto">
+ 
+    {/* Desert Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full" 
              style={{

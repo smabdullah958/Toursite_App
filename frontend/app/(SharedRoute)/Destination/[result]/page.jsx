@@ -69,7 +69,7 @@ const availableSlots =
 
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 overflow-x-hidden">
         {/* Hero Section */}
         <div className="relative h-[80vh] overflow-hidden">
           <Image
@@ -91,13 +91,14 @@ const availableSlots =
             Back
           </button>
 
-          {/* Title Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-8">
+{/* title overlay */}
+
+<div className="absolute bottom-0 left-0 right-0 p-8">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-2xl md:text-4xl xl:text:5xl 3xl:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                {DisplayResult.Title || "Amazing Destination"}
+              <h1 className="text-2xl md:text-4xl xl:text-5xl 3xl:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                {result.Title || "Amazing Destination"}
               </h1>
-              <div className="flex items-center gap-4 text-white/90">
+              <div className="flex flex-wrap items-center gap-4 text-white/90">
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -116,10 +117,11 @@ const availableSlots =
         </div>
 
         {/* Content Section */}
-        <div className="max-w-7xl mx-auto px-4 py-12 ">
-          <div className="grid md:grid-cols-3 gap-8">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Main Content */}
-            <div className="md:col-span-2 space-y-8">
+            <div className="md:col-span-2 space-y-8  ">
               {/* Description Card */}
               <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3">
@@ -130,7 +132,7 @@ const availableSlots =
                   </div>
                   About This Destination
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-lg h-48 overflow-y-auto">
+                <p className="text-gray-600 leading-relaxed text-lg h-48 overflow-y-auto overflow-x-hidden break-words">
                   {DisplayResult.Description || DisplayResult.Discription || "Discover an incredible journey filled with unforgettable experiences, breathtaking views, and memories that will last a lifetime. This destination offers everything you need for the perfect getaway."}
                 </p>
               </div>
