@@ -98,11 +98,12 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
  if (result.BookingOption && result.BookingOption.length > 0) {
          // Map 
         const mappedOptions = result.BookingOption.map(option => ({
+          _id:option._id,
           Category: option.Category || "",
           BasePrice: option.BasePrice || null,
           PricingModel: option.PricingModel || "",
           CarCapacity: option.CarCapacity || option.CarCapcity || null, // Handle both spellings
-          Slots: option.Slots || null,
+          Slots: option.Slots ||0,
           Duration: option.Duration || null
         }));
         setValue("BookingOption", mappedOptions);
@@ -155,44 +156,124 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
   }, [watchedImage]);
 
 
-  let HandleButton = (data) => {
-    const formData = new FormData();
-    formData.append("Title", data.Title);
-    formData.append("Description", data.Description);
+//   let HandleButton = (data) => {
+//     const formData = new FormData();
+//     formData.append("Title", data.Title);
+//     formData.append("Description", data.Description);
     
 
 
-      //  travel time prefilled and also  TravelTimes (with AM/PM)
+//       //  travel time prefilled and also  TravelTimes (with AM/PM)
+//   (data.TravelTimes || []).forEach((t, index) => {
+//     const raw = typeof t === "string" ? t : (t.time ?? "");
+//     const timeWithAmPm = to12Hour(raw); // convert to 12h format (AM/PM)
+
+//     if (timeWithAmPm) {
+//       formData.append(`TravelTimes[${index}][time]`, timeWithAmPm);
+//     }
+//   });
+
+//       // append BookingOption array for submission ---
+//     (data.BookingOption || []).forEach((option, index) => {
+//         // Append all nested fields with array notation for the backend
+//         //also send a _id for update
+//         //  Only include _id if it exists (existing options)
+//     // New options won't have _id, so backend will add them
+//     if (option._id && option._id !== undefined && option._id !== null) {
+//       formData.append(`BookingOption[${index}][_id]`, option._id);
+//     }
+
+//         formData.append(`BookingOption[${index}][Category]`, option.Category);
+//         formData.append(`BookingOption[${index}][BasePrice]`, option.BasePrice);
+//         formData.append(`BookingOption[${index}][PricingModel]`, option.PricingModel);
+//         formData.append(`BookingOption[${index}][CarCapacity]`, option.CarCapacity? Number(option.CarCapacity) : 0);
+//         formData.append(`BookingOption[${index}][Slots]`, option.Slots);
+//         formData.append(`BookingOption[${index}][Duration]`, option.Duration);
+//     });
+
+
+//     // If a new image is selected, append it; otherwise, append the existing image URL
+//     if (data.Image && data.Image[0]) {
+//       formData.append("Image", data.Image[0]);
+//     } else if (existingImage) { //apend existing image
+//       formData.append("ExistingImage", existingImage); // Send existing image URL
+//     }
+//     // Dispatch the update thunk with ID and form data
+//     dispatch(UpdateThunck({ id, data:formData }));
+// console.log(formData);
+//   };
+
+
+let HandleButton = (data) => {
+  const formData = new FormData();
+  formData.append("Title", data.Title);
+  formData.append("Description", data.Description);
+
+  // Travel time with AM/PM
   (data.TravelTimes || []).forEach((t, index) => {
     const raw = typeof t === "string" ? t : (t.time ?? "");
-    const timeWithAmPm = to12Hour(raw); // convert to 12h format (AM/PM)
+    const timeWithAmPm = to12Hour(raw);
 
     if (timeWithAmPm) {
       formData.append(`TravelTimes[${index}][time]`, timeWithAmPm);
     }
   });
 
-      // append BookingOption array for submission ---
-    (data.BookingOption || []).forEach((option, index) => {
-        // Append all nested fields with array notation for the backend
-        formData.append(`BookingOption[${index}][Category]`, option.Category);
-        formData.append(`BookingOption[${index}][BasePrice]`, option.BasePrice);
-        formData.append(`BookingOption[${index}][PricingModel]`, option.PricingModel);
-        formData.append(`BookingOption[${index}][CarCapacity]`, option.CarCapacity? Number(option.CarCapacity) : 0);
-        formData.append(`BookingOption[${index}][Slots]`, option.Slots);
-        formData.append(`BookingOption[${index}][Duration]`, option.Duration);
-    });
-
-
-    // If a new image is selected, append it; otherwise, append the existing image URL
-    if (data.Image && data.Image[0]) {
-      formData.append("Image", data.Image[0]);
-    } else if (existingImage) { //apend existing image
-      formData.append("ExistingImage", existingImage); // Send existing image URL
+  //   Append BookingOption with proper handling for specially for  new vs existing slots and prices
+  (data.BookingOption || []).forEach((option, index) => {
+    // ✅ Only include _id if it exists (existing options)
+    if (option._id && option._id !== 'undefined' && option._id !== 'null') {
+      formData.append(`BookingOption[${index}][_id]`, option._id);
     }
-    // Dispatch the update thunk with ID and form data
-    dispatch(UpdateThunck({ id, data:formData }));
-  };
+    
+    formData.append(`BookingOption[${index}][Category]`, option.Category || "");
+    formData.append(`BookingOption[${index}][BasePrice]`, option.BasePrice || 0);
+    formData.append(`BookingOption[${index}][PricingModel]`, option.PricingModel || "");
+    formData.append(`BookingOption[${index}][Duration]`, option.Duration || "");
+    
+    const slots = option.Slots || 0;
+    formData.append(`BookingOption[${index}][Slots]`, slots);
+    
+    //  For NEW options without _id, OriginalSlots should equal Slots
+    // For EXISTING options, preserve OriginalSlots or fallback to Slots
+    const originalSlots = option._id 
+      ? (option.OriginalSlots) || slots 
+      : slots;
+    formData.append(`BookingOption[${index}][OriginalSlots]`, originalSlots);
+    
+    //  Only add CarCapacity for FixedUnit
+    if (option.PricingModel === "FixedUnit") {
+      formData.append(
+        `BookingOption[${index}][CarCapacity]`, 
+        option.CarCapacity ? option.CarCapacity : 0
+      );
+    }
+
+    //  Handle SlotByDate if exists (only for existing options)
+  if (option.SlotByDate && option.SlotByDate && option.SlotByDate.length > 0) {
+      option.SlotByDate.forEach((slot, slotIndex) => {
+        formData.append(`BookingOption[${index}][SlotByDate][${slotIndex}][Date]`, slot.Date);
+        formData.append(`BookingOption[${index}][SlotByDate][${slotIndex}][RemainingSlots]`, slot.RemainingSlots || 0);
+      });
+    }
+  });
+
+  // Handle image
+  if (data.Image && data.Image[0]) {
+    formData.append("Image", data.Image[0]);
+  } else if (existingImage) {
+    formData.append("ExistingImage", existingImage);
+  }
+
+  // Debug: Log what you're sending
+  console.log("📤 Sending FormData:");
+  for (let pair of formData.entries()) {
+    console.log(pair[0], ":", pair[1]);
+  }
+
+  // Dispatch the update
+  dispatch(UpdateThunck({ id, data: formData }));
+};
 
   useEffect(() => {
     if (success) {
@@ -453,7 +534,7 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
             <button
               onClick={handleSubmit(HandleButton)}
               disabled={Loading}
-              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 ${Loading ? "opacity-70 cursor-not-allowed" : "hover:scale-105"}`}
+              className={`flex-1 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200 ${Loading ? "opacity-50 cursor-not-allowed" : "hover:scale-105 opacity-100"}`}
             >
               {Loading ? <Loader /> : "🚀 Update"}
             </button>

@@ -117,7 +117,7 @@ const About = () => {
 
                 {/* Admin Controls */}
                 {IsLogIn && Role === "Admin" && (
-                  <div className="flex flex-wrap justify-between mt-6 pt-4 border-t border-amber-200">
+                  <div className="flex flex-wrap gap-2 justify-between mt-6 pt-4 border-t border-amber-200">
                     <DeleteButton id={member._id} />
                     <UpdateTeamButton id={member._id} />
                   </div>
