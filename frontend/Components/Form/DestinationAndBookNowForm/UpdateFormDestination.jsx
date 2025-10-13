@@ -402,15 +402,6 @@ let HandleButton = (data) => {
                 <div
                   key={field.id}
                 className="p-4 border-2 border-amber-300 rounded-lg bg-yellow-100/30 space-y-4 relative"                >
-                  {/* Remove Button */}
-                 {bookingFields.length > 1 && (
-                   <button
-                     type="button"
-                      onClick={() => removeBooking(index)}
-                     className="absolute top-2 right-2 bg-red-500 text-white w-7 h-7 flex items-center justify-center rounded-full hover:bg-red-600 transition duration-200 shadow-md text-sm"         >
-                         &times;
-                        </button>
-                         )}
                        <h4 className="text-lg font-semibold text-amber-800 border-b border-amber-200 pb-2">
                       Category #{index + 1}
                       </h4>

@@ -65,9 +65,7 @@ let UpdateTour = async (req, res) => {
     booking.SlotByDate = booking.SlotByDate.map(slotDate => {
       
       const totalBooked = oldOriginalSlots - slotDate.RemainingSlots;
-          // If admin reduced total slots below already booked count
-    // keep remaining = 0 but never negative
-
+       
       let newRemaining = newTotalSlots - totalBooked;
     // If admin reduced total slots below already booked count
     // keep remaining = 0 but never negative
