@@ -97,10 +97,12 @@ const UpdatePackageForm = ({ id }) => {
  if (result.BookingOption && result.BookingOption.length > 0) {
          // ✅  Map and 
                  const mappedOptions = result.BookingOption.map(option => ({
-          Category: option.Category || "",
+            _id: option._id, 
+                  Category: option.Category || "",
           BasePrice: option.BasePrice || null,
           PricingModel: option.PricingModel || "",
-          CarCapacity: option.CarCapacity || option.CarCapcity || null, // Handle both spellings
+          CarCapacity: option.CarCapacity || option.CarCapcity || null,
+           // Handle both spellings
           Slots: option.Slots || 0,
           Duration: option.Duration || null
         }));

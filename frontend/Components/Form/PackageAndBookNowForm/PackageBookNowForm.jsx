@@ -149,7 +149,7 @@ let dispatch=useDispatch()
 
         // Filter available options (exclude 0 slots)
     const availableOptions = BookingOption?.filter(opt => 
-        opt.Slots === undefined || opt.Slots > 0
+        opt.Slots === undefined || opt.Slots >= 0
     ) || [];
 
     // Get unique categories

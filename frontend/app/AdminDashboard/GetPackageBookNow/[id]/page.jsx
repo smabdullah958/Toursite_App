@@ -52,9 +52,9 @@ const page = () => {
       
   //  function to find which booking option was selected  in a array like ina array we have a 10  option but  we dont know which one is selected so for finding a selected option we use this funciton
   const findSelectedBookingOption = (booking) => {
-    if (!booking.DestinationID?.BookingOption) return null;
+    if (!booking.PackageID?.BookingOption) return null;
     
-    const options = booking.DestinationID.BookingOption;
+    const options = booking.PackageID.BookingOption;
     
     // If there's only one option, return it
     if (options.length === 1) {
