@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 let Database = require("../Models/PackagesDatabase");
 let { validationResult } = require("express-validator");
 
@@ -34,7 +26,7 @@ let UpdatePackage = async (req, res) => {
     if (req.body.TravelTimes) Package.TravelTimes = req.body.TravelTimes;
 
     //  Handle BookingOptions: Update existing + Add new ones
-    if (req.body.BookingOption && req.body.BookingOption) {
+    if (req.body.BookingOption) {
       for (let option of req.body.BookingOption) {
         
         // Check if this is an existing booking option (has _id) or a new one
@@ -53,7 +45,7 @@ let UpdatePackage = async (req, res) => {
   const newTotalSlots = option.Slots || booking.Slots;
   const oldOriginalSlots = booking.OriginalSlots || newTotalSlots;
 
-  booking.OriginalSlots = oldOriginalSlots; // Keep the old for calculations
+  booking.OriginalSlots = newTotalSlots; // Keep the new for calculations
   booking.Slots = newTotalSlots;
 
   // Handle CarCapacity based on PricingModel
@@ -64,8 +56,9 @@ let UpdatePackage = async (req, res) => {
   }
 
   //  Adjust SlotByDate based on the new Slots value
-  if (booking.SlotByDate && booking.SlotByDate) {
+  if (booking.SlotByDate && booking.SlotByDate.length>0) {
     booking.SlotByDate = booking.SlotByDate.map(slotDate => {
+
       const totalBooked = oldOriginalSlots - slotDate.RemainingSlots;
       let newRemaining = newTotalSlots - totalBooked;
       if (newRemaining < 0) newRemaining = 0;

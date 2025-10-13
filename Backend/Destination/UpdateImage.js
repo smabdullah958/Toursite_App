@@ -1,6 +1,7 @@
 
 let Database = require("../Models/DestinationDataBase");
 let { validationResult } = require("express-validator");
+let DubaiTimeZone =require("../DubaiTimeZone")
 
 let UpdateTour = async (req, res) => {
   try {
@@ -46,7 +47,7 @@ let UpdateTour = async (req, res) => {
   const newTotalSlots = option.Slots || booking.Slots;
   const oldOriginalSlots = booking.OriginalSlots || newTotalSlots;
 
-  booking.OriginalSlots = oldOriginalSlots; // Keep the old for calculations
+  booking.OriginalSlots = newTotalSlots; // Keep the old for calculations
   booking.Slots = newTotalSlots;
 
   // Handle CarCapacity based on PricingModel
@@ -56,11 +57,21 @@ let UpdateTour = async (req, res) => {
     booking.CarCapacity = undefined;
   }
 
+
   //  Adjust SlotByDate based on the new Slots value
-  if (booking.SlotByDate && booking.SlotByDate) {
+  if (booking.SlotByDate && booking.SlotByDate.length > 0 ) {
+    
+    
     booking.SlotByDate = booking.SlotByDate.map(slotDate => {
+      
       const totalBooked = oldOriginalSlots - slotDate.RemainingSlots;
+          // If admin reduced total slots below already booked count
+    // keep remaining = 0 but never negative
+
       let newRemaining = newTotalSlots - totalBooked;
+    // If admin reduced total slots below already booked count
+    // keep remaining = 0 but never negative
+
       if (newRemaining < 0) newRemaining = 0;
       return {
         Date: slotDate.Date,

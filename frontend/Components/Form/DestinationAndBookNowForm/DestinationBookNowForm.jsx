@@ -444,11 +444,10 @@ for (const opt of categoryOptions) {
         <p><strong>Date:</strong> {watch("Date")}</p>
 
      {selectedOption?.PricingModel === "PerPerson" && (
+     <>
          <p><strong>Adults:</strong> {watch("NumberOfAdultChild")}</p>
-     )}
-
-       {selectedOption?.PricingModel === "PerPerson" && (
         <p><strong>Kids:</strong> {watch("NumberOfNoneAdultChild")}</p>
+       </>
        )}
         <p className="font-bold text-yellow-600 mt-2">
           Total: {watch("TotalPrice")} AED
