@@ -75,7 +75,7 @@ let PaymentSuccess = async (req, res) => {
         message: "No slots available for the selected date.",
       });
     }
-
+//if a the slots in a database are less than a user request slots than show error
     if (availableSlots < slotsToDecrement) {
       return res.status(400).json({
         message: `Only ${availableSlots} slots remaining for ${booking.Date}.`,

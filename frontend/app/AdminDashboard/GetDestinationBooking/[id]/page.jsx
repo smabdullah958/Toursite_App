@@ -152,7 +152,12 @@ const page = () => {
                 Duration: {selectedOption?.Duration || "N/A"}
               </div>
 
-                              {selectedOption?.PricingModel === "PerPerson" ? (
+     {UserDetail.CarCapacity !== null && UserDetail.CarCapacity !== undefined && UserDetail.CarCapacity !== 0 && UserDetail.CarCapacity !== ""?                     
+                              (
+                <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
+                 Car Capacity: {selectedOption?.CarCapacity||UserDetail.CarCapacity || "N/A"}
+                </div>
+              )    :              (
                 <>
                   <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
                     Adults: {UserDetail.NumberOfAdultChild || 0}
@@ -161,11 +166,8 @@ const page = () => {
                     Children: {UserDetail.NumberOfNoneAdultChild || 0}
                   </div>
                 </>
-              ) : (
-                <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
-                  Car Capacity: {selectedOption?.CarCapacity || "N/A"}
-                </div>
-              )}
+              ) }
+
 
 
               <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">

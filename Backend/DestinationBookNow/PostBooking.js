@@ -48,7 +48,7 @@ require("dotenv").config()
                 TravelTime,TotalPrice,
                 Date:BookingDate,PaymentMethod}=req.body
 
-            console.log('data is recieve from a body')
+            console.log('data is recieve from a body',req.body)
 
         
             let totalslots=NumberOfAdultChild+NumberOfNoneAdultChild;

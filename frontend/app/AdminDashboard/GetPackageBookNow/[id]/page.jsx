@@ -151,7 +151,7 @@ const page = () => {
                 Duration: {UserDetail?.Duration || "N/A"}
               </div>
 
-                              {selectedOption?.PricingModel === "PerPerson" ? (
+                              {/* {selectedOption?.PricingModel === "PerPerson" ? (
                 <>
                   <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
                     Adults: {UserDetail.NumberOfAdultChild || 0}
@@ -164,7 +164,23 @@ const page = () => {
                 <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
                   Car Capacity: {UserDetail?.CarCapacity || "N/A"}
                 </div>
-              )}
+              )} */}
+
+                {UserDetail.CarCapacity !== null && UserDetail.CarCapacity !== undefined && UserDetail.CarCapacity !== 0 && UserDetail.CarCapacity !== "" ?
+                (
+                    <span className="bg-amber-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
+                  Car Capacity: {UserDetail?.CarCapacity || "N/A"}
+                    </span>
+                )  :(
+                    <>
+                      <span className="bg-yellow-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
+                        Adults: {UserDetail.NumberOfAdultChild || 0}
+                      </span>
+                      <span className="bg-amber-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
+                        Children: {UserDetail.NumberOfNoneAdultChild || 0}    
+                      </span>
+                    </> 
+                  )}
 
               <div className="bg-yellow-100/80 text-amber-800 2xl:p-7 2xl:text-xl px-4 py-2 rounded-2xl font-medium border border-amber-200">
               Booking Date: {UserDetail.Date || "N/A"}</div>

@@ -190,7 +190,12 @@ if(displayResult.length===0){
                     </span>
                   )} */}
 
-              {selectedOption?.PricingModel === "PerPerson" ? (
+              {booking.CarCapacity !== null && booking.CarCapacity !== undefined && booking.CarCapacity !== 0 && booking.CarCapacity !== "" ? 
+              (
+               <span className="bg-amber-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
+              Car Capacity: {booking?.CarCapacity|| selectedOption?.CarCapacity || "N/A"}
+                    </span>
+                  )   :    ( 
                     <>
                       <span className="bg-yellow-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
                         Adults: {booking.NumberOfAdultChild}
@@ -199,10 +204,6 @@ if(displayResult.length===0){
                         Children: {booking.NumberOfNoneAdultChild || 0}
                       </span>
                     </>
-                  ) : (
-                    <span className="bg-amber-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
-                      Car Capacity: {booking?.CarCapacity || "N/A"}
-                    </span>
                   )}
 
 
