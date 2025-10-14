@@ -14,24 +14,37 @@ const CheckAdminLoginChecker = ({ children }) => {
 
   const [mounted, setMounted] = useState(false);
 
+  //for show loading while redirecting
+    const [transitioning, setTransitioning] = useState(false);
+
+
   useEffect(() => {
     setMounted(true);
     dispatch(CheckLogIn());
   }, [dispatch]);
 
-  // ✅ redirect runs *after* render, never inside return
+  //  Redirect after login check completes
   useEffect(() => {
-    if (!mounted || Loading) return;
+    if (!mounted) return;
+
+    if(!Loading){
 
     if (!IsLogIn || Role !== "Admin") {
+      setTransitioning(true)
       router.replace("/"); // or router.push("/")
     }
+
+    else{
+      setTransitioning(false)
+    }
+  }
   }, [mounted, Loading, IsLogIn, Role, router]);
 
-  if (!mounted || Loading) {
+  if (!mounted || Loading||transitioning) {
     return <Loader/>
   }
 
+  
   if (IsLogIn && Role === "Admin") {
     return <>{children}</>;
   }

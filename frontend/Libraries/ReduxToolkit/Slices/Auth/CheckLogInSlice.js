@@ -31,8 +31,9 @@ let CheckLoginSlice=createSlice({
    state.success = false;
    state.Loading = false;
  },
-
-
+    setCheckLoginLoading: (state, action) => {
+      state.Loading = action.payload;
+    },
       },
     extraReducers: (builder) => {
     builder
@@ -54,7 +55,7 @@ let CheckLoginSlice=createSlice({
 })
 
 
-export let {DisplayLogOut,DisplayLogIn,resetCheckLogin}=CheckLoginSlice.actions;
+export let {DisplayLogOut,DisplayLogIn,resetCheckLogin,setCheckLoginLoading}=CheckLoginSlice.actions;
 
 
 export default CheckLoginSlice.reducer

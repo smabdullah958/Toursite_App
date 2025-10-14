@@ -158,82 +158,82 @@ require("dotenv").config()
 
 
             //if payement is cash
-            
-            //Send Email
-    let EmailHTML = `
-  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-    <!-- Header -->
-    <div style="background: linear-gradient(90deg, #4e73df, #1cc88a); color: white; text-align: center; padding: 20px;">
-  <p style="font-size: 15px;">Your destination booking has been successfully created. Please note that your payment is <b>not yet completed</b>. Below are your booking details:</p>
+  //send email          
+            let EmailHTML = `
+<div style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 650px; margin: auto; background: #fffdf5; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #f5e6c8;">
+  
+  <!-- Header -->
+  <div style="background: linear-gradient(90deg, #d4af37, #b68c2a); color: white; text-align: center; padding: 25px 10px;">
+    <h2 style="margin: 0; font-size: 22px;">🌴 IBN SAHRA TRAVELS</h2>
+    <p style="font-size: 15px; margin-top: 5px;">Your trusted travel partner across the Emirates</p>
+  </div>
 
-    </div>
+  <!-- Body -->
+  <div style="padding: 25px; color: #3d3d3d; background: #fffaf0;">
+    <h3 style="margin-top: 0; color: #b68c2a;">Hello <b>${Name}</b>,</h3>
 
-    <!-- Body -->
-    <div style="padding: 20px; color: #333;">
-      <h4 style="margin-top: 0;">Hello <b>${Name}</b>,</h4>
-      <p style="font-size: 15px;">We’re excited to let you know that  destination booking has been confirmed. Below are your booking details:</p>
+    <p style="font-size: 15px; line-height: 1.7;">
+      We're delighted to confirm your recent <b>destination booking</b> with 
+      <strong style="color:#b68c2a;">IBN SAHRA TRAVELS</strong>. Please note that your payment is 
+      <span style="color:#e74a3b; font-weight: bold;">pending</span>.
+    </p>
 
-      <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+    <div style="margin: 20px 0;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Destination:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${Destination.Title}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Destination:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${Destination.Title}</td>
         </tr>
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Booking Date:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"> ${BookingDate}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Booking Date:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${BookingDate}</td>
         </tr>
-
-                <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Duration</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${Duration}</td>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Duration:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${Duration}</td>
         </tr>
-
         
-       ${selectedBookingOption.PricingModel==="PerPerson" ?
-       `
-       <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats Booking:</b>
-        </td>
-           <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalslots}
-           </td>  
-            </tr>
-           `:""
-          }
+        ${
+          selectedBookingOption.PricingModel === "PerPerson" &&`
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Total Seats Booked:</b></td>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${totalslots}</td>
+          </tr>`
+        }
 
-            ${selectedBookingOption.PricingModel==="FixedUnit" ?
-`
-        <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Car Capcity:
-          </b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">
-          ${CarCapacity}
-          </td>
-        </tr>`:""}
+        ${
+          selectedBookingOption.PricingModel === "FixedUnit"&& `
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Car Capacity:</b></td>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${CarCapacity}</td>
+          </tr>`
+            
+        }
 
-       
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${TotalPrice} AED</td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Total Price:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${TotalPrice} AED</td>
         </tr>
         <tr>
-          <td style="padding: 8px;"><b>Status:</b></td>
-        <td style="padding: 8px; color: #e74a3b; font-weight: bold;">Unpaid (Cash on Travel)</td>
-          </tr>
+          <td style="padding: 10px;"><b>Status:</b></td>
+          <td style="padding: 10px; color: #e74a3b; font-weight: bold;">Unpaid (Cash on Travel)</td>
+        </tr>
       </table>
-
-      <p style="margin-top: 20px; font-size: 15px;">Thank you for booking with us! We look forward to making your trip memorable. 🌍✈️</p>
     </div>
 
-    <!-- Footer -->
-    <div style="background: #f8f9fc; text-align: center; padding: 15px; font-size: 13px; color: #666;">
-      © ${new Date().getFullYear()} <strong> IBN SAHRA TRAVELS </strong> All rights reserved.
-    </div>
-     </div>
-        `;
 
+    <p style="margin-top: 30px; font-size: 14px; text-align: center; color: #5c5c5c;">
+      Thank you for choosing <strong style="color:#b68c2a;">IBN SAHRA TRAVELS</strong>.<br>
+      We look forward to making your UAE journey truly unforgettable. 🇦🇪✨
+    </p>
+  </div>
 
-               
-
+  <!-- Footer -->
+  <div style="background: #b68c2a; color: white; text-align: center; padding: 15px; font-size: 13px;">
+    © ${new Date().getFullYear()} <b>IBN SAHRA TRAVELS</b> — All Rights Reserved.<br>
+  </div>
+</div>
+`;
 
          let updateSlots ;  
 

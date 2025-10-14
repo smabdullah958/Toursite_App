@@ -6,7 +6,6 @@ let GetFirstTwentyImage=createAsyncThunk(
     async({page,limit},{rejectWithValue})=>{
         try{
             let response=await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/Destination/twenty?page=${page}&limit=${limit}`);
-           console.log(response.data.result)
             return response.data.result
         }
         catch(error){   

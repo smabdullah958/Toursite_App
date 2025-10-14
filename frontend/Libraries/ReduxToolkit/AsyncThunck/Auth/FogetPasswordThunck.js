@@ -9,7 +9,6 @@ let ForgetPasswordThunck=createAsyncThunk(
         try{
             let response=await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/AuthController/ForgetPassword`,Form,
                 {withCredentials:true })
-            console.log(response.data)
             
             return response.data
         }

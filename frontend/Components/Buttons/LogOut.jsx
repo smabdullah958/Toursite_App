@@ -30,7 +30,7 @@ dispatch(LogOutThunck())
     <div>
 {IsLogIn &&
       <button onClick={HandleButton} disabled={Loading}        
-      className={`px-6 py-2 rounded-xl  bg-[#B8860B] hover:bg-[#CD853F] text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 ${IsLogIn?"opacity-100 hover:bg-[#D4A373]":"opacity-0"} ${Loading?"opacity-40 cursor-not-allowed bg-gray-200":""}`}>Log Out</button>
+      className={`2xl:px-12 2xl:py-5 2xl:text-xl  px-6 py-2 rounded-xl  bg-[#B8860B] hover:bg-[#CD853F] text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 ${IsLogIn?"opacity-100 hover:bg-[#D4A373]":"opacity-0"} ${Loading?"opacity-40 cursor-not-allowed bg-gray-200":""}`}>Log Out</button>
 }
     </div>
   )

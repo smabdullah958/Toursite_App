@@ -54,7 +54,21 @@ const EmailHTML = `
 
         <div style="text-align: center; margin: 35px 0;">
           <a href="${resetUrl}" target="_blank"
-             style=" border-radius: 30px; background: #fef08a; color: white; padding: 14px 28px; font-size: 16px; text-decoration: none; font-weight: 600; box-shadow: 0 3px 6px rgba(0,0,0,0.2);color:#000">
+      style="
+        display: inline-block;
+        background: linear-gradient(90deg, #fde047, #facc15, #eab308);
+        color: #1f2937;
+        padding: 14px 32px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 40px;
+        text-decoration: none;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+        transition: all 0.3s ease;
+      "
+      onmouseover="this.style.background='linear-gradient(90deg,#facc15,#eab308,#ca8a04)';this.style.transform='scale(1.05)';"
+      onmouseout="this.style.background='linear-gradient(90deg,#fde047,#facc15,#eab308)';this.style.transform='scale(1)';">
+
              Reset My Password
           </a>
         </div>

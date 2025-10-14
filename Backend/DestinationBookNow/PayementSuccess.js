@@ -174,72 +174,81 @@ let PaymentSuccess = async (req, res) => {
       }
     }
 
-    //Send Email
-    let EmailHTML = `
-  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-    <!-- Header -->
-    <div style="background: linear-gradient(90deg, #4e73df, #1cc88a); color: white; text-align: center; padding: 20px;">
-      <h2 style="margin: 0; font-size: 24px;">🎉 Payment Successful</h2>
-    </div>
-
-    <!-- Body -->
-    <div style="padding: 20px; color: #333;">
-      <h4 style="margin-top: 0;">Hello <b>${user.Name}</b>,</h4>
-      <p style="font-size: 15px;">We’re excited to let you know that your payment for your destination booking has been confirmed. Below are your booking details:</p>
-
-      <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-        <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Destination:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.DestinationID.Title}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Booking Date:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.Date}</td>
-        </tr>
-
-        <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Duration</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.Duration}</td>
-        </tr>
+   // Send Email
+let EmailHTML = `
+<div style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 650px; margin: auto; background: #fffdf5; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #f5e6c8;">
   
-${selectedBookingOption.PricingModel==="PerPerson" ?
-`
-        <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Seats/Car booking:
-          </b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${totalSlots}</td>
-        </tr>`:""}
+  <!-- Header -->
+  <div style="background: linear-gradient(90deg, #d4af37, #b68c2a); color: white; text-align: center; padding: 25px 10px;">
+    <h2 style="margin: 0; font-size: 24px;">💳 Payment Successful</h2>
+    <p style="margin: 5px 0 0; font-size: 15px;">Your booking has been confirmed — Let the adventure begin!</p>
+  </div>
 
-        ${selectedBookingOption.PricingModel==="FixedUnit" ?
-`
-        <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Car Capcity:
-          </b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">
-          ${selectedBookingOption.CarCapacity}
-          </td>
-        </tr>`:""}
+  <!-- Body -->
+  <div style="padding: 25px; color: #3d3d3d; background: #fffaf0;">
+    <h3 style="margin-top: 0; color: #b68c2a;">Hello <b>${user.Name}</b>,</h3>
 
+    <p style="font-size: 15px; line-height: 1.7;">
+      We’re delighted to inform you that your <strong>payment has been successfully processed</strong> for your destination booking with 
+      <span style="color:#b68c2a; font-weight:600;">IBN SAHRA TRAVELS</span>.
+    </p>
 
+    <div style="margin: 20px 0;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
         <tr>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;"><b>Total Price:</b></td>
-          <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.TotalPrice} AED</td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Destination:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${booking.DestinationID.Title}</td>
         </tr>
         <tr>
-          <td style="padding: 8px;"><b>Status:</b></td>
-          <td style="padding: 8px; color: green; font-weight: bold;">Paid ✅</td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Booking Date:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${booking.Date}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Duration:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${booking.Duration}</td>
+        </tr>
+
+        ${
+          selectedBookingOption.PricingModel === "PerPerson"&& `
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Total Seats / Car Booking:</b></td>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${totalSlots}</td>
+          </tr>`
+            
+        }
+
+        ${
+          selectedBookingOption.PricingModel === "FixedUnit"&& `
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Total Car Capacity:</b></td>
+            <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${selectedBookingOption.CarCapacity}</td>
+          </tr>`
+        }
+
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Total Price:</b></td>
+          <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${booking.TotalPrice} AED</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><b>Status:</b></td>
+          <td style="padding: 10px; color: #16a34a; font-weight: bold;">Paid ✅</td>
         </tr>
       </table>
-
-      <p style="margin-top: 20px; font-size: 15px;">Thank you for booking with us! We look forward to making your trip memorable. 🌍✈️</p>
     </div>
 
-    <!-- Footer -->
-    <div style="background: #f8f9fc; text-align: center; padding: 15px; font-size: 13px; color: #666;">
-      © ${new Date().getFullYear()} <strong> IBN SAHRA TRAVELS </strong> All rights reserved.
-    </div>
-     </div>
-        `;
+  
+    <p style="margin-top: 30px; font-size: 14px; text-align: center; color: #5c5c5c;">
+      Thank you for trusting <strong style="color:#b68c2a;">IBN SAHRA TRAVELS</strong>.<br>
+      Your journey begins here — enjoy the Emirates in style. 🇦🇪✨
+    </p>
+  </div>
 
+  <!-- Footer -->
+  <div style="background: #b68c2a; color: white; text-align: center; padding: 15px; font-size: 13px;">
+    © ${new Date().getFullYear()} <b>IBN SAHRA TRAVELS</b> — All Rights Reserved.<br>
+  </div>
+</div>
+`;
 
     await SendEmail(user.Email, "Payment Successful", EmailHTML);
 

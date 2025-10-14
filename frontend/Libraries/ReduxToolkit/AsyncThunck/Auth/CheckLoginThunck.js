@@ -9,7 +9,6 @@ let CheckLogIn=createAsyncThunk(
     async(_,{rejectWithValue})=>{
         try{
             let response=await axios.get(`${URL}/AuthController/checkLogIn`,{withCredentials:true})
-            console.log(response.data)
         return response.data
         }
         catch(error){

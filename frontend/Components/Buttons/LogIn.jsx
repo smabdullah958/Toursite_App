@@ -24,7 +24,7 @@ let dispatch=useDispatch()
     <div>
 {!IsLogIn&&
       <button  onClick={handlebutton} disabled={IsLogIn}
-       className={`px-6 py-2 rounded-xl bg-[#B8860B] hover:bg-[#CD853F] text-black font-semibold shadow-lg  hover:text-white transition-all duration-500 transform hover:scale-105 active:scale-95 ${IsLogIn?"opacity-0":"opacity-100"}`}>Log in</button>
+       className={`2xl:px-12 2xl:py-5 2xl:text-xl       px-6 py-2 rounded-xl bg-[#B8860B] hover:bg-[#CD853F] text-black font-semibold shadow-lg  hover:text-white transition-all duration-500 transform hover:scale-105 active:scale-95 ${IsLogIn?"opacity-0":"opacity-100"}`}>Log in</button>
 }
       
           {ShowLogIn && (

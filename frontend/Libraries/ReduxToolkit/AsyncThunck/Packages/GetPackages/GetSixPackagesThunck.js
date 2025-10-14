@@ -6,7 +6,6 @@ let GetSixPackagesThunck=createAsyncThunk(
     async(_,{rejectWithValue})=>{
     try{
         let response=await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/Packages/getsix`)
-        console.log("result")
         return response.data.result
     }
     catch(error){

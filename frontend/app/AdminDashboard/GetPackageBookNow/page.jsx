@@ -175,20 +175,6 @@ if(displayResult.length===0){
                     Category: {booking?.Category || "N/A"}
                   </span>
                   
-                  {/* {selectedOption?.PricingModel === "PerPerson" ? (
-                    <>
-                      <span className="bg-yellow-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
-                        Adults: {booking.NumberOfAdultChild}
-                      </span>
-                      <span className="bg-amber-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
-                        Children: {booking.NumberOfNoneAdultChild || 0}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="bg-amber-100/80 text-amber-800 px-3 py-1 rounded-full shadow-sm border border-amber-200">
-                      Car Capacity: {booking?.CarCapacity || "N/A"}
-                    </span>
-                  )} */}
 
               {booking.CarCapacity !== null && booking.CarCapacity !== undefined && booking.CarCapacity !== 0 && booking.CarCapacity !== "" ? 
               (

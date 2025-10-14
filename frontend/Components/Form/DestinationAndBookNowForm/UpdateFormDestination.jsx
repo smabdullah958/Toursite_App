@@ -156,54 +156,6 @@ let {result} =useSelector((state)=>state.GetByIDSlice)
   }, [watchedImage]);
 
 
-//   let HandleButton = (data) => {
-//     const formData = new FormData();
-//     formData.append("Title", data.Title);
-//     formData.append("Description", data.Description);
-    
-
-
-//       //  travel time prefilled and also  TravelTimes (with AM/PM)
-//   (data.TravelTimes || []).forEach((t, index) => {
-//     const raw = typeof t === "string" ? t : (t.time ?? "");
-//     const timeWithAmPm = to12Hour(raw); // convert to 12h format (AM/PM)
-
-//     if (timeWithAmPm) {
-//       formData.append(`TravelTimes[${index}][time]`, timeWithAmPm);
-//     }
-//   });
-
-//       // append BookingOption array for submission ---
-//     (data.BookingOption || []).forEach((option, index) => {
-//         // Append all nested fields with array notation for the backend
-//         //also send a _id for update
-//         //  Only include _id if it exists (existing options)
-//     // New options won't have _id, so backend will add them
-//     if (option._id && option._id !== undefined && option._id !== null) {
-//       formData.append(`BookingOption[${index}][_id]`, option._id);
-//     }
-
-//         formData.append(`BookingOption[${index}][Category]`, option.Category);
-//         formData.append(`BookingOption[${index}][BasePrice]`, option.BasePrice);
-//         formData.append(`BookingOption[${index}][PricingModel]`, option.PricingModel);
-//         formData.append(`BookingOption[${index}][CarCapacity]`, option.CarCapacity? Number(option.CarCapacity) : 0);
-//         formData.append(`BookingOption[${index}][Slots]`, option.Slots);
-//         formData.append(`BookingOption[${index}][Duration]`, option.Duration);
-//     });
-
-
-//     // If a new image is selected, append it; otherwise, append the existing image URL
-//     if (data.Image && data.Image[0]) {
-//       formData.append("Image", data.Image[0]);
-//     } else if (existingImage) { //apend existing image
-//       formData.append("ExistingImage", existingImage); // Send existing image URL
-//     }
-//     // Dispatch the update thunk with ID and form data
-//     dispatch(UpdateThunck({ id, data:formData }));
-// console.log(formData);
-//   };
-
-
 let HandleButton = (data) => {
   const formData = new FormData();
   formData.append("Title", data.Title);

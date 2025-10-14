@@ -7,7 +7,6 @@ let GetFistTwentyBooking=createAsyncThunk(
         try{
             let respone=await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/DestinationBooking/GetBooking?page=${page}&limit=${limit}`)
 
-            console.log(respone.data)
             return respone.data.GetBooking
         }
         catch(error){

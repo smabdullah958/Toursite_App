@@ -174,7 +174,7 @@ return pkg.BookingOption?.some(option=>option.Slots > 0)
               {/* Card Content */}
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl font-bold text-amber-900 group-hover:text-amber-700 transition-colors line-clamp-2 h-12 overflow-y-auto sm:h-20 ">
+                  <h3 className="text-xl font-bold text-amber-900 group-hover:text-amber-700 transition-colors line-clamp-2 h-14 overflow-y-auto ">
                     {pkg.Title || "Amazing Package"}
                   </h3>
                 </div>

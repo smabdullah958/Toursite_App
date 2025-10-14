@@ -6,7 +6,6 @@ let GetBookingByIDThunck=createAsyncThunk(
     async(id,{rejectWithValue})=>{
         try{
             let response=await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/DestinationBooking/GetByID/${id}`)
-            console.log(response)
             return response.data.UserDetail
         }
         catch(error){

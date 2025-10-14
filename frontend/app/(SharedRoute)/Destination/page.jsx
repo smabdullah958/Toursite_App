@@ -143,7 +143,7 @@ const DestinationPage = () => {
                 {/* Card Content */}
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold text-amber-900 group-hover:text-amber-700 transition-colors line-clamp-2 h-12 overflow-y-auto sm:h-20">
+                    <h3 className="text-xl font-bold text-amber-900 group-hover:text-amber-700 transition-colors line-clamp-2 h-14 overflow-y-auto">
                       {tour.Title || "Amazing Destination"}
                     </h3>
                   </div>

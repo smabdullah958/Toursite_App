@@ -9,7 +9,6 @@ let URL=process.env.NEXT_PUBLIC_BackendURL
     async(_,{dispatch,rejectWithValue})=>{
         try{
         let response=await axios.post(`${URL}/AuthController/LogOutAuth`,{},{withCredentials: true });
-        console.log("logout successfully")
      
         await dispatch(CheckLogIn()).unwrap()
     

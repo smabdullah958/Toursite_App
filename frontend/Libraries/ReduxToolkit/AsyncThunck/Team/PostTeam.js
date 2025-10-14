@@ -19,7 +19,6 @@ async(Data)=>{
         headers:{"Content-Type":"multipart/form-data"},
         withCredentials:true
      })
-     console.log(response.data)
      return response.data   
     }
     catch(error){

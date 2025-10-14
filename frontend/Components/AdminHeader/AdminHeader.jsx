@@ -6,11 +6,11 @@ import Image from "next/image";
 const AdminHeader= () => {
   return (
     <header className=" sticky top-0 z-50">
-      <div className=" hidden md:flex justify-between items-center md:h-16 bg-gradient-to-br from-[#deca99] via-[#CD853F] to-[#A0522D] shadow-lg  mx-auto px-3 lg:px-6  h-16 2xl:h-24  ">
+      <div className="   hidden md:flex justify-between items-center md:h-16 bg-gradient-to-br from-[#deca99] via-[#CD853F] to-[#A0522D] shadow-lg  mx-auto px-3 lg:px-6  h-16 2xl:h-40  ">
         
         {/* Logo / Brand */}
 
-      <div className="relative w-32 h-20">
+      <div className="relative w-32 h-20 2xl:size-36">
   <Image
     src="/log.png"
     alt="logo"

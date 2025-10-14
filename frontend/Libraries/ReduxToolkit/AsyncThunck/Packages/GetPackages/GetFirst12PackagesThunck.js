@@ -5,7 +5,6 @@ let GetFirst12PackagesThuck= createAsyncThunk(
     "GetFirst12Packages",
     async({limit,page},{rejectWithValue})=>{ 
         try{
-            console.log(limit,page)
             let response=await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/Packages/getpackages/?limit=${limit}&page=${page}`);
             return response.data.result
         }

@@ -8,9 +8,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import LogInThunck from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/LogInThunck";
 import ForgetPasswordPopUp from "@/Components/ForgetPasswordPopUp";
-// import CheckLogIn from "@/Libraries/ReduxToolkit/AsyncThunck/Auth/CheckLoginThunck"
+
 const LoginForm = () => {
 let route=useRouter()
+
   //LogInSlice is come from a store bro 
   let {Loading,errorMessage,success,Role}=useSelector((state)=>state.LogInSlice)
   let dispatch=useDispatch()
@@ -36,11 +37,14 @@ let route=useRouter()
     dispatch(LogInThunck(Form))
   } 
 
+
   useEffect(()=>{
-    if(success){
-   if(Role){
-    dispatch(HideLogIn()) //close fomr 
-   }
+    if(success && Role ){
+   
+      setTimeout(() => {
+        dispatch(resetLoginState()) // finally reset login slice
+        dispatch(HideLogIn()) //close fomr   
+      }, 700);
 
        if(Role==="Admin"){
         route.push("/AdminDashboard")
@@ -48,8 +52,8 @@ let route=useRouter()
        else{
         route.push("/")
        }
-        dispatch(resetLoginState()) // finally reset login slice
-        // dispatch(CheckLogIn())
+   
+        
       }
   },[success,dispatch,Role])
   
@@ -57,8 +61,8 @@ let route=useRouter()
   return (
     <div className="bottom-52">
       {/* Card Container */}
-      <div  className="bg-gradient-to-br from-amber-50 to-yellow-50 shadow-2xl rounded-2xl p-8 w-[90vw] sm:w-[350px] border border-amber-200">
-        <h2 className="text-2xl font-bold text-center text-amber-900 mb-6">
+      <div  className="bg-gradient-to-br from-amber-50 to-yellow-50 shadow-2xl rounded-2xl p-8 w-[90vw] sm:w-[350px] border border-amber-200 2xl:h-[40vh] 2xl:w-[40vw] 2xl:py-20">
+        <h2 className="text-2xl font-bold text-center text-amber-900 mb-6 2xl:text-5xl">
           Login
         </h2>
 
@@ -71,7 +75,7 @@ let route=useRouter()
           onChange={HandleFields}
           name="Email"
           value={Form.Email}
-          className="w-full px-4 py-3 mb-6 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white" required
+          className="w-full px-4 py-3 mb-6 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white 2xl:p-9" required
         />
         <ForgetPasswordPopUp/>
         {/* Password Input */}
@@ -81,19 +85,19 @@ let route=useRouter()
           onChange={HandleFields}
           name="Password"
           value={Form.Password}
-          className="w-full px-4 py-3 mb-6 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white"
+          className="w-full px-4 py-3 mb-6 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white 2xl:p-9"
           required
         />
 
         {/* Button */}
         <button disabled={Loading} 
         onClick={HandleButton}
-        className={`w-full py-3 bg-amber-600 text-white font-semibold rounded-xl hover:bg-amber-700 transition duration-300 shadow-md ${Loading?"opacity-40":"opacity-100"}`}>
+        className={`w-full py-3 bg-amber-600 text-white font-semibold rounded-xl 2xl:py-5 transition duration-300 shadow-md ${Loading?"opacity-40":"opacity-100"}`}>
           {Loading?<Loader/>:"Login"}
         </button>
 
         {/* Extra Links */}
-        <div className="mt-4 text-center text-sm text-amber-700">
+        <div className="mt-4 text-center text-sm text-amber-700 2xl:mt-10 2xl:text-4xl">
           <p>
             Don't have an account?{" "}
             <Link href="/SignUpForm" onClick={CloseForm} className="text-amber-600 hover:underline font-semibold">

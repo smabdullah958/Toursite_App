@@ -6,7 +6,6 @@ let GetAboutThunck=createAsyncThunk(
     async(_,{rejectWithValue})=>{
         try{
             let response=await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/About/Get`);
-           console.log(response.data.result)
             return response.data.result
         }
         catch(error){   

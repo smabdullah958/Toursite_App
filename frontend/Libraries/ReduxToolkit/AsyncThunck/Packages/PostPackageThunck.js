@@ -68,7 +68,6 @@ let PostPackageThunck = createAsyncThunk(
                     "Content-Type":"multipart/form-data"
                 }
             });
-            console.log("Post Package Response:", response.data);
             return response.data;
         }
         catch(error){

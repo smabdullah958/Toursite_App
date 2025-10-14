@@ -158,18 +158,6 @@ const UpdatePackageForm = ({ id }) => {
     }
   });
 
-   // append BookingOption array for submission ---
-    // (data.BookingOption || []).forEach((option, index) => {
-    //     // Append all nested fields with array notation for the backend
-    //     formData.append(`BookingOption[${index}][Category]`, option.Category);
-    //     formData.append(`BookingOption[${index}][BasePrice]`, option.BasePrice);
-    //     formData.append(`BookingOption[${index}][PricingModel]`, option.PricingModel);
-    //     formData.append(`BookingOption[${index}][CarCapacity]`, option.CarCapacity? Number(option.CarCapacity) : 0);
-    //     formData.append(`BookingOption[${index}][Slots]`, option.Slots);
-    //     formData.append(`BookingOption[${index}][Duration]`, option.Duration);
-    // });
-
-
     //   Append BookingOption with proper handling for specially for  new vs existing slots and prices
 
     (data.BookingOption || []).forEach((option, index) => {
@@ -177,7 +165,8 @@ const UpdatePackageForm = ({ id }) => {
     if (option._id && option._id !== 'undefined' && option._id !== 'null') {
       formData.append(`BookingOption[${index}][_id]`, option._id);
     }
-    
+    // append BookingOption array for submission ---
+ 
     formData.append(`BookingOption[${index}][Category]`, option.Category || "");
     formData.append(`BookingOption[${index}][BasePrice]`, option.BasePrice || 0);
     formData.append(`BookingOption[${index}][PricingModel]`, option.PricingModel || "");
