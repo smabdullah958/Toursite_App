@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon Server.js"
-  },
+  "build": "cd client && npm install && npm run build",
+  "start": "cd server && npm install && npm start"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
