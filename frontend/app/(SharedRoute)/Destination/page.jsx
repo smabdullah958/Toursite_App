@@ -118,7 +118,10 @@ const DestinationPage = () => {
                     alt={tour.Title || "destination"}
                     loading="lazy"
                     fill
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
+      placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="       
                   />
 
                   {/* Overlay Gradient */}

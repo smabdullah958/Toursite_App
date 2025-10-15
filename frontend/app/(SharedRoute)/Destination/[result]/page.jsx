@@ -71,12 +71,15 @@ const availableSlots =
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 overflow-x-hidden">
         {/* Hero Section */}
-        <div className="relative h-[80vh] overflow-hidden">
+        <div className="relative h-[80vh] xl:h-[90vh] overflow-hidden">
           <Image
             src={DisplayResult.Image||"/no image"}
             alt={DisplayResult.Title||"Destination"}
-            fill
-            className="h-full w-full object-cover"
+       fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+       className="object-cover group-hover:scale-110 transition-transform duration-700"
+       placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
           

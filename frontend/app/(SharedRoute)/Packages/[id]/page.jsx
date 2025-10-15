@@ -92,7 +92,7 @@ const availableSlots =
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 overflow-x-hidden">
         {/* Hero Section with Image Carousel */}
-        <div className="relative h-[80vh] overflow-hidden">
+        <div className="relative h-[80vh] xl:h-[90vh] overflow-hidden">
           {/* Main Image Display */}
           <div className="relative h-full w-full">
             {images.length > 0 && (
@@ -100,8 +100,12 @@ const availableSlots =
                 src={images[currentImageIndex]}
                 alt={`${result.Title} - Image ${currentImageIndex + 1}`}
                 loading="lazy"
-                fill
-                className="object-cover transition-opacity duration-500"
+            fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+       className="object-cover group-hover:scale-110 transition-transform duration-700"
+       placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="             
+
               />
             )}
           </div>

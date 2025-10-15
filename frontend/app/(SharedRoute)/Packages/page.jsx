@@ -125,7 +125,10 @@ return pkg.BookingOption?.some(option=>option.Slots > 0)
                         src={pkg.Image[0] || "/default.jpg"}
                         alt={pkg.Title}
                         fill
-                        className="object-cover"
+                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+       className="object-cover group-hover:scale-110 transition-transform duration-700"
+       placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="              
                       />
                     </div>
 
@@ -136,7 +139,10 @@ return pkg.BookingOption?.some(option=>option.Slots > 0)
                         src={pkg.Image[1] || "/default.jpg"}
                         alt={pkg.Title}
                         fill
-                        className="object-cover"
+                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+       className="object-cover group-hover:scale-110 transition-transform duration-700"
+       placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="
                       />
                     </div>
                   </>
@@ -147,7 +153,10 @@ return pkg.BookingOption?.some(option=>option.Slots > 0)
                       src={pkg.Image?.[0] || "/default.jpg"}
                       alt={pkg.Title}
                       fill
-                      className="object-cover"
+                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover group-hover:scale-110 transition-transform duration-700"
+    placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="         
                     />
                   </div>
                 )}

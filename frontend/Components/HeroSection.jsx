@@ -50,7 +50,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative h-[90vh] w-full overflow-hidden">
+    <div className="relative h-[90vh]  w-full overflow-hidden">
       {/* Login/Logout buttons */}
       <div className="absolute top-4 right-4 z-40 md:hidden">
         <div className="md:hidden flex justify-end">
@@ -73,6 +73,8 @@ const HeroSection = () => {
             className="w-full h-full object-cover"
             sizes="100vw"
             loading="lazy"
+             placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="
           />
           <div className="absolute inset-0 bg-black/50"></div>
         </div>

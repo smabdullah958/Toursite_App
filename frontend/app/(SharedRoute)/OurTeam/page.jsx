@@ -60,8 +60,12 @@ const About = () => {
                   loading="lazy"
                   src={member.Img || "/no-image.jpg"}
                   alt={member.Title || "team member"}
-                  fill
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
+      placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNP6F3jYwAAAABJRU5ErkJggg=="            
+
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
