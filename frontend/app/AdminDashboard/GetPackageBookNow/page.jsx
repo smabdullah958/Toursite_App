@@ -116,7 +116,7 @@ if(displayResult.length===0){
         </div>
 
         {/* No Results */}
-        {isSearched && displayResult?.length === 0 && !Loading && !loading && (
+        { displayResult?.length === 0 && !Loading && !loading && (
           <div className="text-center py-20">
             <div className="text-8xl md:text-9xl text-amber-300 mb-6 animate-bounce">🏝️</div>
             <h3 className="text-3xl md:text-4xl font-bold text-amber-800 mb-2">

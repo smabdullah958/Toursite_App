@@ -114,8 +114,8 @@ if(displayResult.length===0){
           </div>
         </div>
 
-        {/* No Results */}
-        {isSearched && displayResult?.length === 0 && !Loading &&!loading && (
+             {/* No Results */}
+        { displayResult?.length === 0 && !Loading &&!loading && (
           <div className="text-center py-20">
             <div className="text-8xl md:text-9xl text-amber-300 mb-6 animate-bounce">🏝️</div>
             <h3 className="text-3xl md:text-4xl font-bold text-amber-800 mb-2">
@@ -126,6 +126,7 @@ if(displayResult.length===0){
             </p>
           </div>
         )}
+
 
         {/* Booking Cards Grid */}
         <div className="grid gap-10 sm:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">

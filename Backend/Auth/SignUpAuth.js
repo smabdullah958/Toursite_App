@@ -40,7 +40,7 @@ let MySecretKey=process.env.SecretKey
 
     //create token
     const token = JWT.sign(
-        { Email,Role,_id,Name},
+        { Email,Role,Name},
         MySecretKey,
         { expiresIn: '1w' });
     console.log('Token')
@@ -55,7 +55,6 @@ let MySecretKey=process.env.SecretKey
 )
 
 
-    console.log(Password,Role)
     res.status(200).json({message:"account is created successfully",result})
 }
 catch(error){

@@ -70,7 +70,7 @@ const GetFiveDestination = () => {
 
         {/* Destinations Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {result && result.length > 0 &&(
+          {result && result.length > 0 ?(
             result.map((tour, i) => (
               <div 
                 key={i} 
@@ -131,10 +131,16 @@ const GetFiveDestination = () => {
                 </div>
               </div>
             ))
-          ) }
+          ) :(
+            <div className="col-span-full text-center py-16 bg-white/50 rounded-xl border border-amber-200">
+              <div className="text-6xl mb-4">📦</div>
+              <h3 className="text-xl font-bold text-amber-900 mb-2">No destination available</h3>
+              <p className="text-amber-700">New travel packages are being prepared!</p>
+            </div>)}
         </div>
 
         {/* Explore More Section */}
+      {result && result.length > 0 && (
         <div className="text-center mt-12 sm:mt-16">
           <div className="relative bg-white/80 backdrop-blur-md rounded-2xl border border-amber-200 shadow-xl p-8 max-w-md mx-auto">
             {/* Decorative Corner Elements */}
@@ -154,6 +160,7 @@ const GetFiveDestination = () => {
             </Link>
           </div>
         </div>
+      )}
       </div>
     </div>
   )

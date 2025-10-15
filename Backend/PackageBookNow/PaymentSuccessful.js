@@ -212,19 +212,19 @@ let PaymentSuccess = async (req, res) => {
         </tr>
 
         ${
-          selectedBookingOption.PricingModel === "PerPerson" &&`
+          selectedBookingOption.PricingModel === "PerPerson" ?`
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Total Seats Booked:</b></td>
             <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${totalSeatsBooked}</td>
-          </tr>`
+          </tr>`:""
         }
 
         ${
-          selectedBookingOption.PricingModel === "FixedUnit" && `
+          selectedBookingOption.PricingModel === "FixedUnit" ? `
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;"><b>Vehicle Capacity:</b></td>
             <td style="padding: 10px; border-bottom: 1px solid #f0e6d2;">${selectedBookingOption.CarCapacity}</td>
-          </tr>`
+          </tr>`:""
         }
 
         <tr>

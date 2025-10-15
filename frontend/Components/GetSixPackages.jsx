@@ -131,8 +131,10 @@ const GetSixPackages = () => {
             </div>
           )}
         </div>
-
-        {/* Explore More Section */}
+    
+    {/* Explore More Section */}
+ {result && result.length > 0 && (
+    
         <div className="text-center mt-12 sm:mt-16">
           <div className="relative bg-white/80 backdrop-blur-md rounded-2xl border border-amber-200 shadow-xl p-8 max-w-md mx-auto">
             {/* Decorative Corner Elements */}
@@ -152,6 +154,9 @@ const GetSixPackages = () => {
             </Link>
           </div>
         </div>
+        
+         )}
+ 
       </div>
     </div>
   )
