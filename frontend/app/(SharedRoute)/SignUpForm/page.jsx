@@ -57,13 +57,13 @@ useEffect(()=>{
   return (
     <div className=" h-screen flex items-center justify-center bg-gradient-to-r from-amber-200
      via-yellow-200 to-orange-200 sm:overflow-y-hidden">
- <div className="w-full sm:max-w-md p-8 bg-white shadow-2xl rounded-2xl 2xl:w-[80vw] 2xl:h-[50vh]">
-        <h2 className="text-3xl font-bold text-center text-amber-600 mb-6 2xl:text-4xl 2xl:mb-10">
+ <div className="w-full sm:max-w-md p-8 bg-amber-100 shadow-2xl rounded-2xl 2xl:max-w-[40vw] 2xl:h-[42vh] 2xl:flex 2xl:flex-col 2xl:justify-center">
+        <h2 className="text-3xl font-bold text-center text-amber-600 mb-6 2xl:text-4xl 2xl:mb-5">
           Create an Account
         </h2>
 
         <div  className="space-y-5">
-        <span className="text-red-300 2xl:text-3xl">{errorMessage}</span>
+        <span className="text-red-300 2xl:text-2xl">{errorMessage}</span>
           {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 2xl:text-3xl 2xl:mb-4">
@@ -75,7 +75,7 @@ useEffect(()=>{
               placeholder="John Doe"
               className="w-full px-4 py-2 mt-1 border rounded-xl focus:ring-2 focus:ring-amber-400 focus:outline-none 2xl:p-5"  
             />
-      <p className="text-red-500 text-sm mt-1 2xl:text-3xl" >{errors.Name?.message}</p>
+      <p className="text-red-500 text-sm mt-1 2xl:text-2xl" >{errors.Name?.message}</p>
           </div>
 
           {/* Email */}
@@ -89,7 +89,7 @@ useEffect(()=>{
               placeholder="you@example.com"
               className="w-full px-4 py-2 mt-1 border rounded-xl focus:ring-2 focus:ring-amber-400 focus:outline-none 2xl:p-5"
             />
-            <p className="text-red-500 text-sm mt-1 2xl:text-3xl">{errors.Email?.message}</p>
+            <p className="text-red-500 text-sm mt-1 2xl:text-2xl">{errors.Email?.message}</p>
           </div>
 
           {/* Password */}
@@ -103,7 +103,7 @@ useEffect(()=>{
               placeholder="••••••••"
               className="w-full px-4 py-2 mt-1 border rounded-xl focus:ring-2 focus:ring-amber-400 focus:outline-none 2xl:p-5"
             />
-            <p className="text-red-500 text-sm mt-1 2xl:text-3xl">
+            <p className="text-red-500 text-sm mt-1 2xl:text-2xl">
               {errors.Password?.message}
             </p>
           </div>
@@ -111,7 +111,7 @@ useEffect(()=>{
           {/* Submit Button */}
           <button
             onClick={handleSubmit(SubmitForm)}
-            className={`w-full py-2 text-white font-semibold bg-amber-600 rounded-xl shadow-md 2xl:py-5
+            className={`w-full py-2 text-white font-semibold bg-amber-600 rounded-xl shadow-md 2xl:py-5 2xl:text-xl
              hover:bg-amber-700 transition duration-200 ${Loading?"opacity-50":"opacity-100"}`} >
             {Loading?<Loader/>:"Sign Up"}
           </button>

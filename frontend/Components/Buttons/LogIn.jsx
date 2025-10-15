@@ -35,7 +35,7 @@ let dispatch=useDispatch()
             {/* Close Button */}
             <button
               onClick={()=>dispatch(HideLogIn())}
-              className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-3 py-1 hover:bg-red-600 transition"
+              className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-3 py-1 hover:bg-red-600 transition 2xl:px-4 2xl:py-2"
             >
               ✕
             </button>

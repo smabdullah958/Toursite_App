@@ -9,7 +9,6 @@ let GetSixPackagesThunck=createAsyncThunk(
         return response.data.result
     }
     catch(error){
-        console.log("internal error",error)
         return rejectWithValue(error.response?.data?.message || "An error occurred" );
     }
 })

@@ -9,7 +9,6 @@ let GetPackageBookingByIDThunck=createAsyncThunk(
             return response.data.UserDetail
         }
         catch(error){
-            console.log("internal error",error)
               return rejectWithValue(error.response?.data?.message || "internal error");
         }
     }

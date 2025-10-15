@@ -9,7 +9,6 @@ let DeleteThunck=createAsyncThunk(
             return response.data
         }
         catch(error){
-            console.log("internal error",error)
             return rejectWithValue(error.response?.data?.message||"internal error")
         }
     }

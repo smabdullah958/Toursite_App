@@ -17,7 +17,6 @@ let URL=process.env.NEXT_PUBLIC_BackendURL
         return response.data
     }
     catch(error){
-        console.log("internal error bro",error)
         return rejectWithValue(error.response?.data?.message)
     }
 }

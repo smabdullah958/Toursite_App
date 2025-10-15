@@ -111,7 +111,7 @@ const GetFiveDestination = () => {
                     <h3 className="text-lg sm:text-xl font-bold text-amber-900 mb-3 group-hover:text-amber-700 transition-colors duration-300 font-serif line-clamp-2 h-14 overflow-auto">
                       {tour?.Title || `Exotic Destination ${i + 1}`}
                     </h3>
-                    
+                     
                     
                     
                     {/* Explore Button */}

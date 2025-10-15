@@ -9,7 +9,6 @@ let GetFirst12PackagesThuck= createAsyncThunk(
             return response.data.result
         }
         catch(error){
-            console.log("internal server error in GetFirst12Packages",error);
             return rejectWithValue(error.response?.data?.message || "An error occurred" );
         }
     }

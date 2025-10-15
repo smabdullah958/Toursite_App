@@ -12,7 +12,6 @@ let UpdatePackageThunck=createAsyncThunk(
             return response.data
         }
         catch(error){
-            console.log('internal error bro ',error)
             return rejectWithValue(error.response?.data?.message ||"internal error")
         }
     }

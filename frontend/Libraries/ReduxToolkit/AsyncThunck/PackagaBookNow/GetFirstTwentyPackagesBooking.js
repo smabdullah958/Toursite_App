@@ -10,7 +10,6 @@ let GetFistTwentyPackagsBooking=createAsyncThunk(
             return respone.data.Booking
         }
         catch(error){
-            console.log("internal error",error)
             return rejectWithValue(error.response?.data?.message || "Internal error");
         }
     }

@@ -71,7 +71,6 @@ let PostPackageThunck = createAsyncThunk(
             return response.data;
         }
         catch(error){
-            console.log("Error in PostPackageSlice:", error);
             return rejectWithValue(error.response?.data?.message || "An error occurred" );
         }
     }

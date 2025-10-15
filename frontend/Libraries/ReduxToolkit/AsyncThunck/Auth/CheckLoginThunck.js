@@ -12,7 +12,6 @@ let CheckLogIn=createAsyncThunk(
         return response.data
         }
         catch(error){
-            console.log("internal error brother",error)
            return rejectWithValue(error.response?.data?.message || { CheckLogin: false });
 
         }

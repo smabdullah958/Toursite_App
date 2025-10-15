@@ -12,7 +12,6 @@ let PackageBookNowSearchBarThunck = createAsyncThunk(
             return response.data
         }
           catch(error){
-            console.log(error)
             return rejectWithValue(error.response?.data?.message ||"internal error")
           }
     }

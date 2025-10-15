@@ -11,7 +11,6 @@ const GetSixPackages = () => {
 
   useEffect(() => {
     dispatch(GetSixPackagesThunck())
-    console.log(result)
   }, [dispatch])
 
   if (loading) {

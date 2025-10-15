@@ -9,7 +9,6 @@ let GetAboutThunck=createAsyncThunk(
             return response.data.result
         }
         catch(error){   
-             console.log("internal error")
            return rejectWithValue(error.response?.data?.message || "Internal error");
 
         }

@@ -8,7 +8,6 @@ import { DisplayLogOut } from "@/Libraries/ReduxToolkit/Slices/Auth/CheckLogInSl
         try{
     let response=await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/AuthController/reset-password/${token}`,
         {Password},{withCredentials:true})
-        console.log(response)
               dispatch(DisplayLogOut())
             
 
@@ -16,7 +15,6 @@ import { DisplayLogOut } from "@/Libraries/ReduxToolkit/Slices/Auth/CheckLogInSl
         
             }
             catch(error){
-                console.log("internal error")
                 return rejectWithValue(error.response?.data?.message||"error")
             }
     }

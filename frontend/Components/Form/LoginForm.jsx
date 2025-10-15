@@ -61,12 +61,12 @@ let route=useRouter()
   return (
     <div className="bottom-52">
       {/* Card Container */}
-      <div  className="bg-gradient-to-br from-amber-50 to-yellow-50 shadow-2xl rounded-2xl p-8 w-[90vw] sm:w-[350px] border border-amber-200 2xl:h-[40vh] 2xl:w-[40vw] 2xl:py-20">
+      <div  className="bg-gradient-to-br from-amber-50 to-yellow-50 shadow-2xl rounded-2xl p-8 w-[90vw] sm:w-[350px] border border-amber-200 2xl:h-[40vh] 2xl:w-[30vw] 2xl:py-20">
         <h2 className="text-2xl font-bold text-center text-amber-900 mb-6 2xl:text-5xl">
           Login
         </h2>
 
-        <span className="my-3 text-red-500">{errorMessage}</span>
+        <span className="my-3 text-red-500 2xl:text-3xl">{errorMessage}</span>
 
         {/* Email Input */}
         <input

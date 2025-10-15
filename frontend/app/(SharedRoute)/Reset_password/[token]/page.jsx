@@ -51,19 +51,19 @@ export default function ResetPasswordPage() {
   
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-br from-amber-100 via-yellow-50 to-orange-100">
-      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 shadow-2xl rounded-2xl p-8 w-full max-w-md border border-amber-200">
-        <h2 className="text-2xl font-bold text-center text-amber-900 mb-6">
+      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 shadow-2xl rounded-2xl p-8 w-full max-w-md border border-amber-200 2xl:max-w-[30vw] ">
+        <h2 className="text-2xl font-bold text-center text-amber-900 mb-6 2xl:text-5xl">
           🔒 Reset Your Password
         </h2>
 
         {/* Error message */}
         {errorMessage && (
-          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+          <p className="text-red-500 text-center mb-4 2xl:text-2xl">{errorMessage}</p>
         )}
 
         <div className="space-y-5">
           <div>
-            <label className="block text-amber-700 text-sm mb-1">
+            <label className="block text-amber-700 text-sm mb-1 2xl:text-3xl">
               New Password
             </label>
             <input
@@ -72,13 +72,13 @@ export default function ResetPasswordPage() {
               {...register("Password")}
               className="border border-amber-200 w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white"
             />
-            <p className="text-red-500 text-xs mt-1">
+            <p className="text-red-500 text-xs mt-1 2xl:text-2xl">
               {errors.Password?.message}
             </p>
           </div>
 
           <div>
-            <label className="block text-amber-700 text-sm mb-1">
+            <label className="block text-amber-700 text-sm mb-1 2xl:text-3xl">
               Confirm Password
             </label>
             <input
@@ -87,7 +87,7 @@ export default function ResetPasswordPage() {
               {...register("confirmPassword")}
               className="border border-amber-200 w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white"
             />
-            <p className="text-red-500 text-xs mt-1">
+            <p className="text-red-500 text-xs mt-1 2xl:text-2xl">
               {errors.confirmPassword?.message}
             </p>
           </div>
@@ -106,7 +106,7 @@ export default function ResetPasswordPage() {
           </button>
         </div>
 
-        <p className="text-xs text-amber-600 text-center mt-6">
+        <p className="text-xs text-amber-600 text-center mt-6 2xl:text-xl">
           Make sure your new password is at least 6 characters long.
         </p>
       </div>

@@ -25,7 +25,7 @@ function Footer() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(205,133,63,0.1)_0%,transparent_50%)]"></div>
       
       <div className="relative z-10">
-        <div className="max-w-full mx-auto px-6 py-16">  
+        <div className="max-w-full mx-auto px-6 sm:py-5 xl:py-10 2xl:py-16">  
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"> 
              
@@ -41,13 +41,7 @@ function Footer() {
                     priority
                   />
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-amber-100">
-                    Ibn Sahra
-                  </h2>
-                  <p className="text-sm text-amber-300">Travel & Tours</p>
-                </div>
-              </div>
+                              </div>
               <p className="text-amber-200 text-sm leading-relaxed mb-8 max-w-xs"> 
                 Discover extraordinary destinations with our premium travel experiences. Your journey to unforgettable memories starts here.
               </p>
@@ -60,7 +54,7 @@ function Footer() {
                 </div>
                 <div className="flex items-center space-x-3 text-amber-300">
                   <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
-                  <span className="text-sm">10+ Years Experience</span>
+                  <span className="text-sm">10+ Years</span>
                 </div>
               </div>
             </div> 

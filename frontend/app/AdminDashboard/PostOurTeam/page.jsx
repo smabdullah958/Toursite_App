@@ -64,11 +64,13 @@ const PostDestination = () => {
 
       {/* Desert Dune Shapes */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-80 h-60 bg-gradient-to-br from-amber-200/20 to-yellow-300/10 rounded-full transform -translate-x-20 -translate-y-10 blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-80 h-60 bg-gradient-to-br from-amber-200/20 to-yellow-300/10 rounded-full transform -translate-x-20 -translate-y-10 blur-3xl">
+
+        </div>
         <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-tl from-amber-300/15 to-yellow-200/10 rounded-full transform translate-x-16 translate-y-16 blur-2xl"></div>
       </div>
 
-      <div className="bg-gradient-to-br from-amber-50/95 to-yellow-50/90 w-full max-w-3xl max-h-4xl  rounded-2xl shadow-2xl shadow-amber-200/30 p-8 backdrop-blur-sm border border-amber-200/50 relative">
+      <div className="bg-gradient-to-br from-amber-50/95 to-yellow-50/90 w-full max-w-3xl max-h-4xl  rounded-2xl shadow-2xl shadow-amber-200/30 p-8 backdrop-blur-sm border border-amber-200/50 relative 2xl:max-w-[60vw]">
         {/* Decorative Border */}
         <div className="absolute inset-0 rounded-2xl border-2 border-gradient-to-r from-amber-300/30 via-yellow-300/40 to-amber-400/30 pointer-events-none"></div>
         

@@ -9,13 +9,11 @@ let PostFormThunck=createAsyncThunk(
         try{
             let response=await axios.post(`${URL}/AuthController/SignUpAuth`,UserData,
                 {withCredentials:true })
-            console.log(response.data)
             dispatch(DisplayLogOut())
             
             return response.data
         }
         catch(error){
-            console.log("internal error bro ")
             return rejectWithValue(error.response?.data?.message||"error")
         }
     }

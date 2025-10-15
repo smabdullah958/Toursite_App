@@ -13,7 +13,6 @@ let UpdateThunck=createAsyncThunk(
     
         }
         catch(error){
-            console.log(error)
             return rejectWithValue(error.response?.data?.message ||"internal error")
         }
     }
