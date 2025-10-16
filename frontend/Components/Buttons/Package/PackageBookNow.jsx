@@ -18,7 +18,7 @@ const PackageBookNow = ({id,time,BookingOption}) => {
       className={`w-full group relative bg-gradient-to-r from-amber-600 to-yellow-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 transform ${
           IsLogIn 
             ? "hover:from-amber-500 hover:to-yellow-500 hover:scale-105 hover:shadow-xl opacity-100"
-            : "opacity-50 cursor-not-allowed"
+            : "opacity-10 cursor-not-allowed"
         } overflow-hidden`}>
                     Book Now
                   </button>

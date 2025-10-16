@@ -45,9 +45,6 @@ let route=useRouter()
         dispatch(resetLoginState()) // finally reset login slice
         dispatch(HideLogIn()) //close fomr   
       }, 500);
-
-   
-        
       }
   },[success,dispatch,Role])
   

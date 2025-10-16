@@ -1,4 +1,3 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +29,7 @@ const CheckAdminLoginChecker = ({ children }) => {
 
     if (!IsLogIn || Role !== "Admin") {
       setTransitioning(true)
-      router.replace("/"); // or router.push("/")
+      router.replace("/"); 
     }
 
     else{
