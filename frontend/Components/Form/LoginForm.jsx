@@ -44,14 +44,8 @@ let route=useRouter()
       setTimeout(() => {
         dispatch(resetLoginState()) // finally reset login slice
         dispatch(HideLogIn()) //close fomr   
-      }, 700);
+      }, 500);
 
-       if(Role==="Admin"){
-        route.push("/AdminDashboard")
-       }
-       else{
-        route.push("/")
-       }
    
         
       }

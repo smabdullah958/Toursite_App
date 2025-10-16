@@ -17,7 +17,7 @@ const CheckLoginProvider = ({ children }) => {
 
   useEffect(() => {
     if (Loading) return;
-    // ✅ Only redirect from "/" (landing page)
+    //  Only redirect from "/" (landing page)
     if (pathname === "/") {
       if (IsLogIn && Role === "Admin") {
         router.replace("/AdminDashboard");
@@ -27,7 +27,28 @@ const CheckLoginProvider = ({ children }) => {
     }
   }, [IsLogIn, Role, Loading, pathname, router]);
 
-  if(Loading)return <Loader/>
+   //  Prevent scrolling when loading
+  useEffect(() => {
+    if (Loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    
+    // Cleanup
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [Loading]);
+
+  if (Loading) {
+    return (
+      <div className="fixed inset-0 bg-white z-50">
+        <Loader />
+      </div>
+    );
+  }
+
 
   return <>{children}</>;
 };
