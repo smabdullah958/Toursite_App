@@ -11,7 +11,7 @@ const HomePage = () => {
 <HeroSection/>
 <GetSixDestination/>
 <GetSixPackages/>
-<Testimonials/>
+<Testimonials/>ss
 <Footer/>
 
     </div>

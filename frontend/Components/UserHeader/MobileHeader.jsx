@@ -14,7 +14,7 @@ const MobileHeader = () => {
   }
 
   return (
-    <header className="md:hidden bg-gradient-to-br from-[#deca99] via-[#CD853F] to-[#A0522D] shadow-lg ">
+    <header className="md:hidden bg-gradient-to-br from-[#deca99] via-[#CD853F] to-[#A0522D] shadow-lg z-[9999] relative">
       {/* Top bar with logo + burger */}
       <div className=" px-6 flex items-center justify-between h-16">
         {/* Logo */}
@@ -38,7 +38,7 @@ const MobileHeader = () => {
               <span className="absolute w-6 h-[2px] bg-white -rotate-45"></span>
               </button>
             </span>:<button
-          onClick={() => setShowMenu(true)}
+          onClick={() =>setShowMenu(true)}
           className="focus:outline-none"
         >
           <Image src="/burger.webp" alt="menu" width={30} height={30} loading="lazy" />

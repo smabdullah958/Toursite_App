@@ -1,6 +1,6 @@
 
 export const metadata = {
-  title: "Tourist App",
+  title: "Ibn Sahara Travels",
   description: "created with the help of a next js",
 };
 
