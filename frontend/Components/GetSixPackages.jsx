@@ -115,7 +115,7 @@ const GetSixPackages = () => {
                     
                     <Link 
                       href={`Packages/${packageItem._id}`} 
-                      className="block w-full bg-[#B8860B] hover:bg-[#CD853F] text-white py-3 px-6 rounded-lg font-semibold text-sm text-center transition-all duration-300 hover:scale-105 shadow-md"
+                      className="block w-full bg-amber-700 hover:bg-amber-900 text-white py-3 px-6 rounded-lg font-semibold text-sm text-center transition-all duration-300 hover:scale-105 shadow-md"
                     >
                       View Package
                     </Link>

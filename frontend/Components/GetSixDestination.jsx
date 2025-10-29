@@ -117,7 +117,7 @@ const GetFiveDestination = () => {
                     {/* Explore Button */}
                     <Link 
                       href={`Destination/${tour._id}`} 
-                      className="group/btn relative block w-full bg-[#B8860B] hover:bg-[#CD853F] text-white py-3 px-6 rounded-xl font-semibold text-sm text-center overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-amber-600/25"
+                      className="group/btn relative block w-full bg-amber-700 hover:bg-amber-900 text-white py-3 px-6 rounded-xl font-semibold text-sm text-center overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-amber-600/25"
                     >
                       <span className="relative z-10 font-serif tracking-wide">Explore Journey</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-amber-700 to-yellow-700 transform translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
