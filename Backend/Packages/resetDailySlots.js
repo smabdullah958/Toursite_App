@@ -58,9 +58,9 @@ async function resetDailySlots() {
 
 // Schedule the job to run every day at 12:00 AM (midnight)
 ResetPackageDailySlots = () => {
-cron.schedule('0 0 * * *', () => {
+cron.schedule('0 0 * * *', async() => {
   console.log('Running daily slot reset job...');
-  resetDailySlots();
+ await resetDailySlots();
 }, {
   timezone: "Asia/Dubai" // Set to your server/target timezone (e.g., UAE for AED currency)
 })
