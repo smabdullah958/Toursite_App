@@ -1,6 +1,7 @@
 //here it is also used to upload multiple images in a destination
 let multer=require("multer")
-let {CloudinaryStorage}=require("multer-storage-cloudinary");
+// let CloudinaryStorage=require("multer-storage-cloudinary");
+let CloudinaryStorage = require("multer-storage-cloudinary").CloudinaryStorage || require("multer-storage-cloudinary");
 let cloudinary=require("../cloudinaryConfig")
 let storage=new CloudinaryStorage({
 cloudinary,
