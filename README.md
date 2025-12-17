@@ -83,6 +83,3 @@ npm start
 <h2>👨‍💻 Author</h2>
 Created by smabdullah958
 Happy Traveling! 🌍✨
-
-<h
-🛠️ Technology Stack
