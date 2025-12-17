@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "15": "^0.0.0",
+    "16": "^0.0.2",
     "@hookform/resolvers": "^5.2.1",
     "@reduxjs/toolkit": "^2.8.2",
     "@stripe/react-stripe-js": "^4.0.2",
@@ -18,7 +20,7 @@
     "dotenv": "^17.2.1",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.16",
-    "next": "15.5.2",
+    "next": "^16.0.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
