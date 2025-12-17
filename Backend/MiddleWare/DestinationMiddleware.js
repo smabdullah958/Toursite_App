@@ -2,7 +2,7 @@
 let multer=require("multer")
 let CloudinaryStorage=require("multer-storage-cloudinary");
 let cloudinary=require("../cloudinaryConfig")
-let storage=new CloudinaryStorage({
+let storage=CloudinaryStorage({
 cloudinary,
 params:{
 folder:"DestinationImages",
