@@ -4,14 +4,12 @@ let CloudinaryStorage=require("multer-storage-cloudinary");
 let cloudinary=require("../cloudinaryConfig")
 let storage=CloudinaryStorage({
 cloudinary,
-params:{
 folder:"DestinationImages",
 allowed_formats:["png","jpeg"], //only these files are allowed
 
-    public_id:(req,file)=>{
-           return   Date.now() + "-" + Math.round(Math.random() * 1e9) // unique file name
-            },
-        },
+    filename: function (req, file, cb) {  // naming function
+        cb(null, Date.now() + "-" + Math.round(Math.random() * 1e9));
+    }
         });
 
 // file or images extension validation
