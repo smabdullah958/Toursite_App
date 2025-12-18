@@ -4,10 +4,7 @@ let mongoose=require("mongoose")
 
 let ConnectDb=async(req,res)=>{
     try{
-        let result=await mongoose.connect(process.env.Connection,{
-            useNewUrlParser: true,
-  useUnifiedTopology: true,
-        })
+        await mongoose.connect(process.env.Connection)
         console.log("connection is establish")
     }
     catch(error){
