@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "build": "echo \"No build step needed for backend\"",
-  "start": "node Server.js",
-  "dev": "nodemon Server.js"
-}
-  ,
+    "build": "echo \"No build step needed for backend\"",
+    "start": "node Server.js",
+    "dev": "nodemon Server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -28,9 +27,9 @@
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^4.0.0",
     "node-cron": "^4.2.1",
-    "nodemailer": "^7.0.6",
     "nodemon": "^3.1.10",
     "path": "^0.12.7",
+    "resend": "^6.6.0",
     "stripe": "^18.5.0"
   }
 }
