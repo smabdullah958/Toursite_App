@@ -28,9 +28,9 @@ let route=useRouter()
   };
 
   let CloseForm=()=>{
-    setTimeout(() => {
+    // setTimeout(() => {
       dispatch(HideLogIn())
-    }, 300);
+    // }, 300);
   }
   
   let HandleButton=()=>{
