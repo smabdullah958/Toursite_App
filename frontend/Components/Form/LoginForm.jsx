@@ -41,12 +41,12 @@ let route=useRouter()
   useEffect(()=>{
     if(success && Role ){
    
-      setTimeout(() => {
-        dispatch(resetLoginState()) // finally reset login slice
+        // navigate first
+        route.push(Role === "Admin" ? "/AdminDashboard" : "/");
+         dispatch(resetLoginState()) // finally reset login slice
         dispatch(HideLogIn()) //close fomr   
-      }, 500);
       }
-  },[success,dispatch,Role])
+  },[success,dispatch,Role,route])
   
 
   return (

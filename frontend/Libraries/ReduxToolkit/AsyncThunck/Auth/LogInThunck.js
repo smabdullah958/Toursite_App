@@ -10,7 +10,7 @@ let LogInThunck=createAsyncThunk(
         try{
             let response=await axios.post(`${URL}/AuthController/LogInAuth`,Form,
                 {withCredentials:true})
-                        await dispatch(CheckLogIn()).unwrap()
+              await dispatch(CheckLogIn()).unwrap()
                 
             return response?.data
         }
