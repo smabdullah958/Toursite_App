@@ -3,7 +3,8 @@ let LogOut=async(req,res)=>{
         res.clearCookie("token",{
             path:"/",
             httpOnly:true,
-            sameSite: "Lax",  secure: false
+            secure: true, 
+            sameSite: "none",       
         });
         
         console.log("Logout Successfully")
