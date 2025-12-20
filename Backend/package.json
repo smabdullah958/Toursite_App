@@ -6,7 +6,8 @@
   "build": "echo \"No build step needed for backend\"",
   "start": "node Server.js",
   "dev": "nodemon Server.js"
-}  ,
+}
+  ,
   "keywords": [],
   "author": "",
   "license": "ISC",
