@@ -8,7 +8,7 @@ const UpdateTeamButton = ({id}) => {
 
   return (
     <div>
-       <button onClick={()=>{dispatch(DisplayUpdateForm(id)); alert(id)}} className="px-6 py-2 rounded-xl  bg-gradient-to-r from-yellow-500 to-amber-500  hover:from-amber-500 hover:to-yellow-500 text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 opacity-100 ">
+       <button onClick={()=>dispatch(DisplayUpdateForm(id))} className="px-6 py-2 rounded-xl  bg-gradient-to-r from-yellow-500 to-amber-500  hover:from-amber-500 hover:to-yellow-500 text-white font-semibold shadow-lg  transition-all duration-500 transform hover:scale-105 active:scale-95 mr-5 opacity-100 ">
        Update</button>
     </div>
   )

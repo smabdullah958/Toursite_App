@@ -15,7 +15,7 @@ import { resetgetstate } from "@/Libraries/ReduxToolkit/Slices/Team/GetTeam";
 import Loader from "@/Components/Loader";
 
 //import validation
-import schema from "@/Components/yupValidation/TeamValidation";
+import schema from "@/Components/yupValidation/UpdateTeamValidation";
 
 const UpdateTeamForm = ({ member }) => {
   const [existingImage, setExistingImage] = useState(null);
@@ -76,9 +76,10 @@ const UpdateTeamForm = ({ member }) => {
     // If a new image is selected, append it; otherwise, append the existing image URL
     if (data.Img && data.Img[0]) {
       formData.append("Img", data.Img[0]);
-    } else if (existingImage) {
-      formData.append("ExistingImage", existingImage); // keep old image
-    }
+    } 
+    // else if (existingImage) {
+    //   formData.append("ExistingImage", existingImage); // keep old image
+    // }
 
     // Dispatch the update thunk with ID and form data
     dispatch(UpdateTeamThunck({ id: member._id, data: formData }));
