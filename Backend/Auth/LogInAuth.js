@@ -22,7 +22,7 @@ let LogInAuth=async(req,res)=>{
         let token=JWT.sign({Email,Role:ExistUser.Role,_id:ExistUser._id,Name:ExistUser.Name},process.env.SecretKey,
 {           expiresIn: '1w'     }) 
 //send token to a frontend 
-res.cookie("token",token,{      httpOnly: true,
+res.cookie("token",token,{     
  httpOnly:true,
     secure: true, 
     sameSite: "none",      

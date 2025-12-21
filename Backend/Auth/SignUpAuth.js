@@ -48,8 +48,8 @@ let MySecretKey=process.env.SecretKey
     res.cookie("token",token,
     {
         httpOnly: true,
-        secure: false, 
-    sameSite: "Lax",       // ✅ "Lax" works well on local project
+        secure: true, 
+    sameSite: "none",       // ✅ "Lax" works well on local project
           maxAge: 7 * 24 * 60 * 60 * 1000
     }
 )

@@ -35,5 +35,8 @@ App.use("/Packages",PackagesController)
 App.use("/DestinationBooking",DestinationBookingNow)
 App.use("/PackageBooking",PackageBookNow)
 App.use("/About",TeamController)
-
+// this route is only used to wake up the server it means that the server is running 
+ App.get('/ping', (req, res) => {
+  res.status(200).send("Server is awake");
+});
 App.listen(PortNo)
