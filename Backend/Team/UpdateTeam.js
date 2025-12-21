@@ -26,9 +26,9 @@ let UpdateTeam=async(req,res)=>{
   if (req.file) {
     updates.Img = req.file.path; // Set the new image URL
   }
-  else if (req.body.ExistingImage) {
-      updates.Image = req.body.ExistingImage; // keep old image
-    }
+//   else if (req.body.ExistingImage) {
+//       updates.Image = req.body.ExistingImage; // keep old image
+//     }
   // Update the document
   const updatedTeam = await Database.findByIdAndUpdate(id, updates, { new: true });
 
