@@ -13,14 +13,15 @@ const sendEmail = async (to, subject, html) => {
     });
 
     if (error) {
-      console.error("❌ Resend error:", error);
+      console.error(" Resend error:", error);
+      return null;
     }
 
     console.log("✅ Email sent:", data.id);
     return data;
 
   } catch (error) {
-    console.error("❌ Email send error:", error);
+    console.error(" Email send error:", error);
     throw error;
   }
 };
