@@ -13,12 +13,12 @@ App.use(cors({
     credentials:true
 }))
 App.use(express.json())
-let AuthController=require("./Controllers/AuthController")
-let DestinationController=require("./Controllers/DestinationControllers")
-let PackagesController=require("./Controllers/PackagesController")
-let DestinationBookingNow=require("./Controllers/DestinationBookNowController.js")
-let PackageBookNow=require("./Controllers/PackageBookNowController.js")
-let TeamController=require("./Controllers/TeamController.js")
+let AuthController=require("./Routes/AuthController")
+let DestinationController=require("./Routes/DestinationControllers")
+let PackagesController=require("./Routes/PackagesController")
+let DestinationBookingNow=require("./Routes/DestinationBookNowController.js")
+let PackageBookNow=require("./Routes/PackageBookNowController.js")
+let TeamController=require("./Routes/TeamController.js")
 
 let ResetDestinationDailySlots=require("./Features/Destination/resetDailySlots.js")
 let ResetPackageDailySlots=require("./Features/Packages/resetDailySlots.js")
