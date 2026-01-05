@@ -1,4 +1,4 @@
-let Database = require("../Models/DestinationBookNow");
+let Database = require("../../Models/DestinationBookNow");
 
 let SearchBar = async (req, res) => {
   try {

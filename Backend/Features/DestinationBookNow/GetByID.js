@@ -1,4 +1,4 @@
-let DataBase=require("../Models/DestinationBookNow")
+let DataBase=require("../../Models/DestinationBookNow")
 
 let GetByID=async(req,res)=>{
     try{

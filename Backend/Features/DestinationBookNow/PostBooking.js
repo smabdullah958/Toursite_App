@@ -1,7 +1,7 @@
 require("dotenv").config()
     let {validationResult} = require("express-validator")
-    let Database=require("../Models/DestinationBookNow");
-    let DestinationDatabase=require("../Models/DestinationDataBase")
+    let Database=require("../../Models/DestinationBookNow");
+    let DestinationDatabase=require("../../Models/DestinationDataBase")
 
     let Stripe=require("stripe");
     let stripe=new Stripe(process.env.Stirpe_Secret_key)

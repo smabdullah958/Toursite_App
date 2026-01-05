@@ -1,4 +1,4 @@
-let database=require("../Models/PackagesDatabase")
+let database=require("../../Models/PackagesDatabase")
 let {validationResult}=require("express-validator")
 let PostPackage=async(req,res)=>{
     try{

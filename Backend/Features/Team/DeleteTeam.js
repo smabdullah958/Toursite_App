@@ -1,4 +1,4 @@
-let database=require("../Models/TeamDatabase");
+let database=require("../../Models/TeamDatabase");
 
 let DeleteTeam=async(req,res)=>{
     try{

@@ -1,4 +1,4 @@
-let Database=require("../Models/DestinationDataBase")
+let Database=require("../../Models/DestinationDataBase")
 let {validationResult}=require("express-validator")
 let PostDestination=async(req,res)=>{
     try{

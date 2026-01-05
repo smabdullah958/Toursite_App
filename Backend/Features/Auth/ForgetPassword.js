@@ -6,7 +6,7 @@
 
 require("dotenv").config({path:"../.env"})
 console.log(process.env.My_Gmail, process.env.App_Password)
-let Database=require("../Models/UserDatabase")
+let Database=require("../../Models/UserDatabase")
 const crypto = require("crypto");
 
 let sendEmail=require("../GmailTranporter")

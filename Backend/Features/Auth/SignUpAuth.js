@@ -1,6 +1,6 @@
 require("dotenv").config()
 console.log(process.env.SecretKey)
-let DataBase=require("../Models/UserDatabase");
+let DataBase=require("../../Models/UserDatabase");
 let {validationResult}=require("express-validator");
 let bcrypt=require("bcrypt")
 let JWT=require("jsonwebtoken")

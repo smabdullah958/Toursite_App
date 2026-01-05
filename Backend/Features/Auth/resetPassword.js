@@ -8,7 +8,7 @@
     console.log(process.env.SecretKey)
     require("dotenv").config({path:"../.env"})
     
-let Database=require("../Models/UserDatabase")
+let Database=require("../../Models/UserDatabase")
 
 let ResetPassword=async(req,res)=>{
     try{

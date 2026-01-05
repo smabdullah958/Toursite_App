@@ -1,4 +1,4 @@
-let database=require("../../Models/PackagesDatabase");
+let database=require("../../../Models/PackagesDatabase");
 let GetSixPackages=async(req,res)=>{
     try{
         let result=await database.find({"BookingOption.Slots":{$gt  :0}})

@@ -1,6 +1,6 @@
 //this is get first 20 images
 
-let Database=require("../../Models/DestinationDataBase");
+let Database=require("../../../Models/DestinationDataBase");
 
 let GetTwentyImage=async(req,res)=>{
     try{

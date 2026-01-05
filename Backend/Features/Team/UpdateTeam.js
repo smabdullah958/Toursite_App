@@ -1,4 +1,4 @@
-let Database=require("../Models/TeamDatabase")
+let Database=require("../../Models/TeamDatabase")
 let {validationResult}=require("express-validator")
 let UpdateTeam=async(req,res)=>{
     try{

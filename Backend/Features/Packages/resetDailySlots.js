@@ -1,4 +1,4 @@
-const PackageDatabase = require("../Models/PackagesDatabase");
+const PackageDatabase = require("../../Models/PackagesDatabase");
 const cron = require("node-cron");
 const GetDubaiDate = require("../DubaiTimeZone");
 

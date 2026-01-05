@@ -1,4 +1,4 @@
-let Database=require("../Models/TeamDatabase");
+let Database=require("../../Models/TeamDatabase");
 
 let GetAbout=async(req,res)=>{
     try{

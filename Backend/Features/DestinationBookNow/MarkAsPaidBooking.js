@@ -1,4 +1,4 @@
-let Database=require("../Models/DestinationBookNow");
+let Database=require("../../Models/DestinationBookNow");
 
 let MarkAsPaidBooking=async(req,res)=>{
     try{

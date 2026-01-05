@@ -1,4 +1,4 @@
-let DataBase=require("../Models/DestinationDataBase");
+let DataBase=require("../../Models/DestinationDataBase");
 
 let DeleteTour=async(req,res)=>{
     try{

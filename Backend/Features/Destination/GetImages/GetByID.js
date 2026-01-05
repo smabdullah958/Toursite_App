@@ -1,4 +1,4 @@
-let Database=require("../../Models/DestinationDataBase");
+let Database=require("../../../Models/DestinationDataBase");
 let GetToursByID=async(req,res)=>{
     try{
         let {_id}=req.params

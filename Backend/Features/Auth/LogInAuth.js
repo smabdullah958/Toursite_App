@@ -1,7 +1,7 @@
 let bcrypt=require("bcrypt")
 let JWT=require("jsonwebtoken")
 require("dotenv").config()
-let DataBase=require("../Models/UserDatabase")
+let DataBase=require("../../Models/UserDatabase")
 let LogInAuth=async(req,res)=>{
     try{
         let {Email,Password}=req.body;

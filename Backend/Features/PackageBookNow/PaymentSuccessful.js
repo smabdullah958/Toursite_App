@@ -1,9 +1,9 @@
 // if payement gateway is a stripe and if payment is successfully reciveve than send email
 
 
-let Database = require("../Models/PackagesBookNow");
+let Database = require("../../Models/PackagesBookNow");
 let SendEmail = require("../GmailTranporter");
-let PackageDatabase =require("../Models/PackagesDatabase")
+let PackageDatabase =require("../../Models/PackagesDatabase")
 
 let GetDubaiDate=require("../DubaiTimeZone")
 let PaymentSuccess = async (req, res) => {

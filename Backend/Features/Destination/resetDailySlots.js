@@ -1,4 +1,4 @@
- const DestinationDatabase = require("../Models/DestinationDataBase");
+ const DestinationDatabase = require("../../Models/DestinationDataBase");
  const cron = require("node-cron");
  const GetDubaiDate = require("../DubaiTimeZone");
 

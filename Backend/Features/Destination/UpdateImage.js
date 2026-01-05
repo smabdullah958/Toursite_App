@@ -1,5 +1,5 @@
 
-let Database = require("../Models/DestinationDataBase");
+let Database = require("../../Models/DestinationDataBase");
 let { validationResult } = require("express-validator");
 let DubaiTimeZone =require("../DubaiTimeZone")
 

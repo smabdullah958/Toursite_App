@@ -1,4 +1,4 @@
-let Database=require('../Models/DestinationDataBase');
+let Database=require('../../Models/DestinationDataBase');
 
 let SearchBar=async(req,res)=>{
     try{

@@ -1,4 +1,4 @@
-let Database = require("../Models/PackagesDatabase");
+let Database = require("../../Models/PackagesDatabase");
 let { validationResult } = require("express-validator");
 
 let UpdatePackage = async (req, res) => {

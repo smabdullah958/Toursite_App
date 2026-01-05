@@ -1,4 +1,4 @@
-let DataBase=require("../Models/PackagesBookNow")
+let DataBase=require("../../Models/PackagesBookNow")
 
 let GetPackageBooking=async(req,res)=>{
     try{
