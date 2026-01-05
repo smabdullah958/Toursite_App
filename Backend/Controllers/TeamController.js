@@ -2,7 +2,7 @@ let express=require("express")
 let route=express.Router()
 
 //Upload image
-let uploadTeam=require("../Features/MiddleWare/TeamMiddleWare")
+let uploadTeam=require("../MiddleWare/TeamMiddleWare")
 
 let PostTeam=require("../Features/Team/PostTeam")
 let GetTeam=require("../Features/Team/GetTeam")

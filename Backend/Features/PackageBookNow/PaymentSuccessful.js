@@ -2,10 +2,10 @@
 
 
 let Database = require("../../Models/PackagesBookNow");
-let SendEmail = require("../GmailTranporter");
+let SendEmail = require("../../GmailTranporter");
 let PackageDatabase =require("../../Models/PackagesDatabase")
 
-let GetDubaiDate=require("../DubaiTimeZone")
+let GetDubaiDate=require("../../DubaiTimeZone")
 let PaymentSuccess = async (req, res) => {
 
   try {

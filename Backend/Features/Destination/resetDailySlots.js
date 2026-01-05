@@ -1,6 +1,6 @@
  const DestinationDatabase = require("../../Models/DestinationDataBase");
  const cron = require("node-cron");
- const GetDubaiDate = require("../DubaiTimeZone");
+ const GetDubaiDate = require("../../DubaiTimeZone");
 
 async function resetDailySlots() {
   try {

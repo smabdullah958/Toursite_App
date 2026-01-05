@@ -5,9 +5,9 @@ require("dotenv").config()
 
     let Stripe=require("stripe");
     let stripe=new Stripe(process.env.Stirpe_Secret_key)
-    let GetDubaiDate=require("../DubaiTimeZone")
+    let GetDubaiDate=require("../../DubaiTimeZone")
 
-    let SendEmail=require("../GmailTranporter")
+    let SendEmail=require("../../GmailTranporter")
 
     let DestinationBookNow=async(req,res)=>{
         try{
