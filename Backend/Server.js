@@ -1,6 +1,6 @@
 require("dotenv").config()
 console.log("Port No",process.env.Port,process.env.FrontendURL)
-let ConnectDB=require("./Connection.js")
+let ConnectDB=require("./Config/Connection.js")
 let PortNo=process.env.Port
 let URL=process.env.FrontendURL
 const cookieParser = require("cookie-parser");

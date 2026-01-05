@@ -2,9 +2,9 @@
 
 
 let Database = require("../../Models/DestinationBookNow");
-let SendEmail = require("../../GmailTranporter");
+let SendEmail = require("../../utils/GmailTranporter");
 let DestinationDatabase =require("../../Models/DestinationDataBase")
-   let GetDubaiDate=require("../../DubaiTimeZone")
+   let GetDubaiDate=require("../../utils/DubaiTimeZone")
 
 let PaymentSuccess = async (req, res) => {
   try {

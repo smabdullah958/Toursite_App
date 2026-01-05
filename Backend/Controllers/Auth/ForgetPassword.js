@@ -9,7 +9,7 @@ console.log(process.env.My_Gmail, process.env.App_Password)
 let Database=require("../../Models/UserDatabase")
 const crypto = require("crypto");
 
-let sendEmail=require("../../GmailTranporter")
+let sendEmail=require("../../utils/GmailTranporter")
 
 
 let ForgetPassword=async(req,res)=>{

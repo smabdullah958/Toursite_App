@@ -1,7 +1,7 @@
 
 let Database = require("../../Models/DestinationDataBase");
 let { validationResult } = require("express-validator");
-let DubaiTimeZone =require("../../DubaiTimeZone")
+let DubaiTimeZone =require("../../utils/DubaiTimeZone")
 
 let UpdateTour = async (req, res) => {
   try {

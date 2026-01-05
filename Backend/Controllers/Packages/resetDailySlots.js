@@ -1,6 +1,6 @@
 const PackageDatabase = require("../../Models/PackagesDatabase");
 const cron = require("node-cron");
-const GetDubaiDate = require("../../DubaiTimeZone");
+const GetDubaiDate = require("../../utils/DubaiTimeZone");
 
 async function resetDailyPackageSlots() {
   try {

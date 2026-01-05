@@ -6,9 +6,9 @@
     let Stripe=require("stripe");
     let stripe=new Stripe(process.env.Stirpe_Secret_key)
 
-    let SendEmail=require("../../GmailTranporter")
+    let SendEmail=require("../../utils/GmailTranporter")
 
-   let GetDubaiDate=require("../../DubaiTimeZone")
+   let GetDubaiDate=require("../../utils/DubaiTimeZone")
     
 
     let PackageBookNow=async(req,res)=>{
