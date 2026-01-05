@@ -1,23 +1,23 @@
 let express=require("express")
 let App=express.Router()
-let SignUpAuth=require("../Auth/SignUpAuth")
+let SignUpAuth=require("../Features/Auth/SignUpAuth")
 let validation=require("../Validator/AuthValidate")
-let LogInAuth=require("../Auth/LogInAuth")
-let LogOut = require("../Auth/LogOutAuth")
+let LogInAuth=require("../Features/Auth/LogInAuth")
+let LogOut = require("../Features/Auth/LogOutAuth")
 //it is used to check the user is login or not bro 
-let CheckLogIn=require("../Auth/CheckLogIn")
+let CheckLogIn=require("../Features/Auth/CheckLogIn")
 
 //here we send the email 
 
 //this file main work si to generate a unique string and send to a user email when its click than it will redirect to a route wher eit will reset the password
 //this is a forget password popup backend where we only write the email bro 
-const ForgetPassword = require("../Auth/ForgetPassword")
+const ForgetPassword = require("../Features/Auth/ForgetPassword")
 
 //here we send the password
 
 //this file is used to open a route when we click ona link which si send to a email bro
  //and also here we can send only and only passowrd and also confirmpassword
-let ResetPassword = require("../Auth/resetPassword")
+let ResetPassword = require("../Features/Auth/resetPassword")
 
 App.post("/SignUpAuth",validation,SignUpAuth)
 App.post("/LogInAuth",LogInAuth)

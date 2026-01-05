@@ -7,14 +7,14 @@ let upload=require("../MiddleWare/DestinationMiddleware")
 //here it is also used to update the images of a packages
 let UpdatePackageMiddleWare =require("../MiddleWare/UpdatePackageMiddleWare")
 //post
-let PostDestination=require("../Packages/PostPackages")
+let PostDestination=require("../Features/Packages/PostPackages")
 //get first 20 packages
-let GetFirst12Packages=require("../Packages/GetPackages/GetFirst12Packages")
-let GetByID=require("../Packages/GetPackages/GetByIDPackages")
-let GetSixPackages=require("../Packages/GetPackages/GetSixPackages")
-let UpdatePackage=require("../Packages/UpdatePackage")
-let DeletePackage = require("../Packages/DeletePackage")
-let SearchBar =require("../Packages/SearchBar")
+let GetFirst12Packages=require("../Features/Packages/GetPackages/GetFirst12Packages")
+let GetByID=require("../Features/Packages/GetPackages/GetByIDPackages")
+let GetSixPackages=require("../Features/Packages/GetPackages/GetSixPackages")
+let UpdatePackage=require("../Features/Packages/UpdatePackage")
+let DeletePackage = require("../Features/Packages/DeletePackage")
+let SearchBar =require("../Features/Packages/SearchBar")
 
 App.post("/postpackage",upload.array("Image",5),PostDestination) // uplaod multiple images
 App.get("/getpackages",GetFirst12Packages)
