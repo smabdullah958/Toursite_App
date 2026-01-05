@@ -20,8 +20,8 @@ let DestinationBookingNow=require("./Routes/DestinationBookNowController.js")
 let PackageBookNow=require("./Routes/PackageBookNowController.js")
 let TeamController=require("./Routes/TeamController.js")
 
-let ResetDestinationDailySlots=require("./Features/Destination/resetDailySlots.js")
-let ResetPackageDailySlots=require("./Features/Packages/resetDailySlots.js")
+let ResetDestinationDailySlots=require("./Controllers/Destination/resetDailySlots.js")
+let ResetPackageDailySlots=require("./Controllers/Packages/resetDailySlots.js")
 
 //reset daily slots for a destination bro
 ResetDestinationDailySlots()

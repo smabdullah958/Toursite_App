@@ -4,10 +4,10 @@ let route=express.Router()
 //Upload image
 let uploadTeam=require("../MiddleWare/TeamMiddleWare")
 
-let PostTeam=require("../Features/Team/PostTeam")
-let GetTeam=require("../Features/Team/GetTeam")
-let DeleteTeam=require("../Features/Team/DeleteTeam")
-let UpdateTeam=require("../Features/Team/UpdateTeam")
+let PostTeam=require("../Controllers/Team/PostTeam")
+let GetTeam=require("../Controllers/Team/GetTeam")
+let DeleteTeam=require("../Controllers/Team/DeleteTeam")
+let UpdateTeam=require("../Controllers/Team/UpdateTeam")
 
 route.post("/Post",uploadTeam.single('Img'),PostTeam)
 route.get("/Get",GetTeam)

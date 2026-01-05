@@ -1,14 +1,14 @@
 let express=require("express");
 let route=express.Router()
 
-let PackageBookNow=require("../Features/PackageBookNow/PostPackages");
-let GetFirstTwentyPackageBooking=require("../Features/PackageBookNow/GetFirstTwentyPackagesBooking")
-let PackageByID=require("../Features/PackageBookNow/GetByID")
-let MarkAsPaidBooking=require("../Features/PackageBookNow/MarkAsPaidBooking")
-let SearchBar=require("../Features/PackageBookNow/SearchBar")
+let PackageBookNow=require("../Controllers/PackageBookNow/PostPackages");
+let GetFirstTwentyPackageBooking=require("../Controllers/PackageBookNow/GetFirstTwentyPackagesBooking")
+let PackageByID=require("../Controllers/PackageBookNow/GetByID")
+let MarkAsPaidBooking=require("../Controllers/PackageBookNow/MarkAsPaidBooking")
+let SearchBar=require("../Controllers/PackageBookNow/SearchBar")
 
 //if payment is successfully reciveve than through stripe send email
-let PaymentSuccess=require("../Features/PackageBookNow/PaymentSuccessful")
+let PaymentSuccess=require("../Controllers/PackageBookNow/PaymentSuccessful")
 
 
 //this file is used to send user id , name and email to a destination booking and a package booking bro 
