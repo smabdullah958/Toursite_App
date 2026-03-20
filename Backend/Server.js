@@ -31,8 +31,8 @@ ResetPackageDailySlots()
 ConnectDB()
 
 //test loading api 
-App.get('/loaderio-9fc5aa7df6f2760c33424a2dcefd0e21.txt', (req, res) => {
-  res.send('loaderio-9fc5aa7df6f2760c33424a2dcefd0e21');
+App.get('/loaderio-e6e568b9c6668052e78848c2a75fcd9b.txt', (req, res) => {
+  res.send('loaderio-e6e568b9c6668052e78848c2a75fcd9b');
 });
 
 App.use("/AuthController",AuthController)
