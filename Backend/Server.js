@@ -29,6 +29,12 @@ ResetDestinationDailySlots()
 ResetPackageDailySlots()
 
 ConnectDB()
+
+//test loading api 
+App.get('/loaderio-9fc5aa7df6f2760c33424a2dcefd0e21.txt', (req, res) => {
+  res.send('loaderio-9fc5aa7df6f2760c33424a2dcefd0e21');
+});
+
 App.use("/AuthController",AuthController)
 App.use("/Destination",DestinationController)
 App.use("/Packages",PackagesController)
